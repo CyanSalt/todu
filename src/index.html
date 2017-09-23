@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TODU</title>
+  <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="main">
+  <todo-view :data="view" @bind="bind"></todo-view>
+  <super-button @click.native="trigger" :icon="icon" :standup="selecting"></super-button>
+  <switcher :show="selecting" :selected="view.source" @toggle="toggle"></switcher>
+</div>
+<script src="build/bundle.js"></script>
+</body>
+</html>

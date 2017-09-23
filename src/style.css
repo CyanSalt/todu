@@ -1,0 +1,21 @@
+@font-face {
+  font-style: normal;
+  font-family: 'PingFang SC';
+  src: local("./resource/font/PingFang-Regular.ttf")
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC";
+  background: #fcfcfc;
+  color: #333;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+::-webkit-scrollbar {
+  background: inherit;
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(170, 170, 170, 0.5);
+}

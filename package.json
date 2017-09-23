@@ -1,0 +1,35 @@
+{
+  "name": "todu",
+  "version": "1.0.1",
+  "productName": "ToDU",
+  "author": "Driver",
+  "description": "An awesome todo list",
+  "main": "window.js",
+  "scripts": {
+    "build-app": "webpack --progress --hide-modules",
+    "build-app-dev": "webpack --progress --hide-modules --config webpack.dev.config.js",
+    "build-package": "node makefile.js",
+    "dev-package": "electron .",
+    "build": "npm run build-app && npm run build-package",
+    "dev": "npm run build-app-dev && npm run dev-package"
+  },
+  "author": "CyanSalt",
+  "license": "ISC",
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "vue": "^2.2.6"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "css-loader": "^0.28.0",
+    "electron": "^1.6.2",
+    "electron-packager": "^8.6.0",
+    "json-loader": "^0.5.4",
+    "vue-loader": "^11.3.4",
+    "vue-template-compiler": "^2.2.6",
+    "webpack": "^2.3.3"
+  }
+}
