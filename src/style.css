@@ -42,8 +42,5 @@ body {
   content: "\ea2f";
 }
 .icon-arrow-left:before {
-  content: "\ea40";
-}
-.icon-plus {
-  vertical-align: -1px;
+  content: "\e902";
 }

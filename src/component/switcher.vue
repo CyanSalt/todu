@@ -158,6 +158,9 @@ export default {
   color: #2196f3;
   background: transparent;
 }
+.sheet.add .icon-plus {
+  vertical-align: -1px;
+}
 .sheet.remove {
   color: #ed5e63;
   background: transparent;

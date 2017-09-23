@@ -20,10 +20,10 @@ export default {
   computed: {
     iconClass() {
       switch (this.icon) {
-        case 'back': return 'icon-back'
+        case 'back': return 'icon-arrow-left'
       }
       return {
-        'icon-infinity': true,
+        'icon-infinite': true,
         'standup': this.standup,
       }
     }
@@ -41,7 +41,7 @@ export default {
   height: 54px;
   border-radius: 50%;
   text-align: center;
-  line-height: 52px;
+  line-height: 54px;
   font-size: 36px;
   color: hsl(166, 60%, 60%);
   cursor: pointer;
@@ -63,25 +63,17 @@ export default {
   display: inline-block;
   transition: transform ease 0.3s;
 }
-.super-button .icon-infinity {
+.super-button .icon-infinite {
+  display: inline-block;
+  vertical-align: -1px;
   animation: circle 0.2s ease;
 }
-.super-button .icon-back {
+.super-button .icon-arrow-left {
+  display: inline-block;
+  vertical-align: top;
   animation: open 0.3s ease;
 }
-.super-button .icon-infinity::before {
-  content: '\221E';
-  font-family: "PingFang SC";
-}
-.super-button .icon-back::before {
-  content: '\2190';
-  font-family: "PingFang SC";
-  display: block;
-  width: 28px;
-  overflow: hidden;
-  margin: 2px auto;
-}
-.super-button .icon-infinity.standup {
-  transform: rotate(90deg);
+.super-button .icon-infinite.standup {
+  transform: rotate(90deg) translateY(1px);
 }
 </style>
