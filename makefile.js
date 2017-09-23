@@ -8,9 +8,8 @@ const options = {
   overwrite: true,
   icon: path.resolve(__dirname, 'src/resource/img/icon.ico'),
   ignore: [
-    'src/storage',
-    'src/component',
-    'src/plugin',
+    '^/(?!src|package\\.json|window\\.js)',
+    '^/src/(storage|component|plugin)($|/)',
   ],
   win32metadata: {
     CompanyName: 'Driver',
