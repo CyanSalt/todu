@@ -2,7 +2,7 @@
   "name": "todu",
   "version": "1.0.1",
   "productName": "ToDU",
-  "author": "Driver",
+  "author": "CyanSalt",
   "description": "An awesome todo list",
   "main": "window.js",
   "scripts": {
@@ -13,11 +13,8 @@
     "build": "npm run build-app && npm run build-package",
     "dev": "npm run build-app-dev && npm run dev-package"
   },
-  "author": "CyanSalt",
   "license": "ISC",
-  "dependencies": {
-    "font-awesome": "^4.7.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",

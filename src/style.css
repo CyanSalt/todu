@@ -19,3 +19,31 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(170, 170, 170, 0.5);
 }
+
+@font-face {
+  font-family: 'icomoon';
+  font-weight: normal;
+  font-style: normal;
+  src: url('./resource/font/icomoon.woff') format('woff');
+}
+.icon-plus,
+.icon-trash,
+.icon-infinite,
+.icon-arrow-left {
+  font-family: 'icomoon';
+}
+.icon-plus:before {
+  content: "\e900";
+}
+.icon-trash:before {
+  content: "\e901";
+}
+.icon-infinite:before {
+  content: "\ea2f";
+}
+.icon-arrow-left:before {
+  content: "\ea40";
+}
+.icon-plus {
+  vertical-align: -1px;
+}

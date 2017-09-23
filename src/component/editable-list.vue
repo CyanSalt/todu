@@ -18,7 +18,7 @@
           </div>
           <div class="right">
             <span class="operation remove" @click.stop="remove(item, index)" v-if="editable">
-              <span class="fa fa-trash-o"></span>
+              <span class="icon-trash"></span>
             </span>
           </div>
         </li>
@@ -31,7 +31,7 @@
           </div>
         <div class="right">
           <span class="operation remove" @click.stop="clear" v-if="newItem">
-            <span class="fa fa-trash-o"></span>
+            <span class="icon-trash"></span>
           </span>
         </div>
       </li>
@@ -176,7 +176,7 @@ export default {
   vertical-align: middle;
   width: 32px;
   height: 32px;
-  line-height: 28px;
+  line-height: 32px;
   text-align: center;
   border-radius: 4px;
   transition: all ease 0.3s;

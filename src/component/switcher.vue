@@ -8,10 +8,10 @@
     </template>
     <span class="sheet-divider"></span>
     <span class="sheet add" @click="add">
-      <span class="fa fa-plus-square-o"></span>
+      <span class="icon-plus"></span>
     </span>
     <span :class="['sheet', 'remove', {'hidden': this.selected === 'todo'}]" @click="remove">
-      <span class="fa fa-trash-o"></span>
+      <span class="icon-trash"></span>
     </span>
   </div>
 </template>
@@ -165,7 +165,6 @@ export default {
 .sheet.hidden {
   width: 0;
   height: 0;
-  line-height: 0;
   font-size: 0;
 }
 </style>
