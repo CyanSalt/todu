@@ -97,6 +97,7 @@ export default {
   right: 0;
   bottom: 18px;
   height: 54px;
+  padding: 0 9px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -104,7 +105,7 @@ export default {
   transition: transform ease 0.3s;
 }
 .switcher.shown {
-  transform: translateX(-90px) scale(1, 1);
+  transform: translateX(-81px) scale(1, 1);
 }
 .sheet {
   display: inline-block;
@@ -169,5 +170,6 @@ export default {
   width: 0;
   height: 0;
   font-size: 0;
+  margin: 0;
 }
 </style>
