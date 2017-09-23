@@ -1,12 +1,13 @@
 @font-face {
   font-style: normal;
-  font-family: 'PingFang SC';
-  src: local("./resource/font/PingFang-Regular.ttf")
+  font-family: 'Noto Sans';
+  src: local('Noto Sans CJK SC'), local('PingFang SC'),
+    url("./resource/font/NotoSansCJKsc-Regular.otf")
 }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", "PingFang SC";
+  font-family: 'Noto Sans';
   background: #fcfcfc;
   color: #333;
   user-select: none;
