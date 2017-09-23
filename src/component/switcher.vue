@@ -70,13 +70,7 @@ export default {
     },
     remove() {
       const {sheets, selected} = this
-      let index = -1
-      for (let i = 0, len = sheets.length; i < len; ++i) {
-        if (sheets[i].source === selected) {
-          index = i
-          break
-        }
-      }
+      const index = sheets.findIndex(sheet => sheet.source === selected)
       this.toggle(this.todo)
       this.$storage.delete(selected)
       this.sheets.splice(index, 1)
@@ -87,14 +81,10 @@ export default {
   },
   created() {
     this.$action.on('change-title', target => {
-      for (let sheet of this.sheets) {
-        if (sheet.source === target.source) {
-          sheet.title = target.title
-          this.toggle(target)
-          this.sync()
-          break
-        }
-      }
+      const sheet = this.sheets.find(sheet => sheet.source === target.source)
+      sheet.title = target.title
+      this.toggle(target)
+      this.sync()
     })
   }
 }
