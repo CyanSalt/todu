@@ -6,18 +6,18 @@
       <span class="title-text" v-else>{{ title }}</span>
     </div>
     <template v-if="reviewing">
-      <editable-list :title="distance(each.date)" :data="each.values" :editable="false"
+      <editable-list :title="distance(each.date)" :list="each.values" :editable="false"
         v-for="each in history" :key="each.date">
         <span class="date" slot="category-info" v-once>{{ format(each.date) }}</span>
       </editable-list>
     </template>
     <template v-else>
       <editable-list class="today" :title="i18n('Today#!1')"
-        :data="terms[today]" @sync="sync">
+        :list="terms[today]" @sync="sync">
         <span class="date" slot="category-info" @click="review" v-once>{{ format(today) }}</span>
       </editable-list>
       <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')"
-        :data="terms[tomorrow]" @sync="sync">
+        :list="terms[tomorrow]" @sync="sync">
       </editable-list>
     </template>
   </div>
