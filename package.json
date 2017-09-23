@@ -16,8 +16,7 @@
   "author": "CyanSalt",
   "license": "ISC",
   "dependencies": {
-    "font-awesome": "^4.7.0",
-    "vue": "^2.2.6"
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
@@ -28,6 +27,7 @@
     "electron": "^1.6.2",
     "electron-packager": "^8.6.0",
     "json-loader": "^0.5.4",
+    "vue": "^2.2.6",
     "vue-loader": "^11.3.4",
     "vue-template-compiler": "^2.2.6",
     "webpack": "^2.3.3"
