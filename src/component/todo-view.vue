@@ -7,8 +7,11 @@
         <span class="title-text" v-else>{{ title }}</span>
       </div>
       <div class="right">
+        <span class="prev" @click="reviewing--" v-if="reviewing > 1">
+          {{ i18n('上一页#!27') }}
+        </span>
         <span class="next" @click="reviewing++" v-if="reviewing && !last">
-          {{ i18n('更早的 »#!27') }}
+          {{ i18n('下一页#!28') }}
         </span>
       </div>
     </div>
@@ -168,7 +171,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: hsl(166, 60%, 40%);;
+  color: hsl(166, 60%, 40%);
 }
 span.title-text {
   cursor: default;
@@ -183,7 +186,7 @@ input.title-editor {
   background: transparent;
   outline: none;
 }
-.sheet-title .next {
+.sheet-title .prev, .sheet-title .next {
   cursor: pointer;
 }
 </style>
