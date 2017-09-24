@@ -1,7 +1,7 @@
 <template>
   <div class="todo-view">
     <div class="sheet-title">
-      <input class="title-editor" v-model.trim.lazy="title"
+      <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur"
         v-if="!reviewing && data.source !== 'todo'">
       <span class="title-text" v-else>{{ title }}</span>
     </div>
@@ -53,6 +53,7 @@ export default {
         return this.data.title || this.i18n('待办事项#!25')
       },
       set(title) {
+        if (!title) return
         this.data.title = title
         this.$action.emit('change-title', this.data)
       }
@@ -118,7 +119,10 @@ export default {
           this.reviewing = false
         }
       })
-    }
+    },
+    blur(e) {
+      e.target.blur()
+    },
   },
   created() {
     this.$action.on('clean-source-cache', target => {
