@@ -66,7 +66,7 @@ export default {
       set(title) {
         if (!title) return
         this.data.title = title
-        this.$action.emit('change-title', this.data)
+        this.$action.emit('update-sheet', this.data)
       }
     },
     today() {

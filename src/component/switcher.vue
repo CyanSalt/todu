@@ -80,7 +80,7 @@ export default {
     }
   },
   created() {
-    this.$action.on('change-title', target => {
+    this.$action.on('update-sheet', target => {
       const sheet = this.sheets.find(sheet => sheet.source === target.source)
       sheet.title = target.title
       this.toggle(target)
