@@ -2,7 +2,7 @@
   <div :class="{'list-group': true, 'editable': editable}">
     <div class="title">
       <span class="category">{{ title }}</span>
-      <slot name="category-info"></slot>
+      <slot name="extra-title"></slot>
     </div>
     <ul class="list">
       <template v-for="(item, index) in data">

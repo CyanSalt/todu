@@ -18,13 +18,13 @@
     <template v-if="reviewing">
       <editable-list :title="distance(each.date)" :list="each.values" :editable="false"
         v-for="each in page" :key="each.date">
-        <span class="date" slot="category-info" v-once>{{ format(each.date) }}</span>
+        <span class="date" slot="extra-title" v-once>{{ format(each.date) }}</span>
       </editable-list>
     </template>
     <template v-else>
       <editable-list class="today" :title="i18n('Today#!1')"
         :list="terms[today]" @sync="sync">
-        <span class="date" slot="category-info" @click="review" v-once>{{ format(today) }}</span>
+        <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
       </editable-list>
       <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')"
         :list="terms[tomorrow]" @sync="sync">
