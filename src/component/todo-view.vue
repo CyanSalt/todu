@@ -24,10 +24,14 @@
     <template v-else>
       <editable-list class="today" :title="i18n('Today#!1')"
         :list="terms[today]" @sync="sync">
+        <span :class="{'repeat': true, 'active': data.repeat}" slot="extra-title"
+          @click="repeat" v-if="data.source !== 'todo'">
+          <span class="icon-cycle"></span>
+        </span>
         <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
       </editable-list>
       <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')"
-        :list="terms[tomorrow]" @sync="sync">
+        :list="terms[tomorrow]" @sync="sync" v-if="!data.repeat">
       </editable-list>
     </template>
   </div>
@@ -100,11 +104,19 @@ export default {
         [today]: [],
         [tomorrow]: []
       }, terms)
+      if (this.data.repeat === 'daily' && !arranged[today].length) {
+        const latest = Object.keys(arranged)
+          .filter(key => key < today).sort().pop()
+        if (latest) {
+          arranged[today] = arranged[latest]
+            .map(each => Object.assign({}, each, {done: false}))
+        }
+      }
       Object.keys(arranged).forEach(date => {
         if (date >= today) return
         arranged[date].forEach(item => {
           const archived = []
-          if (item.done) {
+          if (this.data.repeat || item.done) {
             archived.push(item)
           } else {
             if (!item.from) {
@@ -142,6 +154,18 @@ export default {
     blur(e) {
       e.target.blur()
     },
+    repeat() {
+      const {repeat} = this.data
+      switch (this.data.repeat) {
+        case 'daily':
+          this.data.repeat = false
+          break
+        case false:
+          this.data.repeat = 'daily'
+          break
+      }
+      this.$action.emit('update-sheet', this.data)
+    }
   },
   created() {
     this.$action.on('clean-source-cache', target => {
@@ -188,5 +212,16 @@ input.title-editor {
 }
 .sheet-title .prev, .sheet-title .next {
   cursor: pointer;
+}
+.list-group .repeat {
+  display: inline-block;
+  margin-left: 0.5em;
+  cursor: pointer;
+  color: #aaa;
+  transition: all ease 0.2s;
+}
+.list-group .repeat.active {
+  color: hsl(166, 60%, 40%);
+  transform: rotate(180deg) translateY(1px);
 }
 </style>

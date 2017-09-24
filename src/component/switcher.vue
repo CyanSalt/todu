@@ -63,7 +63,11 @@ export default {
         source = `todo-${index}`
         if (!sources[source]) break;
       }
-      const last = {source}
+      const last = {
+        source,
+        title: '',
+        repeat: false,
+      }
       this.sheets.push(last)
       this.sync()
       this.toggle(last)
@@ -83,6 +87,7 @@ export default {
     this.$action.on('update-sheet', target => {
       const sheet = this.sheets.find(sheet => sheet.source === target.source)
       sheet.title = target.title
+      sheet.repeat = target.repeat
       this.toggle(target)
       this.sync()
     })
