@@ -30,7 +30,8 @@ body {
 .icon-plus,
 .icon-trash,
 .icon-infinite,
-.icon-arrow-left {
+.icon-arrow-left,
+.icon-cycle {
   font-family: 'icomoon';
 }
 .icon-plus:before {
@@ -40,8 +41,11 @@ body {
   content: "\e901";
 }
 .icon-infinite:before {
-  content: "\ea2f";
+  content: "\e903";
 }
 .icon-arrow-left:before {
   content: "\e902";
+}
+.icon-cycle:before {
+  content: "\e904";
 }
