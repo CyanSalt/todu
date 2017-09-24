@@ -35,7 +35,7 @@ export default {
       ]
       if (distance < 7 && front) {
         return this.i18n('本%W#!14').replace('%W', this.i18n(days[target]))
-      } else if (distance < 7 || (distance < 14 && front)) {
+      } else if (distance <= 7 || (distance < 14 && front)) {
         return this.i18n('上%W#!15').replace('%W', this.i18n(days[target]))
       }
       if (distance < 100) {

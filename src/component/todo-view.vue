@@ -1,13 +1,20 @@
 <template>
   <div class="todo-view">
     <div class="sheet-title">
-      <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur"
-        v-if="!reviewing && data.source !== 'todo'">
-      <span class="title-text" v-else>{{ title }}</span>
+      <div class="left">
+        <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur"
+          v-if="!reviewing && data.source !== 'todo'">
+        <span class="title-text" v-else>{{ title }}</span>
+      </div>
+      <div class="right">
+        <span class="next" @click="reviewing++" v-if="reviewing && !last">
+          {{ i18n('更早的 »#!27') }}
+        </span>
+      </div>
     </div>
     <template v-if="reviewing">
       <editable-list :title="distance(each.date)" :list="each.values" :editable="false"
-        v-for="each in history" :key="each.date">
+        v-for="each in page" :key="each.date">
         <span class="date" slot="category-info" v-once>{{ format(each.date) }}</span>
       </editable-list>
     </template>
@@ -38,7 +45,8 @@ export default {
   data() {
     return {
       cache: {},
-      reviewing: false,
+      pagesize: 5,
+      reviewing: 0,
       terms: {
         history: {}
       }
@@ -67,6 +75,14 @@ export default {
     history() {
       return Object.entries(this.terms.history).reverse()
         .map(([date, values]) => ({date, values}))
+    },
+    page() {
+      if (!this.reviewing) return []
+      const start = (this.reviewing - 1) * this.pagesize
+      return this.history.slice(start, start + this.pagesize)
+    },
+    last() {
+      return !this.history[this.reviewing * this.pagesize]
     }
   },
   methods: {
@@ -112,11 +128,11 @@ export default {
       this.$storage.save(this.data.source, this.terms)
     },
     review() {
-      this.reviewing = true
+      this.reviewing = 1
       this.$emit('bind', {
         icon: 'back',
         handler: () => {
-          this.reviewing = false
+          this.reviewing = 0
         }
       })
     },
@@ -146,9 +162,12 @@ export default {
   margin: 1em auto 2em auto;
 }
 .sheet-title {
-  margin-left: 1em;
+  margin: 0 1em;
   height: 3em;
   line-height: 3em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: hsl(166, 60%, 40%);;
 }
 span.title-text {
@@ -163,5 +182,8 @@ input.title-editor {
   color: inherit;
   background: transparent;
   outline: none;
+}
+.sheet-title .next {
+  cursor: pointer;
 }
 </style>
