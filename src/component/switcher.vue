@@ -67,6 +67,7 @@ export default {
         source,
         title: '',
         repeat: false,
+        type: 'daily',
       }
       this.sheets.push(last)
       this.sync()
