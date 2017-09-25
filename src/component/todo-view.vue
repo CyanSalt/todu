@@ -104,7 +104,7 @@ export default {
         [today]: [],
         [tomorrow]: []
       }, terms)
-      if (this.data.repeat === 'daily' && !arranged[today].length) {
+      if (this.data.repeat && !arranged[today].length) {
         const latest = Object.keys(arranged)
           .filter(key => key < today).sort().pop()
         if (latest) {
@@ -155,15 +155,7 @@ export default {
       e.target.blur()
     },
     repeat() {
-      const {repeat} = this.data
-      switch (this.data.repeat) {
-        case 'daily':
-          this.data.repeat = false
-          break
-        case false:
-          this.data.repeat = 'daily'
-          break
-      }
+      this.data.repeat = !this.data.repeat
       this.$action.emit('update-sheet', this.data)
     }
   },
