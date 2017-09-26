@@ -1,4 +1,4 @@
-const {app, BrowserWindow, globalShortcut} = require('electron')
+const {app, BrowserWindow, Menu, MenuItem} = require('electron')
 
 let frame = null
 
@@ -13,9 +13,20 @@ function init() {
   frame.on('closed', () => {
     frame = null
   })
-  globalShortcut.register('CommandOrControl+Shift+I', function () {
-    frame && frame.webContents.openDevTools()
-  })
+  frame.setMenu(createMenu())
+  frame.setMenuBarVisibility(false)
+}
+
+function createMenu() {
+  return Menu.buildFromTemplate([
+    {
+      label: 'Toggle Developer Tools',
+      accelerator: 'CommandOrControl+Shift+I',
+      click() {
+        frame && frame.webContents.openDevTools()
+      }
+    }
+  ])
 }
 
 app.on('ready', init)
