@@ -3,8 +3,8 @@
     <span :class="[sheetClass('todo'), 'default']" @click="toggle(todo)"></span>
     <template v-if="sheets.length">
       <span class="sheet-divider"></span>
-      <span :class="sheetClass(sheet.source)" @click="toggle(sheet)"
-        v-for="sheet in sheets"></span>
+      <span :class="[sheetClass(sheet.source), colorClass(sheet)]"
+        @click="toggle(sheet)" v-for="sheet in sheets"></span>
     </template>
     <span class="sheet-divider"></span>
     <span class="sheet add" @click="add">
@@ -44,6 +44,20 @@ export default {
         sheet: true,
         selected: this.selected === source,
       }
+    },
+    colorClass(sheet) {
+      const matches = sheet.source.match(/\d+/)
+      const number = matches ? matches[0] : 0
+      const colors = ['yellow', 'blue', 'purple', 'red', 'green']
+      return colors[number % colors.length]
+    },
+    // another algorithm
+    color(sheet) {
+      let number = sheet.source.split('')
+        .map((_, i) => sheet.source.charCodeAt(i))
+        .reduce((a, b) => a + b, 0)
+      number = (360 * 2 * Math.round((number + 5) % 13) / 13) % 360
+      return `hsl(${number}, 80%, 60%)`
     },
     toggle(sheet) {
       if (this.selected === sheet.source) return
@@ -140,19 +154,19 @@ export default {
   line-height: 24px;
   font-size: 24px;
 }
-.sheet:nth-child(5n) {
+.sheet.red {
   background: hsl(3, 100%, 70%);
 }
-.sheet:nth-child(5n+1) {
+.sheet.green {
   background: hsl(150, 65%, 50%);
 }
-.sheet:nth-child(5n+2) {
+.sheet.yellow {
   background: hsl(48, 100%, 60%);
 }
-.sheet:nth-child(5n+3) {
+.sheet.blue {
   background: hsl(211, 100%, 60%);
 }
-.sheet:nth-child(5n+4) {
+.sheet.purple {
   background: hsl(289, 65%, 70%);
 }
 .sheet.default {
