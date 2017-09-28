@@ -1,5 +1,10 @@
 export default {
   methods: {
+    standard(date) {
+      // return new Date(date).toLocaleDateString()
+      date = new Date(date)
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    },
     format(date) {
       date = new Date(date)
       const format = this.i18n('%M月%D日 %W#!10')

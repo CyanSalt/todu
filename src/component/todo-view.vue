@@ -134,11 +134,6 @@ export default {
       this.cache[this.data.source] = arranged
       return arranged
     },
-    standard(date) {
-      // return new Date(date).toLocaleDateString()
-      date = new Date(date)
-      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-    },
     sync() {
       this.$storage.save(this.data.source, this.terms)
     },
