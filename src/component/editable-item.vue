@@ -1,6 +1,7 @@
 <template>
   <li @click="toggle">
     <div class="left">
+      <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
       <checkbox :checked="item.done"></checkbox>
       <input type="text" class="editor" v-model.trim.lazy="description"
         @click.stop @keyup.enter="blur" v-if="editable">
@@ -54,6 +55,13 @@ export default {
         this.$emit('remove')
       })
     },
+    drag(e) {
+      if (!this.editable) return
+      // fix blink's bug
+      const ratio = window.devicePixelRatio ** 2
+      e.dataTransfer.setDragImage(this.$el, e.offsetX * ratio, e.offsetY * ratio)
+      this.$emit('drag', e)
+    },
     blur(e) {
       e.target.blur()
     }
@@ -79,5 +87,13 @@ export default {
   vertical-align: middle;
   font-size: 14px;
   color: #aaa;
+}
+.drag-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  height: 100%;
+  width: 1.5em;
 }
 </style>

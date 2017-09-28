@@ -8,11 +8,12 @@
       <template v-for="(item, index) in data">
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
-          @describe="content => describe(item, index, content)">
+          @describe="content => describe(item, index, content)"
+          @drop.native="drop(item)" @dragover.native.prevent @drag="drag(item)">
         </editable-item>
         <div class="divider"></div>
       </template>
-      <li class="add-item" v-if="editable">
+      <li class="add-item" v-if="editable" @drop="drop(null)" @dragover.prevent>
         <div class="left">
           <input type="text" class="editor" :placeholder="i18n('添加待办事项#!11')"
             v-model.trim.lazy="input" @keyup.enter="add">
@@ -89,6 +90,29 @@ export default {
     },
     clear() {
       this.input = ''
+    },
+    drag(item) {
+      this.$buffer.set('dragging', {item, list: this.data})
+    },
+    drop(item) {
+      const dragging = this.$buffer.get('dragging')
+      this.$buffer.set('dragging', null)
+      if (!dragging || item === dragging.item) return
+      // recalculate index
+      let srcIndex = dragging.list.indexOf(dragging.item)
+      if (srcIndex >= 0) {
+        dragging.list.splice(srcIndex, 1)
+      }
+      let toIndex = this.data.indexOf(item)
+      if (toIndex >= 0) {
+        // intuitive feature
+        if (this.data === dragging.list && srcIndex <= toIndex) {
+          toIndex++
+        }
+        this.data.splice(toIndex, 0, dragging.item)
+      } else {
+        this.data.push(dragging.item)
+      }
     }
   }
 }
@@ -134,6 +158,7 @@ export default {
   padding: 0 2em;
   line-height: 3em;
   transition: background ease 0.2s;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
