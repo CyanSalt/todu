@@ -4,16 +4,16 @@
       <span class="category">{{ title }}</span>
       <slot name="extra-title"></slot>
     </div>
-    <ul class="list">
+    <ul class="list" @dragover.prevent>
       <template v-for="(item, index) in data">
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
-          @drop.native="drop(item)" @dragover.native.prevent @drag="drag(item)">
+          @drop.native="drop(item)" @drag="drag(item)">
         </editable-item>
         <div class="divider"></div>
       </template>
-      <li class="add-item" v-if="editable" @drop="drop(null)" @dragover.prevent>
+      <li class="add-item" v-if="editable" @drop="drop(null)">
         <div class="left">
           <input type="text" class="editor" :placeholder="i18n('添加待办事项#!11')"
             v-model.trim.lazy="input" @keyup.enter="add">
@@ -124,6 +124,7 @@ export default {
 }
 .title {
   padding: 0 1em;
+  margin-bottom: 1em;
   line-height: 49px;
   color: #666;
   border-bottom: 1px solid #f1f1f1;
@@ -137,7 +138,6 @@ export default {
 }
 .list {
   margin: 0;
-  margin-top: 1em;
   padding: 0;
   list-style: none;
   background: #fff;
