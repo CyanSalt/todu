@@ -1,7 +1,7 @@
 {
   "name": "todu",
   "version": "1.2.2",
-  "productName": "ToDU",
+  "productName": "TODU",
   "author": "CyanSalt",
   "description": "An awesome todo list",
   "main": "window.js",
@@ -13,8 +13,7 @@
     "build": "npm run build-app && npm run build-package",
     "dev": "npm run build-app-dev && npm run dev-package"
   },
-  "license": "ISC",
-  "dependencies": {},
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
