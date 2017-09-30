@@ -32,6 +32,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      VERSION: JSON.stringify(process.env.npm_package_version),
       DEV_PATH: JSON.stringify(false),
     })
   ]
