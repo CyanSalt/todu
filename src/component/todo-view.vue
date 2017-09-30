@@ -7,6 +7,7 @@
         <span class="title-text" v-else>{{ title }}</span>
       </div>
       <div class="right">
+        <updater v-show="!reviewing"></updater>
         <span class="prev" @click="reviewing--" v-if="reviewing > 1">
           {{ i18n('上一页#!27') }}
         </span>
@@ -39,11 +40,13 @@
 
 <script>
 import EditableList from './editable-list'
+import Updater from './updater'
 import Formatter from './date-formatter'
 
 export default {
   components: {
     'editable-list': EditableList,
+    'updater': Updater,
   },
   mixins: [Formatter],
   props: {
