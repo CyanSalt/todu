@@ -13,6 +13,10 @@
     "build": "npm run build-app && npm run build-package",
     "dev": "npm run build-app-dev && npm run dev-package"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CyanSalt/todu.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.24.0",
