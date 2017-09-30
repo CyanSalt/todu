@@ -51,7 +51,7 @@ export default {
     const platform = process.platform
     this.check()
       .catch(error => {})
-	    .then(data => {
+      .then(data => {
         if (data.name <= VERSION) return
         const assets = data.assets.find(assets => {
           return assets.name.search(platform) !== -1
