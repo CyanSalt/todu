@@ -147,13 +147,6 @@ export default {
   from { height: 0; }
   to { height: 52px; }
 }
-@keyframes collapse {
-  from { height: 52px; }
-  to { height: 0; }
-}
-.list li.collapse {
-  animation: collapse 0.3s ease;
-}
 .list li {
   padding: 0 2em;
   line-height: 3em;

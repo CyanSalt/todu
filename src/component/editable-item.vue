@@ -45,15 +45,34 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      removed: false
+    }
+  },
   methods: {
     toggle() {
       this.$emit('toggle')
     },
     remove() {
-      this.$el.classList.add('collapse')
-      this.$el.addEventListener('animationend', () => {
-        this.$emit('remove')
+      if (this.removed) return
+      this.removed = true
+      // @keyframes collapse
+      const collapse = [
+        // from { height: 52px; }
+        {height: '52px'},
+        // to { height: 0; }
+        {height: 0},
+      ]
+      // animation: collapse 0.3s ease;
+      const animation = this.$el.animate(collapse, {
+        easing: 'ease',
+        duration: 300,
       })
+      // this.$el.addEventListener('animationend')
+      animation.onfinish = () => {
+        this.$emit('remove')
+      }
     },
     drag(e) {
       if (!this.editable) return
