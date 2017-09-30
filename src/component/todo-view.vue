@@ -2,9 +2,10 @@
   <div class="todo-view">
     <div class="sheet-title">
       <div class="left">
-        <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur"
-          v-if="!reviewing && data.source !== 'todo'">
-        <span class="title-text" v-else>{{ title }}</span>
+        <span class="title-text" v-if="reviewing">{{ title }}</span>
+        <span class="reloader" v-else-if="data.source === 'todo'"
+          v-combo:5="reload" :key="data.source">{{ title }}</span>
+        <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
       </div>
       <div class="right">
         <updater v-show="!reviewing"></updater>
@@ -47,6 +48,17 @@ export default {
   components: {
     'editable-list': EditableList,
     'updater': Updater,
+  },
+  directives: {
+    combo: {
+      bind(el, {arg, value}) {
+        if (typeof value !== 'function') return
+        arg = parseInt(arg, 10)
+        el.addEventListener('click', e => {
+          if (e.detail === arg) value(e)
+        })
+      }
+    }
   },
   mixins: [Formatter],
   props: {
@@ -155,7 +167,10 @@ export default {
     repeat() {
       this.data.repeat = !this.data.repeat
       this.$action.emit('update-sheet', this.data)
-    }
+    },
+    reload() {
+      window.location.reload()
+    },
   },
   created() {
     this.$action.on('clean-source-cache', target => {
