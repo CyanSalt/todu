@@ -16,7 +16,6 @@ if (!DEV_PATH) {
 Vue.use(I18N)
 Vue.use(Action)
 Vue.use(Buffer)
-// Vue.use(Setting)
 Vue.use(FileStorage)
 
 new Vue({
