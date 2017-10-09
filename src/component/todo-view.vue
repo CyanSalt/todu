@@ -119,16 +119,22 @@ export default {
         [today]: [],
         [tomorrow]: []
       }, terms)
+      const midnight = new Date(today)
       if (this.data.repeat && !arranged[today].length) {
-        const latest = Object.keys(arranged)
-          .filter(key => key < today).sort().pop()
+        let latest, nearest = Infinity
+        for (const key of Object.keys(arranged)) {
+          const distance = midnight - new Date(key)
+          if (distance > 0 && distance < nearest) {
+            [latest, nearest] = [key, distance]
+          }
+        }
         if (latest) {
           arranged[today] = arranged[latest]
             .map(each => Object.assign({}, each, {done: false}))
         }
       }
       Object.keys(arranged).forEach(date => {
-        if (date >= today) return
+        if (!(new Date(date) < midnight)) return
         arranged[date].forEach(item => {
           const archived = []
           if (this.data.repeat || item.done) {
