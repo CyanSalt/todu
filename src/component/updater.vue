@@ -23,6 +23,10 @@ export default {
       prepared: false,
       version: '',
       link: '',
+      status: 0,
+      downloaded: 0,
+      path: '',
+      item: null,
     }
   },
   computed: {
@@ -30,6 +34,14 @@ export default {
       return `https://api.github.com/repos/${this.owner}/${this.repo}/releases/latest`
     },
     text() {
+      switch (this.status) {
+        case 1:
+          return this.i18n('下载中 %R#!30').replace('%R', this.downloaded + '%')
+        case 2:
+          return this.i18n('暂停中 %R#!31').replace('%R', this.downloaded + '%')
+        case 3:
+          return this.i18n('下载完成#!32')
+      }
       return this.i18n('更新 %V#!29').replace('%V', this.version)
     },
   },
@@ -44,10 +56,49 @@ export default {
         })
     },
     download() {
-      shell.openExternal(this.link)
+      // shell.openExternal(this.link)
+      if (this.status === 0) {
+        this.status = 1
+        remote.getCurrentWebContents().downloadURL(this.link)
+      } else if (this.status === 3) {
+        shell.showItemInFolder(this.path)
+      } else if (!this.item) {
+        // return
+      } else if (this.item.isPaused()) {
+        this.item.resume()
+        this.status = 1
+      } else {
+        this.item.pause()
+        this.status = 2
+      }
+    },
+    start(item) {
+      this.item = item
+      const totalBytes = item.getTotalBytes()
+      item.once('updated', (e, state) => {
+        this.path = item.getSavePath()
+      })
+      item.once('done', (e, state) => {
+        if (state === 'completed') {
+          shell.showItemInFolder(this.path)
+          this.status = 3
+        } else {
+          this.path = ''
+          this.status = 0
+        }
+        this.item = null
+        this.downloaded = 0
+      })
+      item.on('updated', (e, state) => {
+        this.downloaded = Math.floor(item.getReceivedBytes() * 100 / totalBytes)
+      })
     }
   },
   created() {
+    const webContents = remote.getCurrentWebContents()
+    webContents.session.on('will-download', (e, item, webContents) => {
+      this.start(item)
+    })
     const platform = process.platform
     this.check()
       .catch(error => {})

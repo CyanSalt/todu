@@ -1,4 +1,5 @@
 const {app, BrowserWindow, Menu, MenuItem} = require('electron')
+const path = require('path')
 
 let frame = null
 
@@ -15,6 +16,10 @@ function init() {
   })
   frame.setMenu(createMenu())
   frame.setMenuBarVisibility(false)
+  // this handler must be binded in main process
+  frame.webContents.session.on('will-download', (e, item, webContents) => {
+    item.setSavePath(path.resolve(app.getPath('downloads'), item.getFilename()))
+  })
 }
 
 function createMenu() {
