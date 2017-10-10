@@ -1,6 +1,6 @@
 {
   "name": "todu",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "productName": "TODU",
   "author": "CyanSalt",
   "description": "An awesome todo list",
@@ -19,17 +19,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-stage-0": "^6.22.0",
-    "css-loader": "^0.28.0",
-    "electron": "^1.6.2",
-    "electron-packager": "^8.6.0",
-    "json-loader": "^0.5.4",
-    "vue": "^2.2.6",
-    "vue-loader": "^11.3.4",
-    "vue-template-compiler": "^2.2.6",
-    "webpack": "^2.3.3"
+    "css-loader": "^0.28.7",
+    "electron": "^1.8.1",
+    "electron-packager": "^9.1.0",
+    "vue": "^2.4.4",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0"
   }
 }
