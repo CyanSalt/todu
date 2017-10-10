@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {shell} from 'electron'
+import {remote, shell} from 'electron'
 
 export default {
   props: {
@@ -52,7 +52,7 @@ export default {
     this.check()
       .catch(error => {})
       .then(data => {
-        if (data.name <= VERSION) return
+        if (data.name <= remote.app.getVersion()) return
         const assets = data.assets.find(assets => {
           return assets.name.search(platform) !== -1
         })
