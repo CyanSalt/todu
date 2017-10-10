@@ -29,6 +29,21 @@ function createMenu() {
   ])
 }
 
+const second = app.makeSingleInstance((argv, directory) => {
+  if (frame) {
+    if (frame.isMinimized()) {
+      frame.restore()
+    }
+    frame.focus()
+  }
+  return true
+})
+
+if (second) {
+  app.quit()
+  return
+}
+
 app.on('ready', init)
 
 app.on('activate', () => {
