@@ -89,12 +89,6 @@ export default {
 </script>
 
 <style>
-.date {
-  float: right;
-}
-.editable .date {
-  cursor: pointer;
-}
 .list .description {
   width: 550px;
   display: inline-block;

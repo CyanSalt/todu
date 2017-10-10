@@ -185,6 +185,12 @@ export default {
 .list .remove {
   color: #ed5e63;
 }
+.date {
+  float: right;
+}
+.editable .date {
+  cursor: pointer;
+}
 input.editor {
   width: 550px;
   display: inline-block;
