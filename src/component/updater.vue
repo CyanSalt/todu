@@ -107,7 +107,7 @@ export default {
     this.check()
       .catch(error => {})
       .then(data => {
-        if (data.name <= remote.app.getVersion()) return
+        if (!data || data.name <= remote.app.getVersion()) return
         const assets = data.assets.find(assets => {
           return assets.name.search(platform) !== -1
         })
