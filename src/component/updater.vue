@@ -75,6 +75,7 @@ export default {
     start(item) {
       this.item = item
       const totalBytes = item.getTotalBytes()
+      const frame = remote.getCurrentWindow()
       item.once('updated', (e, state) => {
         this.path = item.getSavePath()
       })
@@ -88,9 +89,12 @@ export default {
         }
         this.item = null
         this.downloaded = 0
+        frame.setProgressBar(-1)
       })
       item.on('updated', (e, state) => {
-        this.downloaded = Math.floor(item.getReceivedBytes() * 100 / totalBytes)
+        const progress = item.getReceivedBytes() / totalBytes
+        this.downloaded = Math.floor(progress * 100)
+        frame.setProgressBar(progress)
       })
     }
   },
