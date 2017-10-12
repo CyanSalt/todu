@@ -11,6 +11,10 @@
       </span>
     </div>
     <div class="right">
+      <span :class="{'operation': true, 'timer': true, 'autohide': !timer}"
+        @click.stop="timing" v-if="editable && schedule && time">
+        <span class="time">{{ time }}</span>
+      </span>
       <span class="operation remove autohide" @click.stop="remove" v-if="editable">
         <span class="icon-trash"></span>
       </span>
@@ -32,9 +36,23 @@ export default {
     editable: {
       type: Boolean,
       default: true,
-    }
+    },
+    schedule: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    today() {
+      return this.standard(Date.now())
+    },
+    time() {
+      const matches = this.item.description.match(/\d{1,2}:\d{2}/)
+      if (!matches || new Date(`${this.today} ${matches[0]}`) <= Date.now()) {
+        return ''
+      }
+      return matches[0]
+    },
     description: {
       get() {
         return this.item.description
@@ -47,6 +65,7 @@ export default {
   },
   data() {
     return {
+      timer: false,
       removed: false
     }
   },
@@ -83,6 +102,49 @@ export default {
     },
     blur(e) {
       e.target.blur()
+    },
+    timing() {
+      if (this.timer) {
+        return this.interrupt(true)
+      }
+      if (!this.time) return
+      const time = new Date(`${this.today} ${this.time}`) - 3e5
+      const binding = this.$binding.of('timer')
+      binding.set(this.item, this.timer = this.$schedule.register(time, () => {
+        binding.set(this.item, this.timer = false)
+        this.$notifier.send({
+          title: this.item.description,
+          body: this.i18n('今天 %T#!33').replace('%T', this.time),
+        })
+      }))
+    },
+    interrupt(hard) {
+      if (!this.timer) return
+      this.$schedule.unregister(this.timer)
+      this.timer = false
+      // if soft, there will be a record remained in binding map
+      if (hard) {
+        this.$binding.of('timer').set(this.item, false)
+      }
+    },
+    refresh() {
+      if (!this.timer) return
+      this.interrupt()
+      this.timing()
+    },
+  },
+  created() {
+    if (this.schedule) {
+      this.timer = this.$binding.of('timer').get(this.item)
+      this.refresh()
+      this.$watch('time', time => {
+        this.refresh()
+      })
+    }
+  },
+  destroyed() {
+    if (this.schedule) {
+      this.interrupt()
     }
   }
 }
@@ -108,5 +170,13 @@ export default {
   display: inline-block;
   height: 100%;
   width: 1.5em;
+}
+.list .operation.timer {
+  width: 48px;
+  font-size: 14px;
+  color: #aaa;
+}
+.list .operation.timer:not(.autohide) {
+  color: #2196f3;
 }
 </style>

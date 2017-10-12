@@ -25,7 +25,7 @@
     </template>
     <template v-else>
       <editable-list class="today" :title="i18n('Today#!1')"
-        :list="terms[today]" @sync="sync">
+        :list="terms[today]" @sync="sync" :schedule="true">
         <span :class="{'repeat': true, 'active': data.repeat}" slot="extra-title"
           @click="repeat" v-if="data.source !== 'todo'">
           <span class="icon-cycle"></span>

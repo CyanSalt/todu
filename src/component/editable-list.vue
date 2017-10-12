@@ -9,7 +9,7 @@
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
-          @drop.native="drop(item)" @drag="drag(item)">
+          @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule">
         </editable-item>
         <div class="divider"></div>
       </template>
@@ -41,7 +41,11 @@ export default {
     editable: {
       type: Boolean,
       default: true,
-    }
+    },
+    schedule: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -179,7 +183,8 @@ export default {
   line-height: 32px;
   text-align: center;
   border-radius: 4px;
-  transition: background ease 0.3s, box-shadow ease 0.3s;
+  /* transition except visibility */
+  transition: all ease 0.3s, visibility;
 }
 .list .operation:hover {
   background: #fff;
