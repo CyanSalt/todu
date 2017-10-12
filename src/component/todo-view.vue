@@ -182,6 +182,9 @@ export default {
     this.$action.on('clean-source-cache', target => {
       delete this.cache[target]
     })
+    this.$schedule.register(`${this.tomorrow} 00:00`, () => {
+      this.reload()
+    })
     this.terms = this.load()
     this.sync()
   },
