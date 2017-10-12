@@ -11,7 +11,7 @@
       </span>
     </div>
     <div class="right">
-      <span class="operation remove" @click.stop="remove" v-if="editable">
+      <span class="operation remove autohide" @click.stop="remove" v-if="editable">
         <span class="icon-trash"></span>
       </span>
     </div>

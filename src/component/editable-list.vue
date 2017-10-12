@@ -19,7 +19,7 @@
             v-model.trim.lazy="input" @keyup.enter="add">
           </div>
         <div class="right">
-          <span class="operation remove" @click.stop="clear" v-if="input">
+          <span class="operation remove autohide" @click.stop="clear" v-if="input">
             <span class="icon-trash"></span>
           </span>
         </div>
@@ -164,8 +164,14 @@ export default {
 .editable .list li:hover {
   background: #f7f7f7;
 }
+.list .autohide {
+  visibility: hidden;
+}
+.list li:hover .autohide {
+  visibility: visible;
+}
 .list .operation {
-  display: none;
+  display: inline-block;
   font-size: 18px;
   vertical-align: middle;
   width: 32px;
@@ -173,10 +179,7 @@ export default {
   line-height: 32px;
   text-align: center;
   border-radius: 4px;
-  transition: all ease 0.3s;
-}
-.list li:hover .operation {
-  display: inline-block;
+  transition: background ease 0.3s, box-shadow ease 0.3s;
 }
 .list .operation:hover {
   background: #fff;
