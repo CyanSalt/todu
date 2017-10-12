@@ -1,3 +1,4 @@
+const store = {}
 const Schedule = {
   register(time, handler) {
     time = new Date(time)
@@ -6,10 +7,14 @@ const Schedule = {
       return false
     }
     const id = setTimeout(handler, timeout)
+    store[id] = {time, handler}
     return id
   },
   unregister(id) {
     clearTimeout(id)
+    const data = store[id]
+    delete store[id]
+    return data
   },
 }
 
