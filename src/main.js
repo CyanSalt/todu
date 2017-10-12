@@ -2,7 +2,7 @@ import Vue from 'vue'
 import I18N from './plugin/i18n'
 import Action from './plugin/action'
 import Buffer from './plugin/buffer'
-// import Setting from './plugin/setting'
+import Schedule from './plugin/schedule'
 import FileStorage from './plugin/storage'
 import Switcher from './component/switcher'
 import TodoView from './component/todo-view'
@@ -16,6 +16,7 @@ if (!DEV_PATH) {
 Vue.use(I18N)
 Vue.use(Action)
 Vue.use(Buffer)
+Vue.use(Schedule)
 Vue.use(FileStorage)
 
 new Vue({
