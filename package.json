@@ -6,12 +6,12 @@
   "description": "An awesome todo list",
   "main": "window.js",
   "scripts": {
+    "deps": "npm install css-loader electron electron-packager vue vue-loader vue-template-compiler webpack --save-dev",
     "build-app": "webpack --progress --hide-modules",
-    "build-app-dev": "webpack --progress --hide-modules --config webpack.dev.config.js",
     "build-package": "node makefile.js",
     "dev-package": "electron .",
-    "build": "npm run build-app && npm run build-package",
-    "dev": "npm run build-app-dev && npm run dev-package"
+    "build": "set NODE_ENV=production && npm run build-app && npm run build-package",
+    "dev": "npm run build-app && npm run dev-package"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,9 @@
     "css-loader": "^0.28.7",
     "electron": "^1.8.1",
     "electron-packager": "^9.1.0",
-    "vue": "^2.4.4",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0"
+    "vue": "^2.5.2",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.2",
+    "webpack": "^3.7.1"
   }
 }

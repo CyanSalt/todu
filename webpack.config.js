@@ -23,16 +23,15 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
       }
     ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      DEV_PATH: JSON.stringify(false),
+      DEV_PATH: JSON.stringify(
+        process.env.NODE_ENV === 'production' ?
+          path.resolve(__dirname, 'src/') : false
+      ),
     })
   ]
 }
