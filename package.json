@@ -9,9 +9,9 @@
     "deps": "npm install cross-env css-loader electron electron-packager vue vue-loader vue-template-compiler webpack --save-dev",
     "build-app": "webpack --progress --hide-modules",
     "build-package": "node makefile.js",
-    "dev-package": "electron .",
+    "debug-package": "electron .",
     "build": "cross-env NODE_ENV=production npm run build-app && npm run build-package",
-    "dev": "npm run build-app && npm run dev-package"
+    "dev": "npm run build-app && npm run debug-package"
   },
   "repository": {
     "type": "git",
