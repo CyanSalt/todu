@@ -4,6 +4,9 @@ const webpack = require('webpack')
 module.exports = {
   target: 'electron',
   devtool: 'source-map',
+  node: {
+    __dirname: false,
+  },
   entry: {
     'main': path.resolve(__dirname, 'src/main.js')
   },

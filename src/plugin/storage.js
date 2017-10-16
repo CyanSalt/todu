@@ -6,12 +6,10 @@ import {
   access, accessSync,
 } from 'fs'
 import {dirname, resolve} from 'path'
-import {remote} from 'electron'
 
 const NOOP = () => {}
 const PATH = process.env.NODE_ENV === 'production' ?
-  dirname(process.execPath) :
-  resolve(remote.app.getAppPath(), 'src')
+  dirname(process.execPath) : __dirname
 
 export const FileStorage = {
   fetch(key, initial, callback) {
