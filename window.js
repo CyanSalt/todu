@@ -8,7 +8,7 @@ function init() {
     title: 'TODU',
     width: 900,
     height: 700,
-    minWidth: 800,
+    minWidth: 450,
   })
   frame.loadURL(`file://${__dirname}/src/index.html`)
   frame.on('closed', () => {

@@ -1,16 +1,14 @@
 <template>
   <li @click="toggle">
-    <div class="left">
-      <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
-      <checkbox :checked="item.done"></checkbox>
-      <input type="text" class="editor" v-model.trim.lazy="description"
-        @click.stop @keyup.enter="blur" v-if="editable">
-      <span class="description" v-else>{{ description }}</span>
-      <span class="from" v-if="item.from">
-        {{ editable ? distance(item.from) : format(item.from) }}
-      </span>
-    </div>
-    <div class="right">
+    <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
+    <checkbox :checked="item.done"></checkbox>
+    <input type="text" class="editor" v-model.trim.lazy="description"
+      @click.stop @keyup.enter="blur" v-if="editable">
+    <span class="description" v-else>{{ description }}</span>
+    <span class="from" v-if="item.from">
+      {{ editable ? distance(item.from) : format(item.from) }}
+    </span>
+    <div class="facility">
       <span :class="{'operation': true, 'timer': true, 'autohide': !timer}"
         @click.stop="timing" v-if="editable && schedule && time">
         <span class="time">{{ time }}</span>
@@ -152,7 +150,8 @@ export default {
 
 <style>
 .list .description {
-  width: 550px;
+  width: 0;
+  flex-grow: 1;
   display: inline-block;
   vertical-align: middle;
   user-select: text;
@@ -160,6 +159,7 @@ export default {
 .list .from {
   display: inline-block;
   vertical-align: middle;
+  margin-left: 8px;
   font-size: 14px;
   color: #aaa;
 }

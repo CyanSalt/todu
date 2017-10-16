@@ -17,7 +17,7 @@ export default {
   display: inline-block;
   vertical-align: middle;
   margin-top: 2px;
-  margin-right: 4px;
+  margin-right: 8px;
   width: 16px;
   height: 16px;
   color: hsl(166, 60%, 40%);

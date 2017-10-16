@@ -14,11 +14,9 @@
         <div class="divider"></div>
       </template>
       <li class="add-item" v-if="editable" @drop="drop(null)">
-        <div class="left">
-          <input type="text" class="editor" :placeholder="i18n('添加待办事项#!11')"
-            v-model.trim.lazy="input" @keyup.enter="add">
-          </div>
-        <div class="right">
+        <input type="text" class="editor" :placeholder="i18n('添加待办事项#!11')"
+          v-model.trim.lazy="input" @keyup.enter="add">
+        <div class="facility">
           <span class="operation remove autohide" @click.stop="clear" v-if="input">
             <span class="icon-trash"></span>
           </span>
@@ -157,10 +155,14 @@ export default {
   transition: background ease 0.2s;
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   overflow: hidden;
   animation: expand 0.3s ease;
+}
+.list li .facility {
+  width: 110px;
+  display: flex;
+  justify-content: flex-end;
 }
 .editable .list li {
   cursor: pointer;
@@ -200,9 +202,10 @@ export default {
   cursor: pointer;
 }
 input.editor {
-  width: 550px;
   display: inline-block;
   vertical-align: middle;
+  width: 0;
+  flex-grow: 1;
   -webkit-appearance: none;
   padding: 0;
   border: none;
@@ -210,8 +213,5 @@ input.editor {
   color: inherit;
   background: transparent;
   outline: none;
-}
-.add-item input.editor {
-  width: 600px;
 }
 </style>

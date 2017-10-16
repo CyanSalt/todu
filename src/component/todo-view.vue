@@ -1,13 +1,11 @@
 <template>
   <div class="todo-view">
     <div class="sheet-title">
-      <div class="left">
-        <span class="title-text" v-if="reviewing">{{ title }}</span>
-        <span class="reloader" v-else-if="data.source === 'todo'"
-          v-combo:5="reload" :key="data.source">{{ title }}</span>
-        <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
-      </div>
-      <div class="right">
+      <span class="title-text" v-if="reviewing">{{ title }}</span>
+      <span class="reloader" v-else-if="data.source === 'todo'"
+        v-combo:5="reload" :key="data.source">{{ title }}</span>
+      <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
+      <div class="links">
         <updater v-show="!reviewing"></updater>
         <span class="prev" @click="reviewing--" v-if="reviewing > 1">
           {{ i18n('上一页#!27') }}
@@ -200,7 +198,8 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 800px;
-  margin: 1em auto 2em auto;
+  margin: 0 auto;
+  padding: 1em 1em 2em 1em;
 }
 .sheet-title {
   margin: 0 1em;
