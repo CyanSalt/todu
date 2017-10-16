@@ -55,7 +55,7 @@ export const FileStorage = {
   },
   deleteSync(key) {
     try {
-      unlink(this.filename(key))
+      unlinkSync(this.filename(key))
     } catch (e) {}
   },
   save(key, data, callback) {
