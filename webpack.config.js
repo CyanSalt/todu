@@ -28,10 +28,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      DEV_PATH: JSON.stringify(
-        process.env.NODE_ENV === 'production' ?
-          path.resolve(__dirname, 'src/') : false
-      ),
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      },
     })
   ]
 }

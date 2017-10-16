@@ -10,7 +10,7 @@ import Switcher from './component/switcher'
 import TodoView from './component/todo-view'
 import SuperButton from './component/super-button'
 
-if (!DEV_PATH) {
+if (process.env.NODE_ENV === 'production') {
   Vue.config.devtools = false
   Vue.config.productionTip = false
 }

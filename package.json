@@ -6,11 +6,11 @@
   "description": "An awesome todo list",
   "main": "window.js",
   "scripts": {
-    "deps": "npm install css-loader electron electron-packager vue vue-loader vue-template-compiler webpack --save-dev",
+    "deps": "npm install cross-env css-loader electron electron-packager vue vue-loader vue-template-compiler webpack --save-dev",
     "build-app": "webpack --progress --hide-modules",
     "build-package": "node makefile.js",
     "dev-package": "electron .",
-    "build": "set NODE_ENV=production && npm run build-app && npm run build-package",
+    "build": "cross-env NODE_ENV=production npm run build-app && npm run build-package",
     "dev": "npm run build-app && npm run dev-package"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "electron": "^1.8.1",
     "electron-packager": "^9.1.0",
