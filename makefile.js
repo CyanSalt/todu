@@ -12,6 +12,7 @@ const options = {
     '^/src/(storage|component|plugin)($|/)',
   ],
   win32metadata: {
+    FileDescription: 'TODU',
     OriginalFilename: 'todu.exe',
   }
 }
