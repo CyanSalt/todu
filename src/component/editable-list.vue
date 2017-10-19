@@ -178,6 +178,7 @@ export default {
 }
 .list .operation {
   display: inline-block;
+  margin-left: 8px;
   font-size: 18px;
   vertical-align: middle;
   width: 32px;
