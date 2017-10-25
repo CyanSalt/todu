@@ -16,22 +16,20 @@
       </div>
     </div>
     <template v-if="reviewing">
-      <editable-list :title="distance(each.date)" :list="each.values" :editable="false"
-        v-for="each in page" :key="each.date">
+      <editable-list :title="distance(each.date)" :list="each.values"
+        :editable="false" v-for="each in page" :key="each.date">
         <span class="date" slot="extra-title" v-once>{{ format(each.date) }}</span>
       </editable-list>
     </template>
     <template v-else>
-      <editable-list class="today" :title="i18n('Today#!1')"
-        :list="terms[today]" @sync="sync" :schedule="true">
-        <span :class="{'repeat': true, 'active': data.repeat}" slot="extra-title"
-          @click="repeat" v-if="data.source !== 'todo'">
-          <span class="icon-cycle"></span>
-        </span>
+      <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
+        @sync="sync" :schedule="true" :origin="!permanent">
+        <sheet-stick :data="data" @review="review" slot="extra-title"
+          v-if="data.source !== 'todo'"></sheet-stick>
         <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
       </editable-list>
-      <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')"
-        :list="terms[tomorrow]" @sync="sync" v-if="!data.repeat">
+      <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')" :list="terms[tomorrow]"
+        @sync="sync" v-if="!data.repeat && !permanent">
       </editable-list>
     </template>
   </div>
@@ -39,12 +37,14 @@
 
 <script>
 import EditableList from './editable-list'
+import SheetStick from './sheet-stick'
 import Updater from './updater'
 import Formatter from './date-formatter'
 
 export default {
   components: {
     'editable-list': EditableList,
+    'sheet-stick': SheetStick,
     'updater': Updater,
   },
   directives: {
@@ -103,6 +103,9 @@ export default {
     },
     last() {
       return !this.history[this.reviewing * this.pagesize]
+    },
+    permanent() {
+      return this.data.type === 'permanently'
     }
   },
   methods: {
@@ -168,10 +171,6 @@ export default {
     blur(e) {
       e.target.blur()
     },
-    repeat() {
-      this.data.repeat = !this.data.repeat
-      this.$action.emit('update-sheet', this.data)
-    },
     reload() {
       window.location.reload()
     },
@@ -225,16 +224,5 @@ input.title-editor {
 }
 .sheet-title .prev, .sheet-title .next {
   cursor: pointer;
-}
-.list-group .repeat {
-  display: inline-block;
-  margin-left: 0.5em;
-  cursor: pointer;
-  color: #aaa;
-  transition: all ease 0.2s;
-}
-.list-group .repeat.active {
-  color: hsl(166, 60%, 40%);
-  transform: rotate(180deg) translateY(1px);
 }
 </style>
