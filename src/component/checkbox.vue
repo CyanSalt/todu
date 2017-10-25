@@ -1,5 +1,5 @@
 <template>
-  <label :class="{'pretty-checkbox': true, 'checked': checked}">
+  <label :class="['pretty-checkbox', {'checked': checked}]">
     <span class="icon-checked"></span>
   </label>
 </template>

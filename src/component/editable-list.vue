@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'list-group': true, 'editable': editable}">
+  <div :class="['list-group', {'editable': editable}]">
     <div class="title">
       <span class="category">{{ title }}</span>
       <slot name="extra-title"></slot>
@@ -9,7 +9,8 @@
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
-          @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule">
+          @drop.native="drop(item)" @drag="drag(item)"
+          :schedule="schedule" :origin="origin">
         </editable-item>
         <div class="divider"></div>
       </template>
@@ -36,6 +37,10 @@ export default {
   props: {
     title: String,
     list: Array,
+    origin: {
+      type: Boolean,
+      default: true,
+    },
     editable: {
       type: Boolean,
       default: true,

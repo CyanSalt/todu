@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'switcher': true, 'shown': show}">
+  <div :class="['switcher', {'shown': show}]">
     <span :class="[sheetClass('todo'), 'default']" @click="toggle(todo)"></span>
     <template v-if="sheets.length">
       <span class="sheet-divider"></span>
@@ -100,9 +100,6 @@ export default {
   },
   created() {
     this.$action.on('update-sheet', target => {
-      const sheet = this.sheets.find(sheet => sheet.source === target.source)
-      sheet.title = target.title
-      sheet.repeat = target.repeat
       this.toggle(target)
       this.sync()
     })

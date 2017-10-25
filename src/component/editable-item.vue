@@ -5,11 +5,11 @@
     <input type="text" class="editor" v-model.trim.lazy="description"
       @click.stop @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
-    <span class="from" v-if="item.from">
+    <span class="from" v-if="origin && item.from">
       {{ editable ? distance(item.from) : format(item.from) }}
     </span>
     <div class="facility">
-      <span :class="{'operation': true, 'timer': true, 'autohide': !timer}"
+      <span :class="['operation', 'timer', {'autohide': !timer}]"
         @click.stop="timing" v-if="editable && schedule && time">
         <span class="time">{{ time }}</span>
       </span>
@@ -31,6 +31,10 @@ export default {
   mixins: [Formatter],
   props: {
     item: Object,
+    origin: {
+      type: Boolean,
+      default: true,
+    },
     editable: {
       type: Boolean,
       default: true,
