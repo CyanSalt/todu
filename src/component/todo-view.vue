@@ -20,7 +20,7 @@
         <editable-list :title="i18n('Today#!1')" :list.sync="milestone"
           :editable="false" :instant="true" :recoverable="true" v-if="milestone.length">
         </editable-list>
-        <editable-list :title="i18n('Before#!1')" :list="done"
+        <editable-list :title="i18n('Before#!34')" :list="done"
           :editable="false" :instant="true" v-if="done.length">
         </editable-list>
       </template>
