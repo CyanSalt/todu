@@ -75,8 +75,10 @@ export default {
     toggle() {
       this.$emit('toggle')
     },
-    remove() {
-      if (this.removed) return
+    collapse() {
+      if (this.removed) {
+        return new Promise(() => {})
+      }
       this.removed = true
       // @keyframes collapse
       const collapse = [
@@ -85,15 +87,20 @@ export default {
         // to { height: 0; }
         {height: 0},
       ]
-      // animation: collapse 0.3s ease;
-      const animation = this.$el.animate(collapse, {
-        easing: 'ease',
-        duration: 300,
+      return new Promise(resolve => {
+        // animation: collapse 0.3s ease;
+        const animation = this.$el.animate(collapse, {
+          easing: 'ease',
+          duration: 300,
+        })
+        // this.$el.addEventListener('animationend')
+        animation.onfinish = resolve
       })
-      // this.$el.addEventListener('animationend')
-      animation.onfinish = () => {
+    },
+    remove() {
+      this.collapse().then(() => {
         this.$emit('remove')
-      }
+      })
     },
     drag(e) {
       if (!this.editable) return
