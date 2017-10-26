@@ -91,8 +91,8 @@ export default {
       this.removed = true
       // @keyframes collapse
       const collapse = [
-        // from { height: 52px; }
-        {height: '52px'},
+        // from { height: 3em; }
+        {height: '3em'},
         // to { height: 0; }
         {height: 0},
       ]

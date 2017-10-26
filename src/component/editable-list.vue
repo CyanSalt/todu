@@ -152,7 +152,7 @@ export default {
 }
 @keyframes expand {
   from { height: 0; }
-  to { height: 52px; }
+  to { height: 3em; }
 }
 .list li {
   padding: 0 2em;
