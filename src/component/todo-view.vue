@@ -175,6 +175,12 @@ export default {
       window.location.reload()
     },
   },
+  watch: {
+    'data.source'() {
+      this.terms = this.load()
+      this.sync()
+    }
+  },
   created() {
     this.$action.on('clean-source-cache', target => {
       delete this.cache[target]
@@ -185,10 +191,6 @@ export default {
     this.terms = this.load()
     this.sync()
   },
-  beforeUpdate() {
-    this.terms = this.load()
-    this.sync()
-  }
 }
 </script>
 

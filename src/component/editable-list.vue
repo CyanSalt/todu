@@ -5,7 +5,7 @@
       <slot name="extra-title"></slot>
     </div>
     <ul class="list" @dragover.prevent>
-      <template v-for="(item, index) in data">
+      <template v-for="(item, index) in list">
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
@@ -55,16 +55,6 @@ export default {
       input: ''
     }
   },
-  computed: {
-    data: {
-      get() {
-        return this.list
-      },
-      set() {
-        this.$emit('sync')
-      }
-    }
-  },
   methods: {
     uniqid() {
       return ('000000' + Math.floor(Math.random() * 0xFFFFFF).toString(16)).slice(-6)
@@ -72,23 +62,23 @@ export default {
     toggle(item, index) {
       if (!this.editable) return
       item.done = !item.done
-      this.$set(this.data, index, item)
+      this.$set(this.list, index, item)
     },
     describe(item, index, content) {
       if (!this.editable) return
       item.description = content
-      this.$set(this.data, index, item)
+      this.$set(this.list, index, item)
     },
     remove(item) {
       // recalculate index to avoid async animation issue
-      const index = this.data.indexOf(item)
+      const index = this.list.indexOf(item)
       if (index >= 0) {
-        this.data.splice(index, 1)
+        this.list.splice(index, 1)
       }
     },
     add() {
       if (!this.input) return
-      this.data.push({
+      this.list.push({
         key: this.uniqid(),
         description: this.input,
         done: false
@@ -99,7 +89,7 @@ export default {
       this.input = ''
     },
     drag(item) {
-      this.$buffer.set('dragging', {item, list: this.data})
+      this.$buffer.set('dragging', {item, list: this.list})
     },
     drop(item) {
       const dragging = this.$buffer.get('dragging')
@@ -110,18 +100,23 @@ export default {
       if (srcIndex >= 0) {
         dragging.list.splice(srcIndex, 1)
       }
-      let toIndex = this.data.indexOf(item)
+      let toIndex = this.list.indexOf(item)
       if (toIndex >= 0) {
         // intuitive feature
-        if (this.data === dragging.list && srcIndex <= toIndex) {
+        if (this.list === dragging.list && srcIndex <= toIndex) {
           toIndex++
         }
-        this.data.splice(toIndex, 0, dragging.item)
+        this.list.splice(toIndex, 0, dragging.item)
       } else {
-        this.data.push(dragging.item)
+        this.list.push(dragging.item)
       }
     }
-  }
+  },
+  watch: {
+    list() {
+      this.$emit('sync')
+    }
+  },
 }
 </script>
 
