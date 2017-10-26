@@ -5,7 +5,7 @@
     <input type="text" class="editor" v-model.trim.lazy="description"
       @click.stop @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
-    <span class="from" v-if="origin && item.from">
+    <span class="from" v-if="!instant && item.from">
       {{ editable ? distance(item.from) : format(item.from) }}
     </span>
     <div class="facility">
@@ -31,9 +31,9 @@ export default {
   mixins: [Formatter],
   props: {
     item: Object,
-    origin: {
+    instant: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     editable: {
       type: Boolean,

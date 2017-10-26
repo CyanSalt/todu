@@ -23,7 +23,7 @@
     </template>
     <template v-else>
       <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
-        @sync="sync" :schedule="true" :origin="!permanent">
+        @sync="sync" :schedule="true" :instant="permanent">
         <sheet-stick :data="data" @review="review" slot="extra-title"
           v-if="data.source !== 'todo'"></sheet-stick>
         <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>

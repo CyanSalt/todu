@@ -10,7 +10,7 @@
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
           @drop.native="drop(item)" @drag="drag(item)"
-          :schedule="schedule" :origin="origin">
+          :schedule="schedule" :instant="instant">
         </editable-item>
         <div class="divider"></div>
       </template>
@@ -37,9 +37,9 @@ export default {
   props: {
     title: String,
     list: Array,
-    origin: {
+    instant: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     editable: {
       type: Boolean,
