@@ -39,6 +39,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    recoverable: {
+      type: Boolean,
+      default: false,
+    },
     schedule: {
       type: Boolean,
       default: false,
@@ -73,7 +77,12 @@ export default {
   },
   methods: {
     toggle() {
-      this.$emit('toggle')
+      if (!this.recoverable) {
+        return this.$emit('toggle')
+      }
+      this.collapse().then(() => {
+        this.$emit('toggle')
+      })
     },
     collapse() {
       if (this.removed) {

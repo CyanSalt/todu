@@ -9,8 +9,8 @@
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
-          @drop.native="drop(item)" @drag="drag(item)"
-          :schedule="schedule" :instant="instant">
+          @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule"
+          :instant="instant" :recoverable="recoverable">
         </editable-item>
         <div class="divider"></div>
       </template>
@@ -45,6 +45,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    recoverable: {
+      type: Boolean,
+      default: false,
+    },
     schedule: {
       type: Boolean,
       default: false,
@@ -60,29 +64,34 @@ export default {
       return ('000000' + Math.floor(Math.random() * 0xFFFFFF).toString(16)).slice(-6)
     },
     toggle(item, index) {
-      if (!this.editable) return
+      if (!this.editable && !this.recoverable) return
       item.done = !item.done
       this.$set(this.list, index, item)
+      this.$emit('update:list', this.list)
     },
     describe(item, index, content) {
       if (!this.editable) return
       item.description = content
       this.$set(this.list, index, item)
+      this.$emit('update:list', this.list)
     },
     remove(item) {
       // recalculate index to avoid async animation issue
       const index = this.list.indexOf(item)
       if (index >= 0) {
         this.list.splice(index, 1)
+        this.$emit('update:list', this.list)
       }
     },
     add() {
       if (!this.input) return
-      this.list.push({
+      const item = {
         key: this.uniqid(),
         description: this.input,
         done: false
-      })
+      }
+      this.list.push(item)
+      this.$emit('update:list', this.list)
       this.clear()
     },
     clear() {
@@ -110,11 +119,7 @@ export default {
       } else {
         this.list.push(dragging.item)
       }
-    }
-  },
-  watch: {
-    list() {
-      this.$emit('sync')
+      this.$emit('update:list', this.list)
     }
   },
 }

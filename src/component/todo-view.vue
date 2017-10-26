@@ -16,20 +16,38 @@
       </div>
     </div>
     <template v-if="reviewing">
-      <editable-list :title="distance(each.date)" :list="each.values"
-        :editable="false" v-for="each in page" :key="each.date">
-        <span class="date" slot="extra-title" v-once>{{ format(each.date) }}</span>
+      <template v-if="permanent">
+        <editable-list :title="i18n('Today#!1')" :list.sync="milestone"
+          :editable="false" :instant="true" :recoverable="true" v-if="milestone.length">
+        </editable-list>
+        <editable-list :title="i18n('Before#!1')" :list="done"
+          :editable="false" :instant="true" v-if="done.length">
+        </editable-list>
+      </template>
+      <template v-else>
+        <editable-list :title="distance(each.date)" :list="each.values"
+          :editable="false" v-for="each in page" :key="each.date">
+          <span class="date" slot="extra-title" v-once>{{ format(each.date) }}</span>
+        </editable-list>
+      </template>
+    </template>
+    <template v-else-if="permanent">
+      <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
+        :schedule="true" :instant="true" :recoverable="true">
+        <sheet-stick :data="data" @review="review" slot="extra-title"
+          v-if="data.source !== 'todo'"></sheet-stick>
+        <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
       </editable-list>
     </template>
     <template v-else>
       <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
-        @sync="sync" :schedule="true" :instant="permanent">
+        @update:list="sync" :schedule="true">
         <sheet-stick :data="data" @review="review" slot="extra-title"
           v-if="data.source !== 'todo'"></sheet-stick>
         <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
       </editable-list>
       <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')" :list="terms[tomorrow]"
-        @sync="sync" v-if="!data.repeat && !permanent">
+        @update:list="sync" v-if="!data.repeat">
       </editable-list>
     </template>
   </div>
@@ -106,7 +124,44 @@ export default {
     },
     permanent() {
       return this.data.type === 'permanently'
-    }
+    },
+    undone: {
+      get() {
+        return this.terms[this.today].filter(item => !item.done)
+      },
+      set(undone) {
+        const target = this.terms[this.today]
+        const diff = undone.filter(item => !target.includes(item))
+        const changed = target.concat(diff).reduce((result, item) => {
+          if (item.done || undone.includes(item)) {
+            result.push(item)
+          }
+          return result
+        }, [])
+        this.$set(this.terms, this.today, changed)
+        this.sync()
+      },
+    },
+    milestone: {
+      get() {
+        return this.terms[this.today].filter(item => item.done)
+      },
+      set(done) {
+        const target = this.terms[this.today]
+        const changed = target.reduce((result, item) => {
+          if (!item.done || done.includes(item)) {
+            result.push(item)
+          }
+          return result
+        }, [])
+        this.$set(this.terms, this.today, changed)
+        this.sync()
+      },
+    },
+    done() {
+      return Object.values(this.terms.history).reverse()
+        .reduce((result, current) => result.concat(current), [])
+    },
   },
   methods: {
     load() {
