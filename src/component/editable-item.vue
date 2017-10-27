@@ -5,11 +5,11 @@
     <input type="text" class="editor" v-model.trim.lazy="description"
       @click.stop @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
-    <span class="from" v-if="item.from">
+    <span class="from" v-if="!instant && item.from">
       {{ editable ? distance(item.from) : format(item.from) }}
     </span>
     <div class="facility">
-      <span :class="{'operation': true, 'timer': true, 'autohide': !timer}"
+      <span :class="['operation', 'timer', {'autohide': !timer}]"
         @click.stop="timing" v-if="editable && schedule && time">
         <span class="time">{{ time }}</span>
       </span>
@@ -31,9 +31,17 @@ export default {
   mixins: [Formatter],
   props: {
     item: Object,
+    instant: {
+      type: Boolean,
+      default: false,
+    },
     editable: {
       type: Boolean,
       default: true,
+    },
+    recoverable: {
+      type: Boolean,
+      default: false,
     },
     schedule: {
       type: Boolean,
@@ -69,27 +77,39 @@ export default {
   },
   methods: {
     toggle() {
-      this.$emit('toggle')
+      if (!this.recoverable) {
+        return this.$emit('toggle')
+      }
+      this.collapse().then(() => {
+        this.$emit('toggle')
+      })
     },
-    remove() {
-      if (this.removed) return
+    collapse() {
+      if (this.removed) {
+        return new Promise(() => {})
+      }
       this.removed = true
       // @keyframes collapse
       const collapse = [
-        // from { height: 52px; }
-        {height: '52px'},
+        // from { height: 3em; }
+        {height: '3em'},
         // to { height: 0; }
         {height: 0},
       ]
-      // animation: collapse 0.3s ease;
-      const animation = this.$el.animate(collapse, {
-        easing: 'ease',
-        duration: 300,
+      return new Promise(resolve => {
+        // animation: collapse 0.3s ease;
+        const animation = this.$el.animate(collapse, {
+          easing: 'ease',
+          duration: 300,
+        })
+        // this.$el.addEventListener('animationend')
+        animation.onfinish = resolve
       })
-      // this.$el.addEventListener('animationend')
-      animation.onfinish = () => {
+    },
+    remove() {
+      this.collapse().then(() => {
         this.$emit('remove')
-      }
+      })
     },
     drag(e) {
       if (!this.editable) return

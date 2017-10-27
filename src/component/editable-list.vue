@@ -1,15 +1,16 @@
 <template>
-  <div :class="{'list-group': true, 'editable': editable}">
+  <div :class="['list-group', {'editable': editable}]">
     <div class="title">
       <span class="category">{{ title }}</span>
       <slot name="extra-title"></slot>
     </div>
     <ul class="list" @dragover.prevent>
-      <template v-for="(item, index) in data">
+      <template v-for="(item, index) in list">
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
-          @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule">
+          @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule"
+          :instant="instant" :recoverable="recoverable">
         </editable-item>
         <div class="divider"></div>
       </template>
@@ -36,9 +37,17 @@ export default {
   props: {
     title: String,
     list: Array,
+    instant: {
+      type: Boolean,
+      default: false,
+    },
     editable: {
       type: Boolean,
       default: true,
+    },
+    recoverable: {
+      type: Boolean,
+      default: false,
     },
     schedule: {
       type: Boolean,
@@ -50,51 +59,46 @@ export default {
       input: ''
     }
   },
-  computed: {
-    data: {
-      get() {
-        return this.list
-      },
-      set() {
-        this.$emit('sync')
-      }
-    }
-  },
   methods: {
     uniqid() {
       return ('000000' + Math.floor(Math.random() * 0xFFFFFF).toString(16)).slice(-6)
     },
     toggle(item, index) {
-      if (!this.editable) return
+      if (!this.editable && !this.recoverable) return
       item.done = !item.done
-      this.$set(this.data, index, item)
+      this.$set(this.list, index, item)
+      this.$emit('update:list', this.list)
     },
     describe(item, index, content) {
       if (!this.editable) return
       item.description = content
-      this.$set(this.data, index, item)
+      this.$set(this.list, index, item)
+      this.$emit('update:list', this.list)
     },
     remove(item) {
       // recalculate index to avoid async animation issue
-      const index = this.data.indexOf(item)
+      const index = this.list.indexOf(item)
       if (index >= 0) {
-        this.data.splice(index, 1)
+        this.list.splice(index, 1)
+        this.$emit('update:list', this.list)
       }
     },
     add() {
       if (!this.input) return
-      this.data.push({
+      const item = {
         key: this.uniqid(),
         description: this.input,
         done: false
-      })
+      }
+      this.list.push(item)
+      this.$emit('update:list', this.list)
       this.clear()
     },
     clear() {
       this.input = ''
     },
     drag(item) {
-      this.$buffer.set('dragging', {item, list: this.data})
+      this.$buffer.set('dragging', {item, list: this.list})
     },
     drop(item) {
       const dragging = this.$buffer.get('dragging')
@@ -105,18 +109,19 @@ export default {
       if (srcIndex >= 0) {
         dragging.list.splice(srcIndex, 1)
       }
-      let toIndex = this.data.indexOf(item)
+      let toIndex = this.list.indexOf(item)
       if (toIndex >= 0) {
         // intuitive feature
-        if (this.data === dragging.list && srcIndex <= toIndex) {
+        if (this.list === dragging.list && srcIndex <= toIndex) {
           toIndex++
         }
-        this.data.splice(toIndex, 0, dragging.item)
+        this.list.splice(toIndex, 0, dragging.item)
       } else {
-        this.data.push(dragging.item)
+        this.list.push(dragging.item)
       }
+      this.$emit('update:list', this.list)
     }
-  }
+  },
 }
 </script>
 
@@ -147,7 +152,7 @@ export default {
 }
 @keyframes expand {
   from { height: 0; }
-  to { height: 52px; }
+  to { height: 3em; }
 }
 .list li {
   padding: 0 2em;

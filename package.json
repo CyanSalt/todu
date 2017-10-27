@@ -1,6 +1,6 @@
 {
   "name": "todu",
-  "version": "1.4.2",
+  "version": "1.5.2",
   "productName": "TODU",
   "author": "CyanSalt",
   "description": "An awesome todo list",
@@ -19,13 +19,13 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "cross-env": "^5.0.5",
+    "cross-env": "^5.1.0",
     "css-loader": "^0.28.7",
     "electron": "^1.8.1",
     "electron-packager": "^9.1.0",
     "vue": "^2.5.2",
     "vue-loader": "^13.3.0",
     "vue-template-compiler": "^2.5.2",
-    "webpack": "^3.7.1"
+    "webpack": "^3.8.1"
   }
 }
