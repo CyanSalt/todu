@@ -36,7 +36,7 @@ new Vue({
     },
     selecting: false,
     icon: '',
-    handler: function () {
+    handler() {
       this.selecting = !this.selecting
     },
   },
@@ -44,12 +44,12 @@ new Vue({
     bind(data) {
       if (!data.handler) return
       this.selecting = false
-      let icon
+      let icon = null
       if (data.icon) {
         icon = this.icon
         this.icon = data.icon
       }
-      let handler = this.handler
+      const handler = this.handler
       this.handler = () => {
         data.handler()
         if (data.icon) {

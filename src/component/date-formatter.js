@@ -12,11 +12,12 @@ export default {
         '星期日#!3', '星期一#!4', '星期二#!5', '星期三#!6',
         '星期四#!7', '星期五#!8', '星期六#!9',
       ]
-      return format.replace(/\%[A-Z]+/g, holder => {
+      return format.replace(/%[A-Z]+/g, holder => {
         switch (holder) {
           case '%M': return date.getMonth() + 1
           case '%D': return date.getDate()
           case '%W': return this.i18n(days[date.getDay()])
+          default: return holder
         }
       })
     },
@@ -30,6 +31,7 @@ export default {
           return this.i18n('昨天#!12')
         case 2:
           return this.i18n('前天#!13')
+        default:
       }
       const current = today.getDay()
       const target = date.getDay()

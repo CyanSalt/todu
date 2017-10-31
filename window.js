@@ -1,4 +1,4 @@
-const {app, BrowserWindow, Menu, MenuItem} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 const path = require('path')
 
 let frame = null
@@ -46,7 +46,6 @@ const second = app.makeSingleInstance((argv, directory) => {
 
 if (second) {
   app.quit()
-  return
 }
 
 app.on('ready', init)
