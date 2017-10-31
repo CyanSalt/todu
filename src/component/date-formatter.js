@@ -1,7 +1,10 @@
 export default {
   methods: {
     midnight(date) {
-      return new Date(`${date}T00:00:00`)
+      // Notice that return value of 'standard' might not be ISO-8601
+      // for example: 2017-11-1 (should be 2017-11-01 in ISO-8601)
+      // return new Date(`${date}T00:00:00`)
+      return new Date(`${date} 00:00`)
     },
     standard(date) {
       // return new Date(date).toLocaleDateString()
