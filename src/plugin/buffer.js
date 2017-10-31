@@ -9,7 +9,7 @@ const Buffer = {
 }
 
 export default {
-  install: function(Vue, options) {
+  install(Vue, options) {
     Vue.prototype.$buffer = Buffer
   }
 }

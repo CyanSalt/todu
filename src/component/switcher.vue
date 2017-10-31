@@ -72,10 +72,10 @@ export default {
           collection[source] = true
           return collection
         }, {})
-      let source
+      let source = ''
       for (let index = 1; ; index++) {
         source = `todo-${index}`
-        if (!sources[source]) break;
+        if (!sources[source]) break
       }
       const last = {
         source,

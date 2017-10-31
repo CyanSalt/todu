@@ -9,7 +9,7 @@ const Binding = {
 }
 
 export default {
-  install: function(Vue, options) {
+  install(Vue, options) {
     Vue.prototype.$binding = Binding
   }
 }

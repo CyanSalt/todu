@@ -1,28 +1,42 @@
 export default {
   methods: {
+    midnight(date) {
+      // Notice that return value of 'standard' might not be ISO-8601
+      // for example: 2017-11-1 (should be 2017-11-01 in ISO-8601)
+      // return new Date(`${date}T00:00:00`)
+      return new Date(`${date} 00:00`)
+    },
     standard(date) {
       // return new Date(date).toLocaleDateString()
       date = new Date(date)
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     },
-    format(date) {
-      date = new Date(date)
+    format(date, midnight) {
+      if (midnight) {
+        date = this.midnight(date)
+      } else {
+        date = new Date(date)
+      }
       const format = this.i18n('%M月%D日 %W#!10')
       const days = [
         '星期日#!3', '星期一#!4', '星期二#!5', '星期三#!6',
         '星期四#!7', '星期五#!8', '星期六#!9',
       ]
-      return format.replace(/\%[A-Z]+/g, holder => {
+      return format.replace(/%[A-Z]+/g, holder => {
         switch (holder) {
           case '%M': return date.getMonth() + 1
           case '%D': return date.getDate()
           case '%W': return this.i18n(days[date.getDay()])
+          default: return holder
         }
       })
     },
-    distance(date, disabled) {
-      if (disabled) return date
-      date = new Date(date)
+    distance(date, midnight) {
+      if (midnight) {
+        date = this.midnight(date)
+      } else {
+        date = new Date(date)
+      }
       const today = new Date()
       const distance = Math.floor((today - date) / 864e5)
       switch (distance) {
@@ -30,6 +44,7 @@ export default {
           return this.i18n('昨天#!12')
         case 2:
           return this.i18n('前天#!13')
+        default:
       }
       const current = today.getDay()
       const target = date.getDay()

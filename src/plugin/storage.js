@@ -13,7 +13,7 @@ const PATH = process.env.NODE_ENV === 'production' ?
 
 export const FileStorage = {
   fetch(key, initial, callback) {
-    return this.load(key, function (err, data) {
+    return this.load(key, (err, data) => {
       if (!err || !initial) {
         return callback(err, data)
       }
@@ -22,15 +22,14 @@ export const FileStorage = {
     })
   },
   fetchSync(key, initial) {
-    let data = this.loadSync(key)
+    const data = this.loadSync(key)
     if (data !== null || !initial) {
       return data
     }
     this.save(key, initial)
     return initial
   },
-  load(key, callback) {
-    callback = callback || NOOP
+  load(key, callback = NOOP) {
     return readFile(this.filename(key), (err, data) => {
       if (!err && data) {
         data = JSON.parse(data)
@@ -45,8 +44,7 @@ export const FileStorage = {
       return null
     }
   },
-  delete(key, callback) {
-    callback = callback || NOOP
+  delete(key, callback = NOOP) {
     return unlink(this.filename(key), (...args) => {
       callback(...args)
     })
@@ -56,22 +54,24 @@ export const FileStorage = {
       unlinkSync(this.filename(key))
     } catch (e) {}
   },
-  save(key, data, callback) {
+  save(key, data, callback = NOOP) {
     const filename = this.filename(key)
     return mkdir(dirname(filename), (...args) => {
-      writeFile(filename, this.stringify(data), callback || NOOP)
+      writeFile(filename, this.stringify(data), callback)
     })
   },
   saveSync(key, data) {
     const filename = this.filename(key)
     try {
       mkdirSync(dirname(filename))
-    } catch (e) {}
-    return writeFileSync(filename, this.stringify(data))
+    } catch (e) {
+      return
+    }
+    writeFileSync(filename, this.stringify(data))
   },
   require(key, callback) {
     const filename = this.filename(key, 'js')
-    access(filename, (err) => {
+    access(filename, err => {
       if (err) return
       callback(global.require(filename))
     })
@@ -108,7 +108,7 @@ export const FileStorage = {
 }
 
 export default {
-  install: function(Vue, options) {
+  install(Vue, options) {
     Vue.prototype.$storage = FileStorage
   }
 }

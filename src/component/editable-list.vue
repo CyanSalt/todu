@@ -61,7 +61,8 @@ export default {
   },
   methods: {
     uniqid() {
-      return ('000000' + Math.floor(Math.random() * 0xFFFFFF).toString(16)).slice(-6)
+      const random = Math.floor(Math.random() * 0xFFFFFF).toString(16)
+      return `000000${random}`.slice(-6)
     },
     toggle(item, index) {
       if (!this.editable && !this.recoverable) return
@@ -105,7 +106,7 @@ export default {
       this.$buffer.set('dragging', null)
       if (!dragging || item === dragging.item) return
       // recalculate index
-      let srcIndex = dragging.list.indexOf(dragging.item)
+      const srcIndex = dragging.list.indexOf(dragging.item)
       if (srcIndex >= 0) {
         dragging.list.splice(srcIndex, 1)
       }
@@ -113,7 +114,7 @@ export default {
       if (toIndex >= 0) {
         // intuitive feature
         if (this.list === dragging.list && srcIndex <= toIndex) {
-          toIndex++
+          toIndex += 1
         }
         this.list.splice(toIndex, 0, dragging.item)
       } else {

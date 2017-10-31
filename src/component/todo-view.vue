@@ -25,9 +25,11 @@
         </editable-list>
       </template>
       <template v-else>
-        <editable-list :title="distance(each.date)" :list="each.values"
+        <editable-list :title="distance(each.date, true)" :list="each.values"
           :editable="false" v-for="each in page" :key="each.date">
-          <span class="date" slot="extra-title" v-once>{{ format(each.date) }}</span>
+          <span class="date" slot="extra-title" v-once>
+            {{ format(each.date, true) }}
+          </span>
         </editable-list>
       </template>
     </template>
@@ -36,7 +38,9 @@
         :schedule="true" :instant="true" :recoverable="true">
         <sheet-stick :data="data" @review="review" slot="extra-title"
           v-if="data.source !== 'todo'"></sheet-stick>
-        <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
+        <span class="date" slot="extra-title" @click="review" v-once>
+          {{ format(today, true) }}
+        </span>
       </editable-list>
     </template>
     <template v-else>
@@ -44,7 +48,9 @@
         @update:list="sync" :schedule="true">
         <sheet-stick :data="data" @review="review" slot="extra-title"
           v-if="data.source !== 'todo'"></sheet-stick>
-        <span class="date" slot="extra-title" @click="review" v-once>{{ format(today) }}</span>
+        <span class="date" slot="extra-title" @click="review" v-once>
+          {{ format(today, true) }}
+        </span>
       </editable-list>
       <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')" :list="terms[tomorrow]"
         @update:list="sync" v-if="!data.repeat">
@@ -175,11 +181,12 @@ export default {
         [today]: [],
         [tomorrow]: []
       }, terms)
-      const midnight = new Date(today)
+      const midnight = this.midnight(today)
       if (this.data.repeat && !arranged[today].length) {
-        let latest, nearest = Infinity
+        let latest = ''
+        let nearest = Infinity
         for (const key of Object.keys(arranged)) {
-          const distance = midnight - new Date(key)
+          const distance = midnight - this.midnight(key)
           if (distance > 0 && distance < nearest) {
             [latest, nearest] = [key, distance]
           }
@@ -190,7 +197,7 @@ export default {
         }
       }
       Object.keys(arranged).forEach(date => {
-        if (!(new Date(date) < midnight)) return
+        if (!(this.midnight(date) < midnight)) return
         arranged[date].forEach(item => {
           const archived = []
           if (this.data.repeat || item.done) {
