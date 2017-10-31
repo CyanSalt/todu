@@ -6,7 +6,7 @@
       @click.stop @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
     <span class="from" v-if="!instant && item.from">
-      {{ editable ? distance(item.from) : format(item.from) }}
+      {{ editable ? distance(item.from, true) : format(item.from, true) }}
     </span>
     <div class="facility">
       <span :class="['operation', 'timer', {'autohide': !timer}]"

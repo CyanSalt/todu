@@ -1,12 +1,19 @@
 export default {
   methods: {
+    midnight(date) {
+      return new Date(`${date}T00:00:00`)
+    },
     standard(date) {
       // return new Date(date).toLocaleDateString()
       date = new Date(date)
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     },
-    format(date) {
-      date = new Date(date)
+    format(date, midnight) {
+      if (midnight) {
+        date = this.midnight(date)
+      } else {
+        date = new Date(date)
+      }
       const format = this.i18n('%M月%D日 %W#!10')
       const days = [
         '星期日#!3', '星期一#!4', '星期二#!5', '星期三#!6',
@@ -21,9 +28,12 @@ export default {
         }
       })
     },
-    distance(date, disabled) {
-      if (disabled) return date
-      date = new Date(date)
+    distance(date, midnight) {
+      if (midnight) {
+        date = this.midnight(date)
+      } else {
+        date = new Date(date)
+      }
       const today = new Date()
       const distance = Math.floor((today - date) / 864e5)
       switch (distance) {
