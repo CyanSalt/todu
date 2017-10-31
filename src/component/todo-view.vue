@@ -177,7 +177,8 @@ export default {
       }, terms)
       const midnight = new Date(today)
       if (this.data.repeat && !arranged[today].length) {
-        let latest, nearest = Infinity
+        let latest = ''
+        let nearest = Infinity
         for (const key of Object.keys(arranged)) {
           const distance = midnight - new Date(key)
           if (distance > 0 && distance < nearest) {

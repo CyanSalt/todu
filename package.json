@@ -11,7 +11,8 @@
     "build-package": "node makefile.js",
     "debug-package": "electron .",
     "build": "cross-env NODE_ENV=production npm run build-app && npm run build-package",
-    "dev": "npm run build-app && npm run debug-package"
+    "dev": "npm run build-app && npm run debug-package",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "repository": {
     "type": "git",

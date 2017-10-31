@@ -78,7 +78,8 @@ export default {
   methods: {
     toggle() {
       if (!this.recoverable) {
-        return this.$emit('toggle')
+        this.$emit('toggle')
+        return
       }
       this.collapse().then(() => {
         this.$emit('toggle')
@@ -115,7 +116,8 @@ export default {
       if (!this.editable) return
       // fix blink's bug
       const ratio = window.devicePixelRatio ** 2
-      e.dataTransfer.setDragImage(this.$el, e.offsetX * ratio, e.offsetY * ratio)
+      const {offsetX, offsetY} = e
+      e.dataTransfer.setDragImage(this.$el, offsetX * ratio, offsetY * ratio)
       this.$emit('drag', e)
     },
     blur(e) {
@@ -123,7 +125,8 @@ export default {
     },
     timing() {
       if (this.timer) {
-        return this.interrupt(true)
+        this.interrupt(true)
+        return
       }
       if (!this.time) return
       const time = new Date(`${this.today} ${this.time}`) - 3e5

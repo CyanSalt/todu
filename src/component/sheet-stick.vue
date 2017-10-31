@@ -30,7 +30,8 @@ export default {
       this.$emit('review')
     },
     repeat() {
-      if (this.data.repeat = !this.data.repeat) {
+      this.data.repeat = !this.data.repeat
+      if (this.data.repeat) {
         this.data.type = 'daily'
       }
       this.$action.emit('update-sheet', this.data)
@@ -39,7 +40,7 @@ export default {
       if (this.data.type === 'permanently') {
         this.data.type = 'daily'
       } else {
-        this.data.type = "permanently"
+        this.data.type = 'permanently'
         this.data.repeat = false
       }
       this.$action.emit('update-sheet', this.data)

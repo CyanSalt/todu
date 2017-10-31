@@ -20,11 +20,13 @@ export default {
   computed: {
     iconClass() {
       switch (this.icon) {
-        case 'back': return 'icon-arrow-left'
-      }
-      return {
-        'icon-infinite': true,
-        'standup': this.standup,
+        case 'back':
+          return 'icon-arrow-left'
+        default:
+          return {
+            'icon-infinite': true,
+            'standup': this.standup,
+          }
       }
     }
   }

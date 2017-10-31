@@ -36,13 +36,14 @@ export default {
     text() {
       switch (this.status) {
         case 1:
-          return this.i18n('下载中 %R#!30').replace('%R', this.downloaded + '%')
+          return this.i18n('下载中 %R#!30').replace('%R', `${this.downloaded}%`)
         case 2:
-          return this.i18n('暂停中 %R#!31').replace('%R', this.downloaded + '%')
+          return this.i18n('暂停中 %R#!31').replace('%R', `${this.downloaded}%`)
         case 3:
           return this.i18n('下载完成#!32')
+        default:
+          return this.i18n('更新 %V#!29').replace('%V', this.version)
       }
-      return this.i18n('更新 %V#!29').replace('%V', this.version)
     },
   },
   methods: {
@@ -100,7 +101,7 @@ export default {
   },
   created() {
     const webContents = remote.getCurrentWebContents()
-    webContents.session.on('will-download', (e, item, webContents) => {
+    webContents.session.on('will-download', (e, item, contents) => {
       this.start(item)
     })
     const platform = process.platform
@@ -108,8 +109,8 @@ export default {
       .catch(error => {})
       .then(data => {
         if (!data || data.name <= remote.app.getVersion()) return
-        const assets = data.assets.find(assets => {
-          return assets.name.search(platform) !== -1
+        const assets = data.assets.find(file => {
+          return file.name.search(platform) !== -1
         })
         if (!assets) return
         this.version = data.name
