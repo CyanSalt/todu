@@ -26,6 +26,7 @@ module.exports = {
     'max-statements': 0,
     'multiline-comment-style': 0,
     'multiline-ternary': 0,
+    'no-console': 0,
     'no-empty': [2, { allowEmptyCatch: true }],
     'no-empty-function': [2, { allow: ['arrowFunctions'] }],
     'no-extra-parens': [2, 'all', { nestedBinaryExpressions: false }],
