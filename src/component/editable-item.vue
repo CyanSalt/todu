@@ -17,16 +17,22 @@
         <span class="icon-trash"></span>
       </span>
     </div>
+    <template v-if="note">
+      <inputarea :text.sync="note" @click.native.stop ref="note" v-if="editable"></inputarea>
+      <div class="history-note" v-else>{{ note }}</div>
+    </template>
   </li>
 </template>
 
 <script>
 import CheckBox from './checkbox'
+import InputArea from './inputarea'
 import Formatter from './date-formatter'
 
 export default {
   components: {
     'checkbox': CheckBox,
+    'inputarea': InputArea,
   },
   mixins: [Formatter],
   props: {
@@ -67,12 +73,27 @@ export default {
         if (!value) return
         this.$emit('describe', value)
       }
+    },
+    note: {
+      get() {
+        return this.item.note
+      },
+      set(value) {
+        if (!value) {
+          this.tear().then(() => {
+            this.$emit('comment', value)
+          })
+        } else {
+          this.$emit('comment', value)
+        }
+      }
     }
   },
   data() {
     return {
       timer: false,
-      removed: false
+      removed: false,
+      torn: false,
     }
   },
   methods: {
@@ -90,21 +111,38 @@ export default {
         return new Promise(() => {})
       }
       this.removed = true
-      // @keyframes collapse
       const collapse = [
-        // from { height: 3em; }
-        {height: '3em'},
-        // to { height: 0; }
+        {height: `${this.$el.clientHeight}px`},
         {height: 0},
       ]
       return new Promise(resolve => {
-        // animation: collapse 0.3s ease;
         const animation = this.$el.animate(collapse, {
           easing: 'ease',
           duration: 300,
         })
-        // this.$el.addEventListener('animationend')
         animation.onfinish = resolve
+      })
+    },
+    tear() {
+      if (!this.note || this.torn) {
+        return new Promise(() => {})
+      }
+      this.torn = true
+      const {note} = this.$refs
+      const collapse = [
+        // 8px = 0.5em
+        // Use this expression because border-box cannot collapse completely
+        {height: `${note.$el.clientHeight - 8}px`},
+        {height: 0},
+      ]
+      return new Promise(resolve => {
+        const animation = note.$el.animate(collapse, {
+          easing: 'ease',
+          duration: 300,
+        })
+        animation.onfinish = resolve
+      }).then(() => {
+        this.torn = false
       })
     },
     remove() {
@@ -122,6 +160,9 @@ export default {
     },
     blur(e) {
       e.target.blur()
+      if (e.shiftKey && !this.note) {
+        this.note = this.description
+      }
     },
     timing() {
       if (this.timer) {
@@ -201,5 +242,37 @@ export default {
 }
 .list .operation.timer:not(.autohide) {
   color: #2196f3;
+}
+@keyframes expand-note {
+  from { height: 0; }
+  to { height: 28px; }
+}
+.list li .input-area,
+.list li .history-note {
+  width: 100%;
+  padding-left: 28px;
+  padding-bottom: 0.5em;
+  line-height: 1.75em;
+  animation: expand-note 0.3s ease;
+}
+.list li .input-area::before,
+.list li .history-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 9px;
+  bottom: 0.5em;
+  width: 2px;
+  background: hsl(166, 60%, 60%);
+}
+.list li .history-note {
+  position: relative;
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: text;
+}
+.list li .input-area .content {
+  width: calc(100% - 28px);
+  height: calc(100% - 0.5em);
 }
 </style>

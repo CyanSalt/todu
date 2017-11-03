@@ -31,6 +31,7 @@ module.exports = {
     'no-empty-function': [2, { allow: ['arrowFunctions'] }],
     'no-extra-parens': [2, 'all', { nestedBinaryExpressions: false }],
     'no-magic-numbers': 0,
+    'no-negated-condition': 0,
     'no-new': 0,
     'no-param-reassign': 0,
     'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
