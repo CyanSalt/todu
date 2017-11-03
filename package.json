@@ -1,6 +1,6 @@
 {
   "name": "todu",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "productName": "TODU",
   "author": "CyanSalt",
   "description": "An awesome todo list",
@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "cross-env": "^5.1.0",
+    "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "electron": "^1.8.1",
     "electron-packager": "^9.1.0",

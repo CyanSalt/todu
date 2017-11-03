@@ -9,6 +9,7 @@
         <editable-item :item="item" :editable="editable" :key="item.key"
           @toggle="toggle(item, index)" @remove="remove(item)"
           @describe="content => describe(item, index, content)"
+          @comment="content => comment(item, index, content)"
           @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule"
           :instant="instant" :recoverable="recoverable">
         </editable-item>
@@ -73,6 +74,12 @@ export default {
     describe(item, index, content) {
       if (!this.editable) return
       item.description = content
+      this.$set(this.list, index, item)
+      this.$emit('update:list', this.list)
+    },
+    comment(item, index, content) {
+      if (!this.editable) return
+      this.$set(item, 'note', content)
       this.$set(this.list, index, item)
       this.$emit('update:list', this.list)
     },
@@ -151,7 +158,7 @@ export default {
   background: #fff;
   box-shadow: 0 0 6px 2px #f1f1f1;
 }
-@keyframes expand {
+@keyframes expand-item {
   from { height: 0; }
   to { height: 3em; }
 }
@@ -161,9 +168,10 @@ export default {
   transition: background ease 0.2s;
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   overflow: hidden;
-  animation: expand 0.3s ease;
+  animation: expand-item 0.3s ease;
 }
 .list li .facility {
   width: 110px;

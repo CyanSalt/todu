@@ -18,6 +18,5 @@ const options = {
 }
 
 packager(options, appPaths => {
-  // eslint-disable-next-line no-console
   console.log('Build finished.')
 })
