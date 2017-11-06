@@ -4,6 +4,8 @@ An awesome, hackable to-do list.
 
 ![Screenshot](https://user-images.githubusercontent.com/5101076/31648366-ddd86026-b33f-11e7-8a20-35d857514e71.png)
 
+[Download the latest version here](https://github.com/CyanSalt/todu/releases/latest)
+
 ### Manage your to-do
 
 * Type your to-do in editor line, then press `Enter`.
