@@ -2,7 +2,6 @@
 /node_modules
 /src/build
 /src/resource/font/*.otf
-/src/resource/font/*.json
 /src/resource/img/*.ico
 /src/resource/img/*.png
 /src/storage

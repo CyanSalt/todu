@@ -250,8 +250,7 @@ export default {
 .list li .input-area,
 .list li .history-note {
   width: 100%;
-  padding-left: 28px;
-  padding-bottom: 0.5em;
+  margin: 0 0 0.5em 28px;
   line-height: 1.75em;
   animation: expand-note 0.3s ease;
 }
@@ -260,8 +259,8 @@ export default {
   content: '';
   position: absolute;
   top: 0;
-  left: 9px;
-  bottom: 0.5em;
+  bottom: 0;
+  left: -19px;
   width: 2px;
   background: hsl(166, 60%, 60%);
 }
@@ -270,9 +269,5 @@ export default {
   white-space: pre-wrap;
   word-break: break-all;
   user-select: text;
-}
-.list li .input-area .content {
-  width: calc(100% - 28px);
-  height: calc(100% - 0.5em);
 }
 </style>
