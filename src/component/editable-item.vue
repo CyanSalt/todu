@@ -5,7 +5,7 @@
     <input type="text" class="editor" v-model.trim.lazy="description"
       @click.stop @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
-    <span class="from" v-if="!instant && item.from">
+    <span class="from" v-if="!instant && item.from" :title="editable && format(item.from, true)">
       {{ editable ? distance(item.from, true) : format(item.from, true) }}
     </span>
     <div class="facility">
