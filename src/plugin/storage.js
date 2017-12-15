@@ -56,7 +56,7 @@ export const FileStorage = {
   },
   save(key, data, callback = NOOP) {
     const filename = this.filename(key)
-    return mkdir(dirname(filename), (...args) => {
+    return mkdir(dirname(filename), () => {
       writeFile(filename, this.stringify(data), callback)
     })
   },
