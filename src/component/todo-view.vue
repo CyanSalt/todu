@@ -262,7 +262,7 @@ export default {
   flex-direction: column;
   max-width: 800px;
   margin: 0 auto;
-  padding: 1em 1em 2em 1em;
+  padding: 1em 0 2em 0;
 }
 .sheet-title {
   margin: 0 1em;
