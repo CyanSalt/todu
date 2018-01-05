@@ -13,6 +13,17 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+/* body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url('file:///C:/Users/Cyan/Pictures/wallpaper/eOS/Cold Evening.jpg') no-repeat center/cover;
+  filter: opacity(0.5) blur(5px);
+  z-index: -1;
+} */
 ::-webkit-scrollbar {
   background: inherit;
   width: 6px;
@@ -31,7 +42,11 @@ body {
 .icon-trash,
 .icon-infinite,
 .icon-arrow-left,
-.icon-cycle {
+.icon-cycle,
+.icon-minimize,
+.icon-maximize,
+.icon-unmaximize,
+.icon-close {
   font-family: 'icomoon';
 }
 .icon-plus:before {
@@ -48,4 +63,16 @@ body {
 }
 .icon-cycle:before {
   content: "\e904";
+}
+.icon-minimize:before {
+  content: "\e906";
+}
+.icon-maximize:before {
+  content: "\e907";
+}
+.icon-unmaximize:before {
+  content: "\e905";
+}
+.icon-close:before {
+  content: "\e908";
 }

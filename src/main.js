@@ -6,6 +6,7 @@ import Binding from './plugin/binding'
 import Schedule from './plugin/schedule'
 import Notifier from './plugin/notifier'
 import FileStorage from './plugin/storage'
+import TitleBar from './component/titlebar'
 import Switcher from './component/switcher'
 import TodoView from './component/todo-view'
 import SuperButton from './component/super-button'
@@ -26,11 +27,13 @@ Vue.use(FileStorage)
 new Vue({
   el: '#main',
   components: {
-    'super-button': SuperButton,
+    'titlebar': TitleBar,
     'todo-view': TodoView,
+    'super-button': SuperButton,
     'switcher': Switcher,
   },
   data: {
+    title: document.title,
     view: {
       source: 'todo',
     },

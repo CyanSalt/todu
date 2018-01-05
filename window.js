@@ -9,6 +9,7 @@ function init() {
     width: 900,
     height: 700,
     minWidth: 450,
+    frame: false,
   })
   frame.loadURL(`file://${__dirname}/src/index.html`)
   frame.on('closed', () => {
