@@ -59,7 +59,7 @@ export default {
 }
 .super-button:hover {
   background: #fff;
-  box-shadow: 0 0 6px 2px #f1f1f1;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.5);
 }
 .super-button span {
   display: inline-block;

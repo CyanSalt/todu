@@ -142,7 +142,7 @@ export default {
   margin-bottom: 1em;
   line-height: 49px;
   color: #666;
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 .category {
   font-size: 28px;
@@ -156,7 +156,7 @@ export default {
   padding: 0;
   list-style: none;
   background: #fff;
-  box-shadow: 0 0 6px 2px #f1f1f1;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.05);
 }
 @keyframes expand-item {
   from { height: 0; }
