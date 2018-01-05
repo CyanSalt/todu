@@ -71,7 +71,7 @@ html, body, #main {
   line-height: 28px;
   -webkit-app-region: drag;
   user-select: none;
-  background: rgba(255, 255, 255, 0.5);
+  background: #fff;
 }
 .titlebar .title-name {
   font-size: 12px;
