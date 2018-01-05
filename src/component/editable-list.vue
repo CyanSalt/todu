@@ -106,11 +106,11 @@ export default {
       this.input = ''
     },
     drag(item) {
-      this.$buffer.set('dragging', {item, list: this.list})
+      this.$vars.set('dragging', {item, list: this.list})
     },
     drop(item) {
-      const dragging = this.$buffer.get('dragging')
-      this.$buffer.set('dragging', null)
+      const dragging = this.$vars.get('dragging')
+      this.$vars.set('dragging', null)
       if (!dragging || item === dragging.item) return
       // recalculate index
       const srcIndex = dragging.list.indexOf(dragging.item)

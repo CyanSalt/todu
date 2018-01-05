@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import I18N from './plugin/i18n'
 import Action from './plugin/action'
-import Buffer from './plugin/buffer'
 import Binding from './plugin/binding'
 import Schedule from './plugin/schedule'
 import Notifier from './plugin/notifier'
+import Variables from './plugin/variables'
 import FileStorage from './plugin/storage'
 import TitleBar from './component/titlebar'
 import Switcher from './component/switcher'
@@ -18,10 +18,10 @@ if (process.env.NODE_ENV === 'production') {
 
 Vue.use(I18N)
 Vue.use(Action)
-Vue.use(Buffer)
 Vue.use(Binding)
 Vue.use(Schedule)
 Vue.use(Notifier)
+Vue.use(Variables)
 Vue.use(FileStorage)
 
 new Vue({

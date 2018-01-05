@@ -1,5 +1,5 @@
 const store = {}
-const Buffer = {
+const Variables = {
   get(key) {
     return store[key]
   },
@@ -10,6 +10,6 @@ const Buffer = {
 
 export default {
   install(Vue, options) {
-    Vue.prototype.$buffer = Buffer
+    Vue.prototype.$vars = Variables
   }
 }
