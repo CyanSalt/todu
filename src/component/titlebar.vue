@@ -2,7 +2,7 @@
   <div class="titlebar">
     <div class="title-name">
       <span class="icon-infinite"></span>
-      <span class="title-text">{{title}}</span>
+      <span class="title-text">{{ title }}</span>
     </div>
     <div class="buttons">
       <div class="button minimize" @click="minimize">
