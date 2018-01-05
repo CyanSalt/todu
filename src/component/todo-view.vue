@@ -1,61 +1,63 @@
 <template>
   <div class="todo-view">
-    <div class="sheet-title">
-      <span class="title-text" v-if="reviewing">{{ title }}</span>
-      <span class="reloader" v-else-if="data.source === 'todo'"
-        v-combo:5="reload" :key="data.source">{{ title }}</span>
-      <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
-      <div class="links">
-        <updater v-show="!reviewing"></updater>
-        <span class="prev" @click="reviewing--" v-if="reviewing > 1">
-          {{ i18n('上一页#!27') }}
-        </span>
-        <span class="next" @click="reviewing++" v-if="reviewing && !last">
-          {{ i18n('下一页#!28') }}
-        </span>
+    <div class="view-content">
+      <div class="sheet-title">
+        <span class="title-text" v-if="reviewing">{{ title }}</span>
+        <span class="reloader" v-else-if="data.source === 'todo'"
+          v-combo:5="reload" :key="data.source">{{ title }}</span>
+        <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
+        <div class="links">
+          <updater v-show="!reviewing"></updater>
+          <span class="prev" @click="reviewing--" v-if="reviewing > 1">
+            {{ i18n('上一页#!27') }}
+          </span>
+          <span class="next" @click="reviewing++" v-if="reviewing && !last">
+            {{ i18n('下一页#!28') }}
+          </span>
+        </div>
       </div>
-    </div>
-    <template v-if="reviewing">
-      <template v-if="permanent">
-        <editable-list :title="i18n('Today#!1')" :list.sync="milestone"
-          :editable="false" :instant="true" :recoverable="true" v-if="milestone.length">
-        </editable-list>
-        <editable-list :title="i18n('Before#!34')" :list="done"
-          :editable="false" :instant="true" v-if="done.length">
-        </editable-list>
+      <template v-if="reviewing">
+        <template v-if="permanent">
+          <editable-list :title="i18n('Today#!1')" :list.sync="milestone"
+            :editable="false" :instant="true" :recoverable="true" v-if="milestone.length">
+          </editable-list>
+          <editable-list :title="i18n('Before#!34')" :list="done"
+            :editable="false" :instant="true" v-if="done.length">
+          </editable-list>
+        </template>
+        <template v-else>
+          <editable-list :title="distance(each.date, true)" :list="each.values"
+            :editable="false" v-for="each in page" :key="each.date">
+            <span class="date" slot="extra-title" v-once>
+              {{ format(each.date, true) }}
+            </span>
+          </editable-list>
+        </template>
       </template>
-      <template v-else>
-        <editable-list :title="distance(each.date, true)" :list="each.values"
-          :editable="false" v-for="each in page" :key="each.date">
-          <span class="date" slot="extra-title" v-once>
-            {{ format(each.date, true) }}
+      <template v-else-if="permanent">
+        <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
+          :schedule="true" :instant="true" :recoverable="true">
+          <sheet-stick :data="data" @review="review" slot="extra-title"
+            v-if="data.source !== 'todo'"></sheet-stick>
+          <span class="date" slot="extra-title" @click="review" v-once>
+            {{ format(today, true) }}
           </span>
         </editable-list>
       </template>
-    </template>
-    <template v-else-if="permanent">
-      <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
-        :schedule="true" :instant="true" :recoverable="true">
-        <sheet-stick :data="data" @review="review" slot="extra-title"
-          v-if="data.source !== 'todo'"></sheet-stick>
-        <span class="date" slot="extra-title" @click="review" v-once>
-          {{ format(today, true) }}
-        </span>
-      </editable-list>
-    </template>
-    <template v-else>
-      <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
-        @update:list="sync" :schedule="true">
-        <sheet-stick :data="data" @review="review" slot="extra-title"
-          v-if="data.source !== 'todo'"></sheet-stick>
-        <span class="date" slot="extra-title" @click="review" v-once>
-          {{ format(today, true) }}
-        </span>
-      </editable-list>
-      <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')" :list="terms[tomorrow]"
-        @update:list="sync" v-if="!data.repeat">
-      </editable-list>
-    </template>
+      <template v-else>
+        <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
+          @update:list="sync" :schedule="true">
+          <sheet-stick :data="data" @review="review" slot="extra-title"
+            v-if="data.source !== 'todo'"></sheet-stick>
+          <span class="date" slot="extra-title" @click="review" v-once>
+            {{ format(today, true) }}
+          </span>
+        </editable-list>
+        <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')" :list="terms[tomorrow]"
+          @update:list="sync" v-if="!data.repeat">
+        </editable-list>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -257,7 +259,7 @@ export default {
 </script>
 
 <style>
-.todo-view {
+.view-content {
   display: flex;
   flex-direction: column;
   max-width: 800px;
