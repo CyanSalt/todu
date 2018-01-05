@@ -139,13 +139,8 @@ export default {
       },
       set(undone) {
         const target = this.terms[this.today]
-        const diff = undone.filter(item => !target.includes(item))
-        const changed = target.concat(diff).reduce((result, item) => {
-          if (item.done || undone.includes(item)) {
-            result.push(item)
-          }
-          return result
-        }, [])
+        const diff = target.filter(item => !undone.includes(item) && item.done)
+        const changed = undone.concat(diff)
         this.$set(this.terms, this.today, changed)
         this.sync()
       },
