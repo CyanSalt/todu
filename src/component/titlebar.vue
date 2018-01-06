@@ -26,32 +26,34 @@ export default {
     title: String,
   },
   data() {
+    const frame = remote.getCurrentWindow()
     return {
-      maximized: this.frame().isMaximized()
+      frame,
+      maximized: frame.isMaximized()
     }
   },
   methods: {
-    frame() {
-      return remote.getCurrentWindow()
-    },
     minimize() {
-      const frame = this.frame()
-      frame.minimize()
+      this.frame.minimize()
     },
     maximize() {
-      const frame = this.frame()
-      if (frame.isMaximized()) {
-        frame.unmaximize()
-        this.maximized = false
+      if (this.frame.isMaximized()) {
+        this.frame.unmaximize()
       } else {
-        frame.maximize()
-        this.maximized = true
+        this.frame.maximize()
       }
     },
     close() {
-      const frame = this.frame()
-      frame.close()
+      this.frame.close()
     }
+  },
+  created() {
+    this.frame.on('maximize', () => {
+      this.maximized = true
+    })
+    this.frame.on('unmaximize', () => {
+      this.maximized = false
+    })
   }
 }
 </script>
