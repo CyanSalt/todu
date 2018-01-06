@@ -124,7 +124,7 @@ export default {
 
 <style>
 .updater .link {
-  color: #03a9f4;
+  color: #2196f3;
   cursor: pointer;
 }
 </style>
