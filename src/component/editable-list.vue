@@ -93,11 +93,13 @@ export default {
     },
     add() {
       if (!this.input) return
+      const key = this.uniqid()
       const item = {
-        key: this.uniqid(),
+        key,
         description: this.input,
         done: false
       }
+      this.$vars.set('adding', key)
       this.list.push(item)
       this.$emit('update:list', this.list)
       this.clear()
@@ -109,8 +111,7 @@ export default {
       this.$vars.set('dragging', {item, list: this.list})
     },
     drop(item) {
-      const dragging = this.$vars.get('dragging')
-      this.$vars.set('dragging', null)
+      const dragging = this.$vars.pop('dragging')
       if (!dragging || item === dragging.item) return
       // recalculate index
       const srcIndex = dragging.list.indexOf(dragging.item)

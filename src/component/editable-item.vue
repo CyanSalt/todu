@@ -225,6 +225,11 @@ export default {
   mounted() {
     // The same as private property 'this._isMounted'
     this.ready = true
+    const adding = this.$vars.pop('adding')
+    const style = getComputedStyle(this.$el)
+    if (style.getPropertyValue('--animation').trim() === 'add-remove') {
+      if (adding !== this.item.key) return
+    }
     this.expand(this.$el)
   },
   destroyed() {

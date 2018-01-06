@@ -5,6 +5,11 @@ const Variables = {
   },
   set(key, value) {
     store[key] = value
+  },
+  pop(key) {
+    const value = store[key]
+    store[key] = null
+    return value
   }
 }
 
