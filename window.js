@@ -26,6 +26,13 @@ function init() {
 function createMenu() {
   return Menu.buildFromTemplate([
     {
+      label: 'Print',
+      accelerator: 'CommandOrControl+P',
+      click() {
+        frame && frame.webContents.print({printBackground: true})
+      }
+    },
+    {
       label: 'Toggle Developer Tools',
       accelerator: 'CommandOrControl+Shift+I',
       click() {
