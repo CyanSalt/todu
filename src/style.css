@@ -13,17 +13,6 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
-/* body::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: url('file:///C:/Users/Cyan/Pictures/wallpaper/eOS/Cold Evening.jpg') no-repeat center/cover;
-  filter: opacity(0.5) blur(5px);
-  z-index: -1;
-} */
 ::-webkit-scrollbar {
   background: inherit;
   width: 6px;
