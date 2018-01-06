@@ -113,9 +113,7 @@ export default {
         return new Promise(() => {})
       }
       this.removed = true
-      return new Promise(resolve => {
-        this.shrink(this.$el).onfinish = resolve
-      })
+      return this.shrink(this.$el)
     },
     tear() {
       if (!this.note || this.torn) {
@@ -123,9 +121,7 @@ export default {
       }
       this.torn = true
       const {note} = this.$refs
-      return new Promise(resolve => {
-        this.shrink(note.$el).onfinish = resolve
-      }).then(() => {
+      return this.shrink(note.$el).then(() => {
         this.torn = false
       })
     },
@@ -183,23 +179,29 @@ export default {
       this.expand(note.$el)
     },
     shrink(element) {
-      const collapse = [
-        {height: `${element.clientHeight}px`},
-        {height: 0},
-      ]
-      return element.animate(collapse, {
-        easing: 'ease',
-        duration: 300,
+      return new Promise(resolve => {
+        const collapse = [
+          {height: `${element.clientHeight}px`},
+          {height: 0},
+        ]
+        const animation = element.animate(collapse, {
+          easing: 'ease',
+          duration: 300,
+        })
+        animation.onfinish = resolve
       })
     },
     expand(element) {
-      const expand = [
-        {height: 0},
-        {height: `${element.clientHeight}px`},
-      ]
-      return element.animate(expand, {
-        easing: 'ease',
-        duration: 300,
+      return new Promise(resolve => {
+        const expand = [
+          {height: 0},
+          {height: `${element.clientHeight}px`},
+        ]
+        const animation = element.animate(expand, {
+          easing: 'ease',
+          duration: 300,
+        })
+        animation.onfinish = resolve
       })
     }
   },
