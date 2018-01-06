@@ -29,7 +29,7 @@ function createMenu() {
       label: 'Print',
       accelerator: 'CommandOrControl+P',
       click() {
-        frame && frame.webContents.print({printBackground: true})
+        frame && frame.webContents.print()
       }
     },
     {
