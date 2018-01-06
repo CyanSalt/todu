@@ -113,16 +113,8 @@ export default {
         return new Promise(() => {})
       }
       this.removed = true
-      const collapse = [
-        {height: `${this.$el.clientHeight}px`},
-        {height: 0},
-      ]
       return new Promise(resolve => {
-        const animation = this.$el.animate(collapse, {
-          easing: 'ease',
-          duration: 300,
-        })
-        animation.onfinish = resolve
+        this.shrink(this.$el).onfinish = resolve
       })
     },
     tear() {
@@ -131,18 +123,8 @@ export default {
       }
       this.torn = true
       const {note} = this.$refs
-      const collapse = [
-        // 8px = 0.5em
-        // Use this expression because border-box cannot collapse completely
-        {height: `${note.$el.clientHeight - 8}px`},
-        {height: 0},
-      ]
       return new Promise(resolve => {
-        const animation = note.$el.animate(collapse, {
-          easing: 'ease',
-          duration: 300,
-        })
-        animation.onfinish = resolve
+        this.shrink(note.$el).onfinish = resolve
       }).then(() => {
         this.torn = false
       })
@@ -197,16 +179,28 @@ export default {
       this.timing()
     },
     noted(note) {
-      if (this.ready) {
-        const expand = [
-          {height: 0},
-          {height: `${note.$el.clientHeight}px`},
-        ]
-        note.$el.animate(expand, {
-          easing: 'ease',
-          duration: 300,
-        })
-      }
+      if (!this.ready) return
+      this.expand(note.$el)
+    },
+    shrink(element) {
+      const collapse = [
+        {height: `${element.clientHeight}px`},
+        {height: 0},
+      ]
+      return element.animate(collapse, {
+        easing: 'ease',
+        duration: 300,
+      })
+    },
+    expand(element) {
+      const expand = [
+        {height: 0},
+        {height: `${element.clientHeight}px`},
+      ]
+      return element.animate(expand, {
+        easing: 'ease',
+        duration: 300,
+      })
     }
   },
   created() {
@@ -221,14 +215,7 @@ export default {
   mounted() {
     // The same as private property 'this._isMounted'
     this.ready = true
-    const expand = [
-      {height: 0},
-      {height: `${this.$el.clientHeight}px`},
-    ]
-    this.$el.animate(expand, {
-      easing: 'ease',
-      duration: 300,
-    })
+    this.expand(this.$el)
   },
   destroyed() {
     if (this.schedule) {
@@ -272,7 +259,8 @@ export default {
 .list li .input-area,
 .list li .history-note {
   width: 100%;
-  margin: 0 0 0.5em 28px;
+  margin-left: 28px;
+  border-bottom: 0.5em solid transparent;
   line-height: 1.75em;
 }
 .list li .input-area::before,
