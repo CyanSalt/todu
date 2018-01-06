@@ -18,7 +18,8 @@
       </span>
     </div>
     <template v-if="note">
-      <inputarea :text.sync="note" @click.native.stop ref="note" v-if="editable"></inputarea>
+      <inputarea :text.sync="note" @click.native.stop ref="note"
+        @mounted="noted" v-if="editable"></inputarea>
       <div class="history-note" v-else>{{ note }}</div>
     </template>
   </li>
@@ -91,6 +92,7 @@ export default {
   },
   data() {
     return {
+      ready: false,
       timer: false,
       removed: false,
       torn: false,
@@ -194,6 +196,18 @@ export default {
       this.interrupt()
       this.timing()
     },
+    noted(note) {
+      if (this.ready) {
+        const expand = [
+          {height: 0},
+          {height: `${note.$el.clientHeight}px`},
+        ]
+        note.$el.animate(expand, {
+          easing: 'ease',
+          duration: 300,
+        })
+      }
+    }
   },
   created() {
     if (this.schedule) {
@@ -203,6 +217,18 @@ export default {
         this.refresh()
       })
     }
+  },
+  mounted() {
+    // The same as private property 'this._isMounted'
+    this.ready = true
+    const expand = [
+      {height: 0},
+      {height: `${this.$el.clientHeight}px`},
+    ]
+    this.$el.animate(expand, {
+      easing: 'ease',
+      duration: 300,
+    })
   },
   destroyed() {
     if (this.schedule) {
@@ -243,16 +269,11 @@ export default {
 .list .operation.timer:not(.autohide) {
   color: #2196f3;
 }
-@keyframes expand-note {
-  from { height: 0; }
-  to { height: 28px; }
-}
 .list li .input-area,
 .list li .history-note {
   width: 100%;
   margin: 0 0 0.5em 28px;
   line-height: 1.75em;
-  animation: expand-note 0.3s ease;
 }
 .list li .input-area::before,
 .list li .history-note::before {

@@ -19,7 +19,10 @@ export default {
     update(e) {
       this.$emit('update:text', this.content)
     },
-  }
+  },
+  mounted() {
+    this.$emit('mounted', this)
+  },
 }
 </script>
 

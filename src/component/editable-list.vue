@@ -158,10 +158,6 @@ export default {
   background: #fff;
   box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.05);
 }
-@keyframes expand-item {
-  from { height: 0; }
-  to { height: 3em; }
-}
 .list li {
   padding: 0 2em;
   line-height: 3em;
@@ -171,7 +167,6 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   overflow: hidden;
-  animation: expand-item 0.3s ease;
 }
 .list li .facility {
   width: 110px;
