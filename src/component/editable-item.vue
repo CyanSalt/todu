@@ -179,6 +179,10 @@ export default {
       this.expand(note.$el)
     },
     shrink(element) {
+      const style = getComputedStyle(element)
+      if (style.getPropertyValue('--animation').trim() === 'none') {
+        return Promise.resolve()
+      }
       return new Promise(resolve => {
         const collapse = [
           {height: `${element.clientHeight}px`},
@@ -192,6 +196,10 @@ export default {
       })
     },
     expand(element) {
+      const style = getComputedStyle(element)
+      if (style.getPropertyValue('--animation').trim() === 'none') {
+        return Promise.resolve()
+      }
       return new Promise(resolve => {
         const expand = [
           {height: 0},
