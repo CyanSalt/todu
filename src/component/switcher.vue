@@ -118,6 +118,8 @@ export default {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
+  border-radius: 27px;
+  background: rgba(252, 252, 252, 0.5);
   transform: translateX(100%) scale(0, 0);
   transition: transform ease 0.3s;
 }
