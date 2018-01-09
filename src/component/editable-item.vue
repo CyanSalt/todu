@@ -142,6 +142,9 @@ export default {
       e.target.blur()
       if (e.shiftKey && !this.note) {
         this.note = this.description
+        this.$nextTick(() => {
+          this.$refs.note.focus()
+        })
       }
     },
     timing() {

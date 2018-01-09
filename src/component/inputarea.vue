@@ -1,6 +1,6 @@
 <template>
   <div class="input-area">
-    <textarea class="content" @change="update" v-model="content"></textarea>
+    <textarea class="content" @change="update" v-model="content" ref="editor"></textarea>
     <div class="carriage">{{ content }}</div>
   </div>
 </template>
@@ -16,6 +16,9 @@ export default {
     }
   },
   methods: {
+    focus() {
+      this.$refs.editor.focus()
+    },
     update(e) {
       this.$emit('update:text', this.content)
     },
