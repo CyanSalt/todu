@@ -5,6 +5,9 @@
     <input type="text" class="editor" v-model.trim.lazy="description"
       @click.stop @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
+    <span class="extend autohide" @click.stop="extend" v-if="editable && !note">
+        <span class="icon-more"></span>
+    </span>
     <span class="from" v-if="!instant && item.from">
       {{ editable ? distance(item.from, true) : format(item.from, true) }}
     </span>
@@ -140,11 +143,8 @@ export default {
     },
     blur(e) {
       e.target.blur()
-      if (e.shiftKey && !this.note) {
-        this.note = this.description
-        this.$nextTick(() => {
-          this.$refs.note.focus()
-        })
+      if (e.shiftKey) {
+        this.extend()
       }
     },
     timing() {
@@ -213,6 +213,13 @@ export default {
           duration: 300,
         })
         animation.onfinish = resolve
+      })
+    },
+    extend() {
+      if (this.note) return
+      this.note = this.description
+      this.$nextTick(() => {
+        this.$refs.note.focus()
       })
     }
   },
@@ -296,5 +303,20 @@ export default {
   white-space: pre-wrap;
   word-break: break-all;
   user-select: text;
+}
+.list li .extend {
+  display: inline-block;
+  font-size: 18px;
+  vertical-align: middle;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  color: #aaa;
+  /* transition except visibility */
+  transition: all ease 0.3s, visibility;
+}
+.list li .extend:hover {
+  color: #666;
 }
 </style>

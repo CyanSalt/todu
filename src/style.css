@@ -35,7 +35,8 @@ body {
 .icon-minimize,
 .icon-maximize,
 .icon-unmaximize,
-.icon-close {
+.icon-close,
+.icon-more {
   font-family: 'icomoon';
 }
 .icon-plus:before {
@@ -64,4 +65,7 @@ body {
 }
 .icon-close:before {
   content: "\e908";
+}
+.icon-more:before {
+  content: "\e909";
 }
