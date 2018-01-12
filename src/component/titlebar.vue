@@ -96,4 +96,13 @@ html, body, #main {
 .titlebar .button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
+.titlebar .minimize:hover {
+  color: #259b24;
+}
+.titlebar .maximize:hover {
+  color: #2196f3;
+}
+.titlebar .close:hover {
+  color: #ed5e63;
+}
 </style>
