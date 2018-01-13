@@ -20,23 +20,29 @@
         <span class="icon-trash"></span>
       </span>
     </div>
-    <template v-if="note">
+    <div class="note-line" v-if="note">
       <inputarea :text.sync="note" @click.native.stop ref="note"
         @mounted="noted" v-if="editable"></inputarea>
       <div class="history-note" v-else>{{ note }}</div>
-    </template>
+      <div class="links">
+        <hyperlink :href="link" :text="'H'" :key="index"
+          v-for="(link, index) in links"></hyperlink>
+      </div>
+    </div>
   </li>
 </template>
 
 <script>
 import CheckBox from './checkbox'
 import InputArea from './inputarea'
+import HyperLink from './hyperlink'
 import Formatter from './date-formatter'
 
 export default {
   components: {
     'checkbox': CheckBox,
     'inputarea': InputArea,
+    'hyperlink': HyperLink,
   },
   mixins: [Formatter],
   props: {
@@ -91,6 +97,11 @@ export default {
           this.$emit('comment', value)
         }
       }
+    },
+    links() {
+      const regex = new RegExp('https?://[\\w-]+(?:\\.[\\w-]+)*' +
+        '(?:[\\w.,@?^=%&;:/~+#-]*[\\w@?^=%&;/~+#-])?', 'g')
+      return this.note.match(regex) || []
     }
   },
   data() {
@@ -281,12 +292,17 @@ export default {
 .list .operation.timer:not(.autohide) {
   color: #2196f3;
 }
+.list li .note-line {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .list li .input-area,
 .list li .history-note {
-  width: 100%;
   margin-left: 28px;
   border-bottom: 0.5em solid transparent;
   line-height: 1.75em;
+  flex: 1;
 }
 .list li .input-area::before,
 .list li .history-note::before {
@@ -303,6 +319,10 @@ export default {
   white-space: pre-wrap;
   word-break: break-all;
   user-select: text;
+}
+.list li .links {
+  max-width: 64px;
+  line-height: 1.75em;
 }
 .list li .extend {
   display: inline-block;

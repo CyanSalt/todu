@@ -271,7 +271,7 @@ export default {
   color: hsl(166, 60%, 40%);
 }
 span.title-text {
-  cursor: default;
+  cursor: auto;
 }
 input.title-editor {
   display: inline-block;
