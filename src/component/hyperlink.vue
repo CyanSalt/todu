@@ -23,7 +23,6 @@ export default {
 <style>
 .list li .hyperlink {
   display: inline-block;
-  vertical-align: middle;
   width: 32px;
   text-align: center;
   color: #aaa;
