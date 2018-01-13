@@ -59,6 +59,6 @@ export default {
 }
 .sheet-stick > span.active {
   color: hsl(166, 60%, 40%);
-  transform: rotate(180deg) translateY(1px);
+  transform: rotate(180deg);
 }
 </style>

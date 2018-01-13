@@ -29,12 +29,12 @@ body {
 }
 .icon-plus,
 .icon-trash,
-.icon-infinite,
 .icon-arrow-left,
+.icon-infinite,
 .icon-cycle,
+.icon-unmaximize,
 .icon-minimize,
 .icon-maximize,
-.icon-unmaximize,
 .icon-close,
 .icon-more,
 .icon-link {
@@ -46,23 +46,23 @@ body {
 .icon-trash:before {
   content: "\e901";
 }
-.icon-infinite:before {
-  content: "\e903";
-}
 .icon-arrow-left:before {
   content: "\e902";
 }
+.icon-infinite:before {
+  content: "\e903";
+}
 .icon-cycle:before {
   content: "\e904";
+}
+.icon-unmaximize:before {
+  content: "\e905";
 }
 .icon-minimize:before {
   content: "\e906";
 }
 .icon-maximize:before {
   content: "\e907";
-}
-.icon-unmaximize:before {
-  content: "\e905";
 }
 .icon-close:before {
   content: "\e908";
