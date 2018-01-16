@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {remote, shell} from 'electron'
+import {remote, shell, ipcRenderer} from 'electron'
 
 export default {
   props: {
@@ -100,8 +100,7 @@ export default {
     }
   },
   created() {
-    const webContents = remote.getCurrentWebContents()
-    webContents.session.on('will-download', (e, item, contents) => {
+    ipcRenderer.on('will-download', (e, item, contents) => {
       this.start(item)
     })
     const platform = process.platform

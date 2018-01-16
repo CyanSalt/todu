@@ -17,10 +17,8 @@ function init() {
   })
   frame.setMenu(createMenu())
   frame.setMenuBarVisibility(false)
-  // this handler must be binded in main process
-  frame.webContents.session.on('will-download', (e, item, webContents) => {
-    item.setSavePath(path.resolve(app.getPath('downloads'), item.getFilename()))
-  })
+  // these handler must be binded in main process
+  transferEvents()
 }
 
 function createMenu() {
@@ -40,6 +38,19 @@ function createMenu() {
       }
     }
   ])
+}
+
+function transferEvents() {
+  frame.on('maximize', () => {
+    frame.webContents.send('maximize')
+  })
+  frame.on('unmaximize', () => {
+    frame.webContents.send('unmaximize')
+  })
+  frame.webContents.session.on('will-download', (e, item, webContents) => {
+    item.setSavePath(path.resolve(app.getPath('downloads'), item.getFilename()))
+    frame.webContents.send('will-download')
+  })
 }
 
 const second = app.makeSingleInstance((argv, directory) => {

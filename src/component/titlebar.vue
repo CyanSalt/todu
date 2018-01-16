@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {remote} from 'electron'
+import {remote, ipcRenderer} from 'electron'
 
 export default {
   props: {
@@ -48,10 +48,10 @@ export default {
     }
   },
   created() {
-    this.frame.on('maximize', () => {
+    ipcRenderer.on('maximize', () => {
       this.maximized = true
     })
-    this.frame.on('unmaximize', () => {
+    ipcRenderer.on('unmaximize', () => {
       this.maximized = false
     })
   }
