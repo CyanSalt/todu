@@ -4,15 +4,17 @@
     <template v-if="sheets.length">
       <span class="sheet-divider"></span>
       <span :class="[sheetClass(sheet.source), colorClass(sheet)]"
-        @click="toggle(sheet)" v-for="sheet in sheets"></span>
+        @click="toggle(sheet)" @mouseenter="focus(sheet)"
+        v-for="sheet in sheets"></span>
     </template>
     <span class="sheet-divider"></span>
     <span class="sheet add" @click="add">
       <span class="icon-plus"></span>
     </span>
-    <span :class="['sheet', 'remove', {'hidden': this.selected === 'todo'}]" @click="remove">
+    <span :class="['sheet', 'remove', {'hidden': selected === 'todo'}]" @click="remove">
       <span class="icon-trash"></span>
     </span>
+    <span class="sheet-name">{{ bullseye && bullseye.title }}</span>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
   data() {
     return {
       sheets: this.$storage.loadSync('sheets') || [],
+      bullseye: null,
     }
   },
   computed: {
@@ -42,6 +45,7 @@ export default {
     sheetClass(source) {
       return {
         sheet: true,
+        'sheet-tab': source !== 'todo',
         selected: this.selected === source,
       }
     },
@@ -96,6 +100,9 @@ export default {
       this.sync()
       // todo-view cache
       this.$action.emit('clean-source-cache', selected)
+    },
+    focus(sheet) {
+      this.bullseye = sheet
     }
   },
   created() {
@@ -190,5 +197,19 @@ export default {
   height: 0;
   font-size: 0;
   margin: 0;
+}
+.sheet-name {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+  margin-right: 12px;
+  color: #bababa;
+  font-size: 0;
+  opacity: 0;
+  transition: all ease 0.3s;
+}
+.sheet-tab:hover:not(.selected) ~ .sheet-name {
+  font-size: 14px;
+  opacity: 1;
 }
 </style>
