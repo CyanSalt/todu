@@ -1,9 +1,9 @@
 <template>
   <div :class="['switcher', {'shown': show}]">
-    <span :class="[sheetClass('todo'), 'default']" @click="toggle(todo)"></span>
+    <span :class="[sheetClass(todo), 'default']" @click="toggle(todo)"></span>
     <template v-if="sheets.length">
       <span class="sheet-divider"></span>
-      <span :class="[sheetClass(sheet.source), colorClass(sheet)]"
+      <span :class="[sheetClass(sheet), colorClass(sheet)]"
         @click="toggle(sheet)" @mouseenter="focus(sheet)"
         v-for="sheet in sheets"></span>
     </template>
@@ -14,7 +14,7 @@
     <span :class="['sheet', 'remove', {'hidden': selected === 'todo'}]" @click="remove">
       <span class="icon-trash"></span>
     </span>
-    <span class="sheet-name">{{ bullseye && bullseye.title }}</span>
+    <span class="sheet-name">{{ focused && focused.title }}</span>
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       sheets: this.$storage.loadSync('sheets') || [],
-      bullseye: null,
+      focused: null,
     }
   },
   computed: {
@@ -42,11 +42,11 @@ export default {
     }
   },
   methods: {
-    sheetClass(source) {
+    sheetClass(sheet) {
       return {
         sheet: true,
-        'sheet-tab': source !== 'todo',
-        selected: this.selected === source,
+        'sheet-tab': sheet.title,
+        selected: this.selected === sheet.source,
       }
     },
     colorClass(sheet) {
@@ -102,7 +102,7 @@ export default {
       this.$action.emit('clean-source-cache', selected)
     },
     focus(sheet) {
-      this.bullseye = sheet
+      this.focused = sheet
     }
   },
   created() {
