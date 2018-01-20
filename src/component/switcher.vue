@@ -8,10 +8,10 @@
         v-for="sheet in extras"></span>
     </template>
     <span class="sheet-divider"></span>
-    <span class="sheet add" @click="add">
+    <span class="sheet-ctrl add" @click="add">
       <span class="icon-plus"></span>
     </span>
-    <span :class="['sheet', 'remove', {'hidden': selected === 'todo'}]" @click="remove">
+    <span :class="['sheet-ctrl', 'remove', {'hidden': selected === 'todo'}]" @click="remove">
       <span class="icon-trash"></span>
     </span>
     <span class="sheet-name">{{ focused && focused.title }}</span>
@@ -144,7 +144,7 @@ export default {
 .switcher.shown {
   transform: translateX(-81px) scale(1, 1);
 }
-.sheet {
+.sheet, .sheet-ctrl {
   display: inline-block;
   margin: 0 6px;
   width: 18px;
@@ -165,7 +165,9 @@ export default {
   border-radius: 50%;
   background: #bababa;
 }
-.sheet.selected, .sheet:hover {
+.sheet.selected,
+.sheet:hover,
+.sheet-ctrl:hover {
   width: 24px;
   height: 24px;
   line-height: 24px;
@@ -189,21 +191,17 @@ export default {
 .sheet.default {
   background: hsl(166, 60%, 40%);
 }
-.sheet.add, .sheet.remove {
-  background: transparent;
-}
-.sheet.add {
+.sheet-ctrl.add {
   color: #2196f3;
-  background: transparent;
 }
-.sheet.add .icon-plus {
+.sheet-ctrl.add .icon-plus {
   vertical-align: -1px;
 }
-.sheet.remove {
+.sheet-ctrl.remove {
   color: #ed5e63;
-  background: transparent;
 }
-.sheet.hidden {
+.sheet.hidden,
+.sheet-ctrl.hidden {
   width: 0;
   height: 0;
   font-size: 0;
