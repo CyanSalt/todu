@@ -4,8 +4,7 @@
     <template v-if="extras.length">
       <span class="sheet-divider"></span>
       <span :class="[sheetClass(sheet), colorClass(sheet)]"
-        @click="toggle(sheet)" @mouseenter="focus(sheet)"
-        v-for="sheet in extras"></span>
+        @click="toggle(sheet)" v-for="sheet in extras"></span>
     </template>
     <span class="sheet-divider"></span>
     <span class="sheet-ctrl add" @click="add">
@@ -14,7 +13,6 @@
     <span :class="['sheet-ctrl', 'remove', {'hidden': selected === 'todo'}]" @click="remove">
       <span class="icon-trash"></span>
     </span>
-    <span class="sheet-name">{{ focused && focused.title }}</span>
   </div>
 </template>
 
@@ -31,7 +29,6 @@ export default {
   data() {
     return {
       sheets: this.$storage.loadSync('sheets') || [this.model('todo')],
-      focused: null,
     }
   },
   computed: {
@@ -46,7 +43,6 @@ export default {
     sheetClass(sheet) {
       return {
         sheet: true,
-        'sheet-tab': sheet.title,
         selected: this.selected === sheet.source,
       }
     },
@@ -105,9 +101,6 @@ export default {
       // todo-view cache
       this.$action.emit('clean-source-cache', selected)
     },
-    focus(sheet) {
-      this.focused = sheet
-    }
   },
   created() {
     // compatible with version <= 1.7.0
@@ -154,16 +147,10 @@ export default {
   text-align: center;
   border-radius: 50%;
   transition: all ease 0.2s;
-}
-.sheet:not(.selected) {
   cursor: pointer;
 }
-.sheet-divider {
-  margin: 0 6px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #bababa;
+.sheet.selected {
+  cursor: default;
 }
 .sheet.selected,
 .sheet:hover,
@@ -207,18 +194,11 @@ export default {
   font-size: 0;
   margin: 0;
 }
-.sheet-name {
-  position: absolute;
-  left: 0;
-  transform: translateX(-100%);
-  margin-right: 12px;
-  color: #bababa;
-  font-size: 0;
-  opacity: 0;
-  transition: all ease 0.3s;
-}
-.sheet-tab:hover:not(.selected) ~ .sheet-name {
-  font-size: 14px;
-  opacity: 1;
+.sheet-divider {
+  margin: 0 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #bababa;
 }
 </style>
