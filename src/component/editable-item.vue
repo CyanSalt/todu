@@ -337,6 +337,6 @@ export default {
   transition: all ease 0.3s, visibility;
 }
 .list li .extend:hover {
-  color: #666;
+  color: #65737e;
 }
 </style>

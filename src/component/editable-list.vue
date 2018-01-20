@@ -142,7 +142,7 @@ export default {
   padding: 0 1em;
   margin-bottom: 1em;
   line-height: 49px;
-  color: #666;
+  color: #65737e;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 .category {
