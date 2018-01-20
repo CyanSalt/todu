@@ -10,6 +10,9 @@ function init() {
     height: 700,
     minWidth: 450,
     frame: false,
+    webPreferences: {
+      experimentalFeatures: true,
+    },
   })
   frame.loadURL(`file://${__dirname}/src/index.html`)
   frame.on('closed', () => {

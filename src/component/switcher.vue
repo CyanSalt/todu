@@ -133,12 +133,13 @@ export default {
   flex-direction: row-reverse;
   align-items: center;
   border-radius: 27px;
-  background: rgba(252, 252, 252, 0.5);
   transform: translateX(100%) scale(0, 0);
   transition: transform ease 0.3s;
 }
 .switcher.shown {
+  transition: transform ease 0.3s, backdrop-filter 0s 0.3s;
   transform: translateX(-81px) scale(1, 1);
+  backdrop-filter: blur(2px);
 }
 .sheet, .sheet-ctrl {
   display: inline-block;

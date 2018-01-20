@@ -48,6 +48,7 @@ export default {
   color: hsl(166, 60%, 60%);
   cursor: pointer;
   transition: all ease 0.3s;
+  z-index: 1;
 }
 @keyframes open {
   from { font-size: 0; }
