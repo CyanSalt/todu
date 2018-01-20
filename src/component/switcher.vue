@@ -49,7 +49,10 @@ export default {
     colorClass(sheet) {
       const matches = sheet.source.match(/\d+/)
       const number = matches ? matches[0] : 0
-      const colors = ['yellow', 'blue', 'purple', 'red', 'green']
+      const colors = [
+        'red', 'orange', 'yellow', 'green',
+        'cyan', 'blue', 'purple', 'brown',
+      ]
       return colors[number % colors.length]
     },
     // another algorithm
@@ -160,20 +163,29 @@ export default {
   line-height: 24px;
   font-size: 24px;
 }
-.sheet.red {
-  background: hsl(3, 100%, 70%);
+.sheet.red{
+  background: #ec5f67;
+}
+.sheet.orange{
+  background: #f99157;
+}
+.sheet.yellow{
+  background: #fac863;
 }
 .sheet.green {
-  background: hsl(150, 65%, 50%);
+  background: #99c794;
 }
-.sheet.yellow {
-  background: hsl(48, 100%, 60%);
+.sheet.cyan{
+  background: #5fb3b3;
 }
-.sheet.blue {
-  background: hsl(211, 100%, 60%);
+.sheet.blue{
+  background: #6699cc;
 }
-.sheet.purple {
-  background: hsl(289, 65%, 70%);
+.sheet.purple{
+  background: #c594c5;
+}
+.sheet.brown{
+  background: #ab7967;
 }
 .sheet.default {
   background: hsl(166, 60%, 40%);
