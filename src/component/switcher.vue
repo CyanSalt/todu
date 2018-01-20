@@ -1,11 +1,11 @@
 <template>
   <div :class="['switcher', {'shown': show}]">
     <span :class="[sheetClass(todo), 'default']" @click="toggle(todo)"></span>
-    <template v-if="sheets.length">
+    <template v-if="extras.length">
       <span class="sheet-divider"></span>
       <span :class="[sheetClass(sheet), colorClass(sheet)]"
         @click="toggle(sheet)" @mouseenter="focus(sheet)"
-        v-for="sheet in sheets"></span>
+        v-for="sheet in extras"></span>
     </template>
     <span class="sheet-divider"></span>
     <span class="sheet add" @click="add">
@@ -30,15 +30,16 @@ export default {
   },
   data() {
     return {
-      sheets: this.$storage.loadSync('sheets') || [],
+      sheets: this.$storage.loadSync('sheets') || [this.model('todo')],
       focused: null,
     }
   },
   computed: {
     todo() {
-      return {
-        source: 'todo',
-      }
+      return this.sheets.find(sheet => sheet.source === 'todo')
+    },
+    extras() {
+      return this.sheets.filter(sheet => sheet.source !== 'todo')
     }
   },
   methods: {
@@ -70,6 +71,14 @@ export default {
     sync() {
       this.$storage.save('sheets', this.sheets)
     },
+    model(source) {
+      return {
+        source,
+        title: '',
+        repeat: false,
+        type: 'daily',
+      }
+    },
     add() {
       const sources = this.sheets.map(sheet => sheet.source)
         .reduce((collection, source) => {
@@ -81,12 +90,7 @@ export default {
         source = `todo-${index}`
         if (!sources[source]) break
       }
-      const last = {
-        source,
-        title: '',
-        repeat: false,
-        type: 'daily',
-      }
+      const last = this.model(source)
       this.sheets.push(last)
       this.sync()
       this.toggle(last)
@@ -106,6 +110,13 @@ export default {
     }
   },
   created() {
+    // compatible with version <= 1.7.0
+    if (!this.todo) {
+      this.sheets.unshift(this.model('todo'))
+      this.sync()
+    }
+    // force update without `toggle` method
+    this.$emit('toggle', this.todo)
     this.$action.on('update-sheet', target => {
       this.toggle(target)
       this.sync()

@@ -36,6 +36,9 @@ new Vue({
     title: document.title,
     view: {
       source: 'todo',
+      title: '',
+      repeat: false,
+      type: 'daily',
     },
     selecting: false,
     icon: '',

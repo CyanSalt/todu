@@ -37,8 +37,7 @@
       <template v-else-if="permanent">
         <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
           :schedule="true" :instant="true" :recoverable="true">
-          <sheet-stick :data="data" @review="review" slot="extra-title"
-            v-if="data.source !== 'todo'"></sheet-stick>
+          <sheet-stick :data="data" @review="review" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ format(today, true) }}
           </span>
@@ -47,8 +46,7 @@
       <template v-else>
         <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
           @update:list="sync" :schedule="true">
-          <sheet-stick :data="data" @review="review" slot="extra-title"
-            v-if="data.source !== 'todo'"></sheet-stick>
+          <sheet-stick :data="data" @review="review" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ format(today, true) }}
           </span>
@@ -275,6 +273,7 @@ span.title-text {
 }
 input.title-editor {
   display: inline-block;
+  width: 8em;
   -webkit-appearance: none;
   padding: 0;
   border: none;
