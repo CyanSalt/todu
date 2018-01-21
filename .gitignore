@@ -1,7 +1,7 @@
 /dist
 /node_modules
 /src/build
-/src/resource/font/*.otf
-/src/resource/img/*.ico
-/src/resource/img/*.png
+/src/resources/font/*.otf
+/src/resources/img/*.ico
+/src/resources/img/*.png
 /src/storage

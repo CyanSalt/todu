@@ -7,10 +7,10 @@ const options = {
   name: 'todu',
   out: 'dist/',
   overwrite: true,
-  icon: path.resolve(__dirname, 'src/resource/img/icon.ico'),
+  icon: path.resolve(__dirname, 'src/resources/img/icon.ico'),
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',
-    '^/src/(storage|component|plugin)($|/)',
+    '^/src/(storage|components|plugins)($|/)',
     '^/src/storage/.*_$',
   ],
   win32metadata: {
