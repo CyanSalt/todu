@@ -1,5 +1,5 @@
 <template>
-  <label :class="['pretty-checkbox', {'checked': checked}]">
+  <label :class="['pretty-checkbox', {'checked': checked, 'solid': solid}]">
     <span class="icon-checked"></span>
   </label>
 </template>
@@ -8,7 +8,11 @@
 export default {
   props: {
     checked: Boolean,
-  }
+    solid: {
+      type: Boolean,
+      default: false,
+    }
+  },
 }
 </script>
 
@@ -45,5 +49,11 @@ export default {
 }
 .pretty-checkbox.checked .icon-checked {
   width: 100%;
+}
+.pretty-checkbox.solid {
+  background: currentColor;
+}
+.pretty-checkbox.solid .icon-checked {
+  color: #fff;
 }
 </style>

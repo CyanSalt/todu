@@ -164,28 +164,28 @@ export default {
   line-height: 24px;
   font-size: 24px;
 }
-.sheet.red{
+.sheet.red {
   background: #ec5f67;
 }
-.sheet.orange{
+.sheet.orange {
   background: #f99157;
 }
-.sheet.yellow{
+.sheet.yellow {
   background: #fac863;
 }
 .sheet.green {
   background: #99c794;
 }
-.sheet.cyan{
+.sheet.cyan {
   background: #5fb3b3;
 }
-.sheet.blue{
+.sheet.blue {
   background: #6699cc;
 }
-.sheet.purple{
+.sheet.purple {
   background: #c594c5;
 }
-.sheet.brown{
+.sheet.brown {
   background: #ab7967;
 }
 .sheet.default {
