@@ -38,6 +38,7 @@
         <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
           :schedule="true" :instant="true" :recoverable="true">
           <sheet-stick :data="data" @review="review" slot="extra-title"></sheet-stick>
+          <span class="hidden-entry" @click="enjoy" slot="extra-title"></span>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ format(today, true) }}
           </span>
@@ -47,6 +48,7 @@
         <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
           @update:list="sync" :schedule="true">
           <sheet-stick :data="data" @review="review" slot="extra-title"></sheet-stick>
+          <span class="hidden-entry" @click="enjoy" slot="extra-title"></span>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ format(today, true) }}
           </span>
@@ -231,6 +233,15 @@ export default {
     reload() {
       window.location.reload()
     },
+    enjoy() {
+      this.$emit('enjoy', true)
+      this.$emit('bind', {
+        icon: 'back',
+        handler: () => {
+          this.$emit('enjoy', false)
+        }
+      })
+    }
   },
   watch: {
     'data.source'() {
@@ -283,6 +294,13 @@ input.title-editor {
   outline: none;
 }
 .sheet-title .prev, .sheet-title .next {
+  cursor: pointer;
+}
+.hidden-entry {
+  display: inline-block;
+  margin-left: 0.5em;
+  width: 1em;
+  height: 1em;
   cursor: pointer;
 }
 </style>

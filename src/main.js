@@ -9,6 +9,7 @@ import FileStorage from './plugin/storage'
 import TitleBar from './component/titlebar'
 import Switcher from './component/switcher'
 import TodoView from './component/todo-view'
+import GameView from './component/game-view'
 import SuperButton from './component/super-button'
 
 if (process.env.NODE_ENV === 'production') {
@@ -31,6 +32,7 @@ new Vue({
     'todo-view': TodoView,
     'super-button': SuperButton,
     'switcher': Switcher,
+    'game-view': GameView,
   },
   data: {
     title: document.title,
@@ -40,6 +42,7 @@ new Vue({
       repeat: false,
       type: 'daily',
     },
+    egg: 0,
     selecting: false,
     icon: '',
     handler() {
@@ -69,6 +72,9 @@ new Vue({
     },
     toggle(sheet) {
       this.$set(this, 'view', sheet)
+    },
+    enjoy(flag) {
+      this.egg = flag ? 1 : 2
     }
   },
   beforeCreate() {
