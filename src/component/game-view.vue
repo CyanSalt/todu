@@ -140,8 +140,8 @@ export default {
   backdrop-filter: blur(2px);
 }
 @keyframes slide {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from { transform: translateY(100%); backdrop-filter: none; }
+  to { transform: translateY(0); backdrop-filter: none; }
 }
 .game-panel {
   display: flex;
