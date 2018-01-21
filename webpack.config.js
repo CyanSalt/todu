@@ -13,8 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'src/build/'),
-    filename: 'bundle.js',
-    publicPath: '/src/'
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: ['.js', '.vue'],

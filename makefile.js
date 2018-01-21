@@ -1,5 +1,4 @@
 const packager = require('electron-packager')
-const path = require('path')
 const fs = require('fs')
 
 const options = {
@@ -7,7 +6,7 @@ const options = {
   name: 'todu',
   out: 'dist/',
   overwrite: true,
-  icon: path.resolve(__dirname, 'src/resources/img/icon.ico'),
+  icon: 'src/resources/img/icon.ico',
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',
     '^/src/(storage|components|plugins)($|/)',
