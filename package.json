@@ -6,7 +6,7 @@
   "description": "An awesome todo list",
   "main": "window.js",
   "scripts": {
-    "deps": "npm install cross-env css-loader electron electron-packager extract-text-webpack-plugin vue vue-loader vue-template-compiler webpack --save-dev",
+    "deps": "npm install cross-env css-loader electron electron-packager extract-text-webpack-plugin png2icons vue vue-loader vue-template-compiler webpack --save-dev",
     "build-app": "webpack --progress --hide-modules",
     "build-package": "node makefile.js",
     "debug-package": "electron .",
@@ -25,6 +25,7 @@
     "electron": "^1.8.1",
     "electron-packager": "^9.1.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "png2icons": "^0.9.1",
     "vue": "^2.5.13",
     "vue-loader": "^13.7.0",
     "vue-template-compiler": "^2.5.13",
