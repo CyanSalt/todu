@@ -33,7 +33,7 @@ An awesome, hackable to-do list.
   * Copy the file `resources/app/src/resources/default/translation.json` to the `storage` directory.
   * Enjoy the English version or customize the translation file.
 
-* This app is built with [Electron](https://electron.atom.io/) and [VueJS](https://vuejs.org/index.html). If you are familiar with eithor of those, you can add `custom.js` to write your own code whenever the app launched. See the demo at `resources/app/src/resources/default/custom.js`
+* This app is built with [Electron](https://electronjs.org/) and [VueJS](https://vuejs.org/index.html). If you are familiar with eithor of those, you can add `custom.js` to write your own code whenever the app launched. See the demo at `resources/app/src/resources/default/custom.js`
 
 * As well as script, you can also add `custom.css` to write your stylesheets.
 
