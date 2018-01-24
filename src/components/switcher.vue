@@ -55,14 +55,6 @@ export default {
       ]
       return colors[number % colors.length]
     },
-    // another algorithm
-    color(sheet) {
-      let number = sheet.source.split('')
-        .map((_, i) => sheet.source.charCodeAt(i))
-        .reduce((a, b) => a + b, 0)
-      number = (360 * 2 * Math.round((number + 5) % 13) / 13) % 360
-      return `hsl(${number}, 80%, 60%)`
-    },
     toggle(sheet) {
       if (this.selected === sheet.source) return
       this.$emit('toggle', sheet)
@@ -189,7 +181,7 @@ export default {
   background: #ab7967;
 }
 .sheet.default {
-  background: hsl(166, 60%, 40%);
+  background: #28a386;
 }
 .sheet-ctrl.add {
   color: #2196f3;

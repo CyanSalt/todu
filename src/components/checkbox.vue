@@ -24,7 +24,7 @@ export default {
   margin-right: 8px;
   width: 16px;
   height: 16px;
-  color: hsl(166, 60%, 40%);
+  color: var(--theme-color, #28a386);
   border: 2px solid;
   border-radius: 6px;
   cursor: pointer;

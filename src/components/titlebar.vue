@@ -82,7 +82,7 @@ html, body, #main {
 .titlebar .icon-infinite {
   vertical-align: top;
   margin-right: 2px;
-  color: hsl(166, 60%, 40%);
+  color: #28a386;
 }
 .titlebar .buttons {
   display: flex;

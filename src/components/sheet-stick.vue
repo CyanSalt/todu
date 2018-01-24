@@ -58,7 +58,7 @@ export default {
   transition: all ease 0.2s;
 }
 .sheet-stick > span.active {
-  color: hsl(166, 60%, 40%);
+  color: var(--theme-color, #28a386);
   transform: rotate(180deg);
 }
 </style>

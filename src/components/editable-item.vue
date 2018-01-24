@@ -312,7 +312,8 @@ export default {
   bottom: 0;
   left: -19px;
   width: 2px;
-  background: hsl(166, 60%, 60%);
+  background: var(--theme-color, #28a386);
+  opacity: 0.5;
 }
 .list li .history-note {
   position: relative;

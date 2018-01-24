@@ -45,7 +45,7 @@ export default {
   text-align: center;
   line-height: 54px;
   font-size: 36px;
-  color: hsl(166, 60%, 60%);
+  color: #5cd6ba;
   cursor: pointer;
   transition: all ease 0.3s;
   z-index: 1;

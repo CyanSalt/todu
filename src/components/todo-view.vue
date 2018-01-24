@@ -263,6 +263,9 @@ export default {
 </script>
 
 <style>
+.todo-view {
+  --theme-color: #28a386;
+}
 .view-content {
   display: flex;
   flex-direction: column;
@@ -277,7 +280,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: hsl(166, 60%, 40%);
+  color: var(--theme-color, #28a386);
 }
 span.title-text {
   cursor: auto;
