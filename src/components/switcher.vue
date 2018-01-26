@@ -3,7 +3,7 @@
     <span :class="[sheetClass(todo), 'default']" @click="toggle(todo)"></span>
     <template v-if="extras.length">
       <span class="sheet-divider"></span>
-      <span :class="[sheetClass(sheet), colorClass(sheet)]"
+      <span :class="[sheetClass(sheet), color(sheet.source)]"
         @click="toggle(sheet)" v-for="sheet in extras"></span>
     </template>
     <span class="sheet-divider"></span>
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      sheets: this.$storage.loadSync('sheets') || [this.model('todo')],
+      sheets: this.normalize(this.$storage.loadSync('sheets')),
     }
   },
   computed: {
@@ -46,14 +46,14 @@ export default {
         selected: this.selected === sheet.source,
       }
     },
-    colorClass(sheet) {
-      const matches = sheet.source.match(/\d+/)
-      const number = matches ? matches[0] : 0
+    color(source) {
+      const matches = source.match(/\d+/)
+      if (!matches) return ''
       const colors = [
         'red', 'orange', 'yellow', 'green',
         'cyan', 'blue', 'purple', 'brown',
       ]
-      return colors[number % colors.length]
+      return colors[matches[0] % colors.length]
     },
     toggle(sheet) {
       if (this.selected === sheet.source) return
@@ -69,6 +69,19 @@ export default {
         repeat: false,
         type: 'daily',
       }
+    },
+    normalize(sheets) {
+      if (!sheets) {
+        return [this.model('todo')]
+      }
+      sheets = sheets.map(sheet => {
+        return Object.assign(this.model(sheet.source), sheet)
+      })
+      // compatible with <= 1.7.0
+      if (!sheets.find(sheet => sheet.source === 'todo')) {
+        sheets.unshift(this.model('todo'))
+      }
+      return sheets
     },
     add() {
       const sources = this.sheets.map(sheet => sheet.source)
@@ -98,11 +111,6 @@ export default {
     },
   },
   created() {
-    // compatible with version <= 1.7.0
-    if (!this.todo) {
-      this.sheets.unshift(this.model('todo'))
-      this.sync()
-    }
     // force update without `toggle` method
     this.$emit('toggle', this.todo)
     this.$action.on('update-sheet', target => {
