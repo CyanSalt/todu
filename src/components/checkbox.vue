@@ -28,6 +28,7 @@ export default {
   border: 2px solid;
   border-radius: 6px;
   cursor: pointer;
+  transition: color ease 0.2s;
 }
 .pretty-checkbox .icon-checked {
   display: block;

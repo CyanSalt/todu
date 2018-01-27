@@ -314,6 +314,7 @@ export default {
   width: 2px;
   background: var(--theme-color, #28a386);
   opacity: 0.5;
+  transition: background-color ease 0.2s;
 }
 .list li .history-note {
   position: relative;

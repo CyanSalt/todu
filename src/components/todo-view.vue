@@ -281,6 +281,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   color: var(--theme-color, #28a386);
+  transition: color ease 0.2s;
 }
 span.title-text {
   cursor: auto;
