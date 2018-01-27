@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-view">
+  <div :class="['todo-view', data.theme]">
     <div class="view-content">
       <div class="sheet-title">
         <span class="title-text" v-if="reviewing">{{ title }}</span>
@@ -37,8 +37,7 @@
       <template v-else-if="permanent">
         <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
           :schedule="true" :instant="true" :recoverable="true">
-          <sheet-stick :data="data" @review="review" slot="extra-title"></sheet-stick>
-          <span class="tunnel" @click="enjoy" slot="extra-title"></span>
+          <sheet-stick :data="data" @enjoy="enjoy" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ format(today, true) }}
           </span>
@@ -47,8 +46,7 @@
       <template v-else>
         <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
           @update:list="sync" :schedule="true">
-          <sheet-stick :data="data" @review="review" slot="extra-title"></sheet-stick>
-          <span class="tunnel" @click="enjoy" slot="extra-title"></span>
+          <sheet-stick :data="data" @enjoy="enjoy" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ format(today, true) }}
           </span>
@@ -266,6 +264,12 @@ export default {
 .todo-view {
   --theme-color: #28a386;
 }
+.todo-view.curcuma {
+  --theme-color: #eba747;
+}
+.todo-view.navy {
+  --theme-color: #2981a3;
+}
 .view-content {
   display: flex;
   flex-direction: column;
@@ -298,13 +302,6 @@ input.title-editor {
   outline: none;
 }
 .sheet-title .prev, .sheet-title .next {
-  cursor: pointer;
-}
-.tunnel {
-  display: inline-block;
-  margin-left: 0.5em;
-  width: 1em;
-  height: 1em;
   cursor: pointer;
 }
 </style>

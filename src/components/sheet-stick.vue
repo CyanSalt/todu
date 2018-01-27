@@ -6,6 +6,12 @@
     <span :class="['permanent', {'active': permanently}]" @click="permanent">
       <span class="icon-infinite"></span>
     </span>
+    <span :class="['theme-dial', next]" @click="facelift">
+      <span class="icon-color"></span>
+    </span>
+    <span class="tunnel" @click="enjoy">
+      <span class="icon-void"></span>
+    </span>
   </span>
 </template>
 
@@ -23,12 +29,15 @@ export default {
     },
     permanently() {
       return this.data.type === 'permanently'
+    },
+    next() {
+      const colors = ['', 'curcuma', 'navy']
+      const index = colors.indexOf(this.data.theme) + 1
+      const revision = index < colors.length ? index : 0
+      return colors[revision]
     }
   },
   methods: {
-    review() {
-      this.$emit('review')
-    },
     repeat() {
       this.data.repeat = !this.data.repeat
       if (this.data.repeat) {
@@ -44,6 +53,13 @@ export default {
         this.data.repeat = false
       }
       this.$action.emit('update-sheet', this.data)
+    },
+    facelift() {
+      this.data.theme = this.next
+      this.$action.emit('update-sheet', this.data)
+    },
+    enjoy() {
+      this.$emit('enjoy')
     }
   }
 }
@@ -60,5 +76,20 @@ export default {
 .sheet-stick > span.active {
   color: var(--theme-color, #28a386);
   transform: rotate(180deg);
+}
+.sheet-stick .icon-void {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+.sheet-stick .icon-color {
+  display: inline-block;
+  margin: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--theme-color, #28a386);
+  vertical-align: -1px;
+  transition: border-color ease 0.2s;
 }
 </style>

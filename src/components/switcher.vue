@@ -66,8 +66,9 @@ export default {
       return {
         source,
         title: '',
-        repeat: false,
         type: 'daily',
+        repeat: false,
+        theme: '',
       }
     },
     normalize(sheets) {
