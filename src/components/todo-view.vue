@@ -264,11 +264,20 @@ export default {
 .todo-view {
   --theme-color: #28a386;
 }
-.todo-view.curcuma {
+.todo-view.theme-curcuma {
   --theme-color: #eba747;
 }
-.todo-view.navy {
+.todo-view.theme-navy {
   --theme-color: #2981a3;
+}
+.theme-indicator {
+  --target-color: #28a386;
+}
+.theme-indicator.theme-curcuma {
+  --target-color: #eba747;
+}
+.theme-indicator.theme-navy {
+  --target-color: #2981a3;
 }
 .view-content {
   display: flex;

@@ -6,7 +6,7 @@
     <span :class="['permanent', {'active': permanently}]" @click="permanent">
       <span class="icon-infinite"></span>
     </span>
-    <span :class="['theme-dial', next]" @click="facelift">
+    <span :class="['theme-indicator', next]" @click="facelift">
       <span class="icon-color"></span>
     </span>
     <span class="tunnel" @click="enjoy">
@@ -31,7 +31,7 @@ export default {
       return this.data.type === 'permanently'
     },
     next() {
-      const colors = ['', 'curcuma', 'navy']
+      const colors = ['', 'theme-curcuma', 'theme-navy']
       const index = colors.indexOf(this.data.theme) + 1
       const revision = index < colors.length ? index : 0
       return colors[revision]
@@ -88,7 +88,9 @@ export default {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: 2px solid var(--theme-color, #28a386);
+  border: 2px solid var(--target-color, #28a386);
+  border-top-color: var(--theme-color, #28a386);
+  border-left-color: var(--theme-color, #28a386);
   vertical-align: -1px;
   transition: border-color ease 0.2s;
 }
