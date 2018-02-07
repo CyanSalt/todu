@@ -17,7 +17,7 @@
       </template>
       <li class="add-item" v-if="editable" @drop="drop(null)">
         <input type="text" class="editor" :placeholder="i18n('添加待办事项#!11')"
-          v-model.trim.lazy="input" @keyup.enter="add">
+          v-model.trim.lazy="input" @keyup.enter="add" ref="creator">
         <div class="facility">
           <span class="operation remove autohide" @click.stop="clear" v-if="input">
             <span class="icon-trash"></span>
@@ -106,6 +106,8 @@ export default {
     },
     clear() {
       this.input = ''
+      // Fix conflict with v-model.lazy
+      this.$refs.creator.value = ''
     },
     drag(item) {
       this.$vars.set('dragging', {item, list: this.list})
