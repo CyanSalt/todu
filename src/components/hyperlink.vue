@@ -26,6 +26,7 @@ export default {
   width: 32px;
   text-align: center;
   color: #aaa;
+  cursor: pointer;
   transition: color ease 0.2s;
 }
 .list li .hyperlink:hover {

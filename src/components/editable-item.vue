@@ -1,11 +1,11 @@
 <template>
-  <li @click="toggle">
+  <li class="item">
     <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
-    <checkbox :checked="item.done"></checkbox>
+    <checkbox :checked="item.done" @click.native="toggle"></checkbox>
     <input type="text" class="editor" v-model.trim.lazy="description"
-      @click.stop @keyup.enter="blur" v-if="editable">
+      @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
-    <span class="extend autohide" @click.stop="extend" v-if="editable && !note">
+    <span class="extend autohide" @click="extend" v-if="editable && !note">
         <span class="icon-more"></span>
     </span>
     <span class="from" v-if="!instant && item.from">
@@ -13,16 +13,16 @@
     </span>
     <div class="facility">
       <span :class="['operation', 'timer', {'autohide': !timer}]"
-        @click.stop="timing" v-if="editable && schedule && time">
+        @click="timing" v-if="editable && schedule && time">
         <span class="time">{{ time }}</span>
       </span>
-      <span class="operation remove autohide" @click.stop="remove" v-if="editable">
+      <span class="operation remove autohide" @click="remove" v-if="editable">
         <span class="icon-trash"></span>
       </span>
     </div>
     <div class="note-line" v-if="note">
-      <inputarea :text.sync="note" @click.native.stop ref="note"
-        @mounted="noted" v-if="editable"></inputarea>
+      <inputarea :text.sync="note" ref="note" @mounted="noted"
+        v-if="editable"></inputarea>
       <div class="history-note" v-else>{{ note }}</div>
       <div class="links">
         <hyperlink :href="link" :text="'H'" :key="index"

@@ -176,9 +176,6 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-.editable .list li {
-  cursor: pointer;
-}
 .editable .list li:hover {
   background: #f7f7f7;
 }
@@ -198,6 +195,7 @@ export default {
   line-height: 32px;
   text-align: center;
   border-radius: 4px;
+  cursor: pointer;
   /* transition except visibility */
   transition: all ease 0.3s, visibility;
 }
