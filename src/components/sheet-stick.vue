@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     today() {
-      return this.format(Date.now())
+      return this.localdate(Date.now())
     },
     permanently() {
       return this.data.type === 'permanently'

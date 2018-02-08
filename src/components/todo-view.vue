@@ -26,10 +26,10 @@
           </editable-list>
         </template>
         <template v-else>
-          <editable-list :title="distance(each.date, true)" :list="each.values"
+          <editable-list :title="localinterval(each.date)" :list="each.values"
             :editable="false" v-for="each in page" :key="each.date">
             <span class="date" slot="extra-title" v-once>
-              {{ format(each.date, true) }}
+              {{ localdate(each.date) }}
             </span>
           </editable-list>
         </template>
@@ -39,7 +39,7 @@
           :schedule="true" :instant="true" :recoverable="true">
           <sheet-stick :data="data" @enjoy="enjoy" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
-            {{ format(today, true) }}
+            {{ localdate(today) }}
           </span>
         </editable-list>
       </template>
@@ -48,7 +48,7 @@
           @update:list="sync" :schedule="true">
           <sheet-stick :data="data" @enjoy="enjoy" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
-            {{ format(today, true) }}
+            {{ localdate(today) }}
           </span>
         </editable-list>
         <editable-list class="tomorrow" :title="i18n('Tomorrow#!2')" :list="terms[tomorrow]"
@@ -111,10 +111,10 @@ export default {
       }
     },
     today() {
-      return this.standard(Date.now())
+      return this.digitdate(Date.now())
     },
     tomorrow() {
-      return this.standard(Date.now() + 864e5)
+      return this.digitdate(Date.now() + 864e5)
     },
     history() {
       return Object.entries(this.terms.history).reverse()

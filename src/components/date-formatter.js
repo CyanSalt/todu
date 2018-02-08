@@ -1,22 +1,18 @@
 export default {
   methods: {
     midnight(date) {
-      // Notice that return value of 'standard' might not be ISO-8601
+      // Notice that return value of 'digitdate' might not be ISO-8601
       // for example: 2017-11-1 (should be 2017-11-01 in ISO-8601)
       // return new Date(`${date}T00:00:00`)
       return new Date(`${date} 00:00`)
     },
-    standard(date) {
+    digitdate(date) {
       // return new Date(date).toLocaleDateString()
       date = new Date(date)
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     },
-    format(date, midnight) {
-      if (midnight) {
-        date = this.midnight(date)
-      } else {
-        date = new Date(date)
-      }
+    localdate(date) {
+      date = new Date(date)
       const format = this.i18n('%M月%D日 %W#!10')
       const days = [
         '星期日#!3', '星期一#!4', '星期二#!5', '星期三#!6',
@@ -31,12 +27,9 @@ export default {
         }
       })
     },
-    distance(date, midnight) {
-      if (midnight) {
-        date = this.midnight(date)
-      } else {
-        date = new Date(date)
-      }
+    localinterval(date) {
+      // calculate with midnight
+      date = this.midnight(date)
       const today = new Date()
       const distance = Math.floor((today - date) / 864e5)
       switch (distance) {

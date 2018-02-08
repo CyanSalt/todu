@@ -9,7 +9,7 @@
         <span class="icon-more"></span>
     </span>
     <span class="from" v-if="!instant && item.from">
-      {{ editable ? distance(item.from, true) : format(item.from, true) }}
+      {{ editable ? localinterval(item.from) : localdate(item.from) }}
     </span>
     <div class="facility">
       <span :class="['operation', 'timer', {'autohide': !timer}]"
@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     today() {
-      return this.standard(Date.now())
+      return this.digitdate(Date.now())
     },
     time() {
       const matches = this.item.description.match(/\d{1,2}:\d{2}/)
