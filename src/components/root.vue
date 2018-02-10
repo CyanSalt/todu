@@ -24,22 +24,20 @@ export default {
     'switcher': Switcher,
     'game-view': GameView,
   },
-  data() {
-    return {
-      title: document.title,
-      view: {
-        source: 'todo',
-        title: '',
-        repeat: false,
-        type: 'daily',
-      },
-      egg: 0,
-      selecting: false,
-      icon: '',
-      handler() {
-        this.selecting = !this.selecting
-      },
-    }
+  data: {
+    title: document.title,
+    view: {
+      source: 'todo',
+      title: '',
+      repeat: false,
+      type: 'daily',
+    },
+    egg: 0,
+    selecting: false,
+    icon: '',
+    handler() {
+      this.selecting = !this.selecting
+    },
   },
   methods: {
     bind(data) {
