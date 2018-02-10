@@ -39,9 +39,11 @@ const options = {
 packager(options).then(appPaths => {
   appPaths.forEach(dir => {
     if (dir.includes('win32')) {
-      const manifest = 'todu.VisualElementsManifest.xml'
-      fs.createReadStream(manifest)
-        .pipe(fs.createWriteStream(`${dir}/${manifest}`))
+      const resources = ['todu.VisualElementsManifest.xml', 'tile.png']
+      for (const file of resources) {
+        fs.createReadStream(`src/resources/${file}`)
+          .pipe(fs.createWriteStream(`${dir}/${file}`))
+      }
     }
   })
   console.log('Build finished.')
