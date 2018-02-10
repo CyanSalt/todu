@@ -9,13 +9,7 @@
   <link rel="preload" href="build/bundle.js" as="script">
 </head>
 <body>
-<div id="main">
-  <titlebar :title="title"></titlebar>
-  <todo-view :data="view" @bind="bind" @enjoy="enjoy"></todo-view>
-  <super-button @click.native="trigger" :icon="icon" :standup="selecting"></super-button>
-  <switcher :show="selecting" :selected="view.source" @toggle="toggle"></switcher>
-  <game-view :entry="egg" v-if="egg"></game-view>
-</div>
-<script src="build/bundle.js"></script>
+  <div id="main"></div>
+  <script src="build/bundle.js"></script>
 </body>
 </html>
