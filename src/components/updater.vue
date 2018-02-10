@@ -56,6 +56,23 @@ export default {
           return response.json()
         })
     },
+    compare(ver1, ver2) {
+      const arr1 = ver1.split('.')
+      const arr2 = ver2.split('.')
+      while (true) {
+        if (arr1.length === 0) {
+          return arr2.length === 0 ? 0 : -1
+        }
+        if (arr2.length === 0) {
+          return 1
+        }
+        const cur1 = parseInt(arr1.shift(), 10)
+        const cur2 = parseInt(arr2.shift(), 10)
+        if (cur1 !== cur2) {
+          return cur1 < cur2 ? -1 : 1
+        }
+      }
+    },
     download() {
       // shell.openExternal(this.link)
       if (this.status === 0) {
@@ -107,7 +124,7 @@ export default {
     this.check()
       .catch(error => {})
       .then(data => {
-        if (!data || data.name <= remote.app.getVersion()) return
+        if (!data || this.compare(data.name, remote.app.getVersion()) !== 1) return
         const assets = data.assets.find(file => {
           return file.name.search(platform) !== -1
         })
