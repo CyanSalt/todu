@@ -21,8 +21,4 @@ Vue.use(Notifier)
 Vue.use(Variables)
 Vue.use(FileStorage)
 
-new Vue({
-  el: '#main',
-  functional: true,
-  render: h => h(Root),
-})
+new Vue(Root)

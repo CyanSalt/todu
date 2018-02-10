@@ -16,6 +16,7 @@ import GameView from './game-view'
 import SuperButton from './super-button'
 
 export default {
+  el: '#main',
   components: {
     'title-bar': TitleBar,
     'todo-view': TodoView,
