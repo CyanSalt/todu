@@ -1,6 +1,7 @@
 {
   "name": "todu",
   "version": "1.8.0",
+  "executableVersion": "1.8.2",
   "productName": "TODU",
   "author": "CyanSalt",
   "description": "An awesome todo list",
