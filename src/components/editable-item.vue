@@ -21,8 +21,8 @@
       </span>
     </div>
     <div class="note-line" v-if="note">
-      <inputarea :text.sync="note" ref="note" @mounted="noted"
-        v-if="editable"></inputarea>
+      <input-area :text.sync="note" ref="note" @mounted="noted"
+        v-if="editable"></input-area>
       <div class="history-note" v-else>{{ note }}</div>
       <div class="links">
         <hyperlink :href="link" :text="'H'" :key="index"
@@ -34,14 +34,14 @@
 
 <script>
 import CheckBox from './checkbox'
-import InputArea from './inputarea'
+import InputArea from './input-area'
 import HyperLink from './hyperlink'
 import Formatter from './date-formatter'
 
 export default {
   components: {
     'checkbox': CheckBox,
-    'inputarea': InputArea,
+    'input-area': InputArea,
     'hyperlink': HyperLink,
   },
   mixins: [Formatter],

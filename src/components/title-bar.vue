@@ -1,5 +1,5 @@
 <template>
-  <div class="titlebar">
+  <div class="title-bar">
     <div class="title-name">
       <span class="icon-infinite"></span>
       <span class="title-text">{{ title }}</span>
@@ -66,7 +66,7 @@ html, body, #main {
   height: calc(100% - 28px);
   overflow-y: auto;
 }
-.titlebar {
+.title-bar {
   display: flex;
   justify-content: space-between;
   height: 28px;
@@ -75,34 +75,34 @@ html, body, #main {
   user-select: none;
   background: #fff;
 }
-.titlebar .title-name {
+.title-bar .title-name {
   font-size: 12px;
   padding-left: 10px;
 }
-.titlebar .icon-infinite {
+.title-bar .icon-infinite {
   vertical-align: top;
   margin-right: 2px;
   color: #28a386;
 }
-.titlebar .buttons {
+.title-bar .buttons {
   display: flex;
 }
-.titlebar .button {
+.title-bar .button {
   width: 48px;
   text-align: center;
   -webkit-app-region: no-drag;
   cursor: default;
 }
-.titlebar .button:hover {
+.title-bar .button:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-.titlebar .minimize:hover {
+.title-bar .minimize:hover {
   color: #259b24;
 }
-.titlebar .maximize:hover {
+.title-bar .maximize:hover {
   color: #2196f3;
 }
-.titlebar .close:hover {
+.title-bar .close:hover {
   color: #ed5e63;
 }
 </style>
