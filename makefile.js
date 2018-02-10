@@ -26,8 +26,8 @@ const options = {
   icon: ICON_PATH,
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',
-    '^/src/(storage|components|plugins)($|/)',
-    '^/src/assets/.*_$',
+    '^/src/(components|plugins|resources|storage)($|/)',
+    '^/src/assets/.*(\\.ico|_)$',
   ],
   appVersion: app.executableVersion,
   win32metadata: {
@@ -36,14 +36,29 @@ const options = {
   }
 }
 
+function copy(source, target) {
+  const basename = path.basename(source)
+  if (fs.lstatSync(source).isDirectory()) {
+    target = path.join(target, basename)
+    try {
+      fs.mkdirSync(target)
+    } catch (e) {}
+    const entries = fs.readdirSync(source)
+    for (const entry of entries) {
+      copy(path.join(source, entry), target)
+    }
+  } else {
+    fs.createReadStream(source)
+      .pipe(fs.createWriteStream(path.join(target, basename)))
+  }
+}
+
 packager(options).then(appPaths => {
   appPaths.forEach(dir => {
+    copy('src/resources', dir)
     if (dir.includes('win32')) {
-      const resources = ['todu.VisualElementsManifest.xml', 'tile.png']
-      for (const file of resources) {
-        fs.createReadStream(`src/resources/${file}`)
-          .pipe(fs.createWriteStream(`${dir}/${file}`))
-      }
+      const manifest = 'todu.VisualElementsManifest.xml'
+      fs.renameSync(`${dir}/resources/visual/${manifest}`, `${dir}/${manifest}`)
     }
   })
   console.log('Build finished.')

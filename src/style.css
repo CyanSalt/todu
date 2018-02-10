@@ -1,13 +1,13 @@
 @font-face {
   font-style: normal;
-  font-family: 'Noto Sans';
+  font-family: 'TODU UI';
   src: local('Noto Sans CJK SC'), local('PingFang SC'),
-    url("./assets/font/NotoSansCJKsc-Regular.otf")
+    url("../../NotoSansCJKsc-Regular.otf")
 }
 
 body {
   margin: 0;
-  font-family: 'Noto Sans';
+  font-family: 'TODU UI';
   background: #fcfcfc;
   color: #343d46;
   user-select: none;
