@@ -3,7 +3,7 @@ import {remote} from 'electron'
 const Notifier = {
   send(options) {
     const {title, body} = options
-    const icon = 'resources/img/icon.png'
+    const icon = 'assets/img/icon.png'
     const frame = remote.getCurrentWindow()
     frame.flashFrame(true)
     const notification = new Notification(title, {body, icon})

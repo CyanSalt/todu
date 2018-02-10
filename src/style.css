@@ -2,7 +2,7 @@
   font-style: normal;
   font-family: 'Noto Sans';
   src: local('Noto Sans CJK SC'), local('PingFang SC'),
-    url("./resources/font/NotoSansCJKsc-Regular.otf")
+    url("./assets/font/NotoSansCJKsc-Regular.otf")
 }
 
 body {
@@ -25,7 +25,7 @@ body {
   font-family: 'icomoon';
   font-weight: normal;
   font-style: normal;
-  src: url('./resources/font/icomoon.woff') format('woff');
+  src: url('./assets/font/icomoon.woff') format('woff');
 }
 .icon-plus,
 .icon-trash,

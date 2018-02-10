@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const app = require('./package.json')
 
-const ICON_PATH = 'src/resources/img/icon.ico'
+const ICON_PATH = 'src/assets/img/icon.ico'
 
 // Check icon file
 try {
@@ -27,7 +27,7 @@ const options = {
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',
     '^/src/(storage|components|plugins)($|/)',
-    '^/src/storage/.*_$',
+    '^/src/assets/.*_$',
   ],
   appVersion: app.executableVersion,
   win32metadata: {
