@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  target: 'electron',
+  target: 'electron-renderer',
   devtool: 'source-map',
   node: {
     __dirname: false,
@@ -14,6 +14,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'src/build/'),
     filename: 'bundle.js'
+  },
+  externals: {
+    'original-fs': 'require("original-fs")',
   },
   resolve: {
     extensions: ['.js', '.vue'],

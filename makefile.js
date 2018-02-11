@@ -23,6 +23,7 @@ const options = {
   name: 'todu',
   out: 'dist/',
   overwrite: true,
+  asar: true,
   icon: ICON_PATH,
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',

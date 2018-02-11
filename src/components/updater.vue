@@ -5,7 +5,9 @@
 </template>
 
 <script>
-import {remote, shell, ipcRenderer} from 'electron'
+import {remote, ipcRenderer} from 'electron'
+import {rename, unlink} from 'original-fs'
+import {promisify} from 'util'
 
 export default {
   props: {
@@ -40,7 +42,7 @@ export default {
         case 2:
           return this.i18n('暂停中 %R#!31').replace('%R', `${this.downloaded}%`)
         case 3:
-          return this.i18n('下载完成#!32')
+          return this.i18n('重启以更新#!32')
         default:
           return this.i18n('更新 %V#!29').replace('%V', this.version)
       }
@@ -74,12 +76,11 @@ export default {
       }
     },
     download() {
-      // shell.openExternal(this.link)
       if (this.status === 0) {
         this.status = 1
         remote.getCurrentWebContents().downloadURL(this.link)
       } else if (this.status === 3) {
-        shell.showItemInFolder(this.path)
+        this.install()
       } else if (!this.item) {
         // return
       } else if (this.item.isPaused()) {
@@ -96,7 +97,6 @@ export default {
       const frame = remote.getCurrentWindow()
       item.once('done', (e, state) => {
         if (state === 'completed') {
-          shell.showItemInFolder(this.path)
           this.status = 3
         } else {
           this.path = ''
@@ -112,9 +112,32 @@ export default {
         frame.setProgressBar(progress)
       })
     },
+    async install() {
+      const asar = 'resources/app.asar'
+      const backup = 'resources/backup.asar'
+      const update = 'resources/update.asar'
+      const unlinkAsync = promisify(unlink)
+      const renameAsync = promisify(rename)
+      try {
+        await unlinkAsync(backup)
+      } catch (e) {}
+      try {
+        await renameAsync(asar, backup)
+      } catch (e) {
+        return
+      }
+      try {
+        await renameAsync(update, asar)
+      } catch (e) {
+        await renameAsync(backup, asar)
+        return
+      }
+      remote.app.relaunch()
+      remote.app.quit()
+    },
     getDownloadItem(path) {
       return remote.getGlobal('downloads').get(path)
-    }
+    },
   },
   created() {
     ipcRenderer.on('will-download', (e, path) => {
@@ -122,13 +145,16 @@ export default {
       this.item = this.getDownloadItem(path)
       this.start()
     })
-    const platform = process.platform
+    // Remove existing update (probably downloading failed)
+    unlink('resources/update.asar', () => {})
     this.check()
       .catch(error => {})
       .then(data => {
-        if (!data || this.compare(data.name, remote.app.getVersion()) !== 1) return
+        if (!data) return
+        if (this.compare(data.name, remote.app.getVersion()) !== 1) return
         const assets = data.assets.find(file => {
-          return file.name.search(platform) !== -1
+          // return file.name.search(process.platform) !== -1
+          return file.name.toLowerCase() === 'update.asar'
         })
         if (!assets) return
         this.version = data.name
