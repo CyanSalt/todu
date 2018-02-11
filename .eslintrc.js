@@ -28,7 +28,7 @@ module.exports = {
     'multiline-ternary': 0,
     'newline-per-chained-call': 0,
     'no-console': 0,
-    'no-constant-condition': [2, { checkLoop: false }],
+    'no-constant-condition': [2, { checkLoops: false }],
     'no-empty': [2, { allowEmptyCatch: true }],
     'no-empty-function': [2, { allow: ['arrowFunctions'] }],
     'no-extra-parens': [2, 'all', { nestedBinaryExpressions: false }],
