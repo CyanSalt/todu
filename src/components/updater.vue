@@ -90,13 +90,10 @@ export default {
         this.status = 2
       }
     },
-    start(item) {
-      this.item = item
+    start() {
+      const item = this.item
       const totalBytes = item.getTotalBytes()
       const frame = remote.getCurrentWindow()
-      item.once('updated', (e, state) => {
-        this.path = item.getSavePath()
-      })
       item.once('done', (e, state) => {
         if (state === 'completed') {
           shell.showItemInFolder(this.path)
@@ -114,11 +111,16 @@ export default {
         this.downloaded = Math.floor(progress * 100)
         frame.setProgressBar(progress)
       })
+    },
+    getDownloadItem(path) {
+      return remote.getGlobal('downloads').get(path)
     }
   },
   created() {
-    ipcRenderer.on('will-download', (e, item, contents) => {
-      this.start(item)
+    ipcRenderer.on('will-download', (e, path) => {
+      this.path = path
+      this.item = this.getDownloadItem(path)
+      this.start()
     })
     const platform = process.platform
     this.check()

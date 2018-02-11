@@ -50,9 +50,11 @@ function transferEvents() {
   frame.on('unmaximize', () => {
     frame.webContents.send('unmaximize')
   })
+  global.downloads = new Map()
   frame.webContents.session.on('will-download', (e, item, webContents) => {
     item.setSavePath(path.resolve(app.getPath('downloads'), item.getFilename()))
-    frame.webContents.send('will-download')
+    webContents.send('will-download', item.getSavePath())
+    global.downloads.set(item.getSavePath(), item)
   })
 }
 
