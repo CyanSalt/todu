@@ -48,8 +48,7 @@ function copy(source, target) {
       copy(path.join(source, entry), target)
     }
   } else {
-    fs.createReadStream(source)
-      .pipe(fs.createWriteStream(path.join(target, basename)))
+    fs.copyFileSync(source, path.join(target, basename))
   }
 }
 
