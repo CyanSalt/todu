@@ -52,7 +52,7 @@ function transferEvents() {
   })
   global.downloads = new Map()
   frame.webContents.session.on('will-download', (e, item, webContents) => {
-    const target = path.join(app.getAppPath(), 'resources', item.getFilename())
+    const target = path.join(process.resourcesPath, item.getFilename())
     item.setSavePath(target)
     global.downloads.set(target, item)
     webContents.send('will-download', target)
