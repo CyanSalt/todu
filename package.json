@@ -1,6 +1,6 @@
 {
   "name": "todu",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "executableVersion": "1.8.2",
   "productName": "TODU",
   "author": "CyanSalt",
@@ -29,6 +29,6 @@
     "vue": "^2.5.13",
     "vue-loader": "^14.1.1",
     "vue-template-compiler": "^2.5.13",
-    "webpack": "^3.10.0"
+    "webpack": "^3.11.0"
   }
 }
