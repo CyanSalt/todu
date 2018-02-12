@@ -2,5 +2,5 @@
 /node_modules
 /src/assets/img/*.ico
 /src/build
-/src/resources/font/*.otf
+/src/resources/fonts/*.otf
 /src/storage

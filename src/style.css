@@ -2,7 +2,7 @@
   font-style: normal;
   font-family: 'TODU UI';
   src: local('Noto Sans CJK SC'), local('PingFang SC'),
-    url("../../NotoSansCJKsc-Regular.otf")
+    url("../../fonts/NotoSansCJKsc-Regular.otf")
 }
 
 body {
