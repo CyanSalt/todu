@@ -28,7 +28,7 @@ const options = {
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',
     '^/src/(components|plugins|resources|storage)($|/)',
-    '^/src/assets/.*(\\.ico|_)$',
+    '^/src/assets/.*\\.ico$',
   ],
   appVersion: app.executableVersion,
   win32metadata: {

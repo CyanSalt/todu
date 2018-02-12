@@ -19,6 +19,9 @@
     "url": "https://github.com/CyanSalt/todu.git"
   },
   "license": "MIT",
+  "engines": {
+    "node": "^8.5.0"
+  },
   "devDependencies": {
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
