@@ -25,7 +25,7 @@ body {
   font-family: 'icomoon';
   font-weight: normal;
   font-style: normal;
-  src: url('./assets/font/icomoon.woff') format('woff');
+  src: url('./assets/fonts/icomoon.woff') format('woff');
 }
 .icon-plus,
 .icon-trash,

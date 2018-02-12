@@ -4,7 +4,7 @@ const path = require('path')
 const fs = require('fs')
 const app = require('./package.json')
 
-const ICON_PATH = 'src/assets/img/icon.ico'
+const ICON_PATH = 'src/assets/images/icon.ico'
 
 // Check icon file
 try {
