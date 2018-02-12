@@ -59,11 +59,8 @@ export default {
 </script>
 
 <style>
-html, body, #main {
-  height: 100%;
-}
 .todo-view {
-  height: calc(100% - 28px);
+  height: calc(100vh - 28px);
   overflow-y: auto;
 }
 .title-bar {
