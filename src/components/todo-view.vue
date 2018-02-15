@@ -107,7 +107,7 @@ export default {
       set(title) {
         if (!title) return
         this.data.title = title
-        this.$action.emit('update-sheet', this.data)
+        this.$flux.emit('update-sheet', this.data)
       }
     },
     today() {
@@ -218,7 +218,7 @@ export default {
     },
     review() {
       this.reviewing = 1
-      this.$emit('bind', {
+      this.$flux.emit('bind-super-button', {
         icon: 'back',
         handler: () => {
           this.reviewing = 0
@@ -233,7 +233,7 @@ export default {
     },
     enjoy() {
       this.$emit('enjoy', true)
-      this.$emit('bind', {
+      this.$flux.emit('bind-super-button', {
         icon: 'back',
         handler: () => {
           this.$emit('enjoy', false)
@@ -248,7 +248,7 @@ export default {
     }
   },
   created() {
-    this.$action.on('clean-source-cache', target => {
+    this.$flux.on('clean-source-cache', target => {
       delete this.cache[target]
     })
     this.$schedule.register(`${this.tomorrow} 00:00`, () => {

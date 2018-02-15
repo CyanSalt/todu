@@ -108,13 +108,13 @@ export default {
       this.sheets.splice(index, 1)
       this.sync()
       // todo-view cache
-      this.$action.emit('clean-source-cache', selected)
+      this.$flux.emit('clean-source-cache', selected)
     },
   },
   created() {
     // force update without `toggle` method
     this.$emit('toggle', this.todo)
-    this.$action.on('update-sheet', target => {
+    this.$flux.on('update-sheet', target => {
       this.toggle(target)
       this.sync()
     })

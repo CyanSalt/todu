@@ -43,7 +43,7 @@ export default {
       if (this.data.repeat) {
         this.data.type = 'daily'
       }
-      this.$action.emit('update-sheet', this.data)
+      this.$flux.emit('update-sheet', this.data)
     },
     permanent() {
       if (this.data.type === 'permanently') {
@@ -52,11 +52,11 @@ export default {
         this.data.type = 'permanently'
         this.data.repeat = false
       }
-      this.$action.emit('update-sheet', this.data)
+      this.$flux.emit('update-sheet', this.data)
     },
     facelift() {
       this.data.theme = this.next
-      this.$action.emit('update-sheet', this.data)
+      this.$flux.emit('update-sheet', this.data)
     },
     enjoy() {
       this.$emit('enjoy')
