@@ -218,7 +218,7 @@ export default {
     },
     review() {
       this.reviewing = 1
-      this.$flux.emit('bind-super-button', {
+      this.$flux.emit('super-button/bind', {
         icon: 'back',
         handler: () => {
           this.reviewing = 0
@@ -233,7 +233,7 @@ export default {
     },
     enjoy() {
       this.$emit('enjoy', true)
-      this.$flux.emit('bind-super-button', {
+      this.$flux.emit('super-button/bind', {
         icon: 'back',
         handler: () => {
           this.$emit('enjoy', false)

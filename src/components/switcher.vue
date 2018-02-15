@@ -17,13 +17,10 @@
 </template>
 
 <script>
+import {state} from '../plugins/flux'
 
 export default {
   props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
     selected: String,
   },
   data() {
@@ -32,6 +29,7 @@ export default {
     }
   },
   computed: {
+    show: state('super-button/selecting'),
     todo() {
       return this.sheets.find(sheet => sheet.source === 'todo')
     },

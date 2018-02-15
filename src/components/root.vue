@@ -1,9 +1,9 @@
 <template>
   <div id="main">
     <title-bar :title="title"></title-bar>
-    <todo-view :data="view" @bind="bind" @enjoy="enjoy"></todo-view>
-    <super-button @click.native="trigger" :icon="icon" :standup="selecting"></super-button>
-    <switcher :show="selecting" :selected="view.source" @toggle="toggle"></switcher>
+    <todo-view :data="view" @enjoy="enjoy"></todo-view>
+    <super-button></super-button>
+    <switcher :selected="view.source" @toggle="toggle"></switcher>
     <game-view :entry="egg" v-if="egg"></game-view>
   </div>
 </template>
@@ -33,33 +33,8 @@ export default {
       type: 'daily',
     },
     egg: 0,
-    selecting: false,
-    icon: '',
-    handler() {
-      this.selecting = !this.selecting
-    },
   },
   methods: {
-    bind(data) {
-      if (!data.handler) return
-      this.selecting = false
-      let icon = null
-      if (data.icon) {
-        icon = this.icon
-        this.icon = data.icon
-      }
-      const handler = this.handler
-      this.handler = () => {
-        data.handler()
-        if (data.icon) {
-          this.icon = icon
-        }
-        this.handler = handler
-      }
-    },
-    trigger() {
-      this.handler()
-    },
     toggle(sheet) {
       this.$set(this, 'view', sheet)
     },

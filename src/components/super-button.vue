@@ -1,23 +1,23 @@
 <template>
-  <div class="super-button">
+  <div class="super-button" @click="handler">
     <span :class="iconClass"></span>
   </div>
 </template>
 
 <script>
+import {state} from '../plugins/flux'
 
 export default {
-  props: {
-    icon: {
-      type: String,
-      default: 'infinity'
-    },
-    standup: {
-      type: Boolean,
-      default: false
+  data() {
+    return {
+      icon: 'infinity',
+      handler: () => {
+        this.selecting = !this.selecting
+      },
     }
   },
   computed: {
+    selecting: state('super-button/selecting'),
     iconClass() {
       switch (this.icon) {
         case 'back':
@@ -25,10 +25,32 @@ export default {
         default:
           return {
             'icon-infinite': true,
-            'standup': this.standup,
+            'selecting': this.selecting,
           }
       }
     }
+  },
+  methods: {
+    bind(data) {
+      if (!data.handler) return
+      this.selecting = false
+      let icon = null
+      if (data.icon) {
+        icon = this.icon
+        this.icon = data.icon
+      }
+      const handler = this.handler
+      this.handler = () => {
+        data.handler()
+        if (data.icon) {
+          this.icon = icon
+        }
+        this.handler = handler
+      }
+    }
+  },
+  created() {
+    this.$flux.on('super-button/bind', this.bind)
   }
 }
 
@@ -76,7 +98,7 @@ export default {
   vertical-align: top;
   animation: open 0.3s ease;
 }
-.super-button .icon-infinite.standup {
+.super-button .icon-infinite.selecting {
   transform: rotate(90deg) translateY(1px);
 }
 </style>
