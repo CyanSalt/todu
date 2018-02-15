@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <title-bar :title="title"></title-bar>
-    <todo-view :data="view" @enjoy="enjoy"></todo-view>
+    <todo-view :data="view"></todo-view>
     <super-button></super-button>
     <switcher :selected="view.source" @toggle="toggle"></switcher>
     <game-view :entry="egg" v-if="egg"></game-view>
@@ -14,6 +14,7 @@ import Switcher from './switcher'
 import TodoView from './todo-view'
 import GameView from './game-view'
 import SuperButton from './super-button'
+import {state} from '../plugins/flux'
 
 export default {
   el: '#main',
@@ -32,15 +33,14 @@ export default {
       repeat: false,
       type: 'daily',
     },
-    egg: 0,
+  },
+  computed: {
+    egg: state('game/flag'),
   },
   methods: {
     toggle(sheet) {
       this.$set(this, 'view', sheet)
     },
-    enjoy(flag) {
-      this.egg = flag ? 1 : 2
-    }
   },
   beforeCreate() {
     // custom stylesheet

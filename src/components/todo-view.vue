@@ -37,7 +37,7 @@
       <template v-else-if="permanent">
         <editable-list class="today" :title="i18n('Today#!1')" :list.sync="undone"
           :schedule="true" :instant="true" :recoverable="true">
-          <sheet-stick :data="data" @enjoy="enjoy" slot="extra-title"></sheet-stick>
+          <sheet-stick :data="data" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ localdate(today) }}
           </span>
@@ -46,7 +46,7 @@
       <template v-else>
         <editable-list class="today" :title="i18n('Today#!1')" :list="terms[today]"
           @update:list="sync" :schedule="true">
-          <sheet-stick :data="data" @enjoy="enjoy" slot="extra-title"></sheet-stick>
+          <sheet-stick :data="data" slot="extra-title"></sheet-stick>
           <span class="date" slot="extra-title" @click="review" v-once>
             {{ localdate(today) }}
           </span>
@@ -231,15 +231,6 @@ export default {
     reload() {
       window.location.reload()
     },
-    enjoy() {
-      this.$emit('enjoy', true)
-      this.$flux.emit('super-button/bind', {
-        icon: 'back',
-        handler: () => {
-          this.$emit('enjoy', false)
-        }
-      })
-    }
   },
   watch: {
     'data.source'() {

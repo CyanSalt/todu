@@ -59,7 +59,13 @@ export default {
       this.$flux.emit('update-sheet', this.data)
     },
     enjoy() {
-      this.$emit('enjoy')
+      this.$flux.set('game/flag', 1)
+      this.$flux.emit('super-button/bind', {
+        icon: 'back',
+        handler: () => {
+          this.$flux.set('game/flag', 2)
+        }
+      })
     }
   }
 }
