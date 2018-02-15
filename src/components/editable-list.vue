@@ -16,7 +16,7 @@
         <div class="divider"></div>
       </template>
       <li class="add-item" v-if="editable" @drop="drop(null)">
-        <input type="text" class="editor" :placeholder="i18n('添加待办事项#!11')"
+        <input type="text" class="editor" :placeholder="i18n('Add a to-do#!11')"
           v-model.trim.lazy="input" @keyup.enter="add" ref="creator">
         <div class="facility">
           <span class="operation remove autohide" @click.stop="clear" v-if="input">

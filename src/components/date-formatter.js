@@ -13,10 +13,10 @@ export default {
     },
     localdate(date) {
       date = new Date(date)
-      const format = this.i18n('%M月%D日 %W#!10')
+      const format = this.i18n('%W, %M.%D#!10')
       const days = [
-        '星期日#!3', '星期一#!4', '星期二#!5', '星期三#!6',
-        '星期四#!7', '星期五#!8', '星期六#!9',
+        'Sunday#!3', 'Monday#!4', 'Tuesday#!5', 'Wednesday#!6',
+        'Thursday#!7', 'Friday#!8', 'Saturday#!9',
       ]
       return format.replace(/%[A-Z]+/g, holder => {
         switch (holder) {
@@ -34,27 +34,27 @@ export default {
       const distance = Math.floor((today - date) / 864e5)
       switch (distance) {
         case 1:
-          return this.i18n('昨天#!12')
+          return this.i18n('Yesterday#!12')
         case 2:
-          return this.i18n('前天#!13')
+          return this.i18n('3 days ago#!13')
         default:
       }
       const current = today.getDay()
       const target = date.getDay()
       const front = target && (target < current || !current)
       const days = [
-        '周日#!16', '周一#!17', '周二#!18', '周三#!19',
-        '周四#!20', '周五#!21', '周六#!22',
+        'Sunday#!16', 'Monday#!17', 'Tuesday#!18', 'Wednesday#!19',
+        'Thursday#!20', 'Friday#!21', 'Saturday#!22',
       ]
       if (distance < 7 && front) {
-        return this.i18n('本%W#!14').replace('%W', this.i18n(days[target]))
+        return this.i18n('This %W#!14').replace('%W', this.i18n(days[target]))
       } else if (distance <= 7 || (distance < 14 && front)) {
-        return this.i18n('上%W#!15').replace('%W', this.i18n(days[target]))
+        return this.i18n('Last %W#!15').replace('%W', this.i18n(days[target]))
       }
       if (distance < 100) {
-        return this.i18n('%D天前#!23').replace('%D', distance)
+        return this.i18n('%D days ago#!23').replace('%D', distance)
       }
-      return this.i18n('很久以前#!24')
+      return this.i18n('Long ago#!24')
     },
   },
 }

@@ -170,7 +170,7 @@ export default {
         binding.set(this.item, this.timer = false)
         this.$notifier.send({
           title: this.item.description,
-          body: this.i18n('今天 %T#!33').replace('%T', this.time),
+          body: this.i18n('%T today#!33').replace('%T', this.time),
         })
       }))
     },

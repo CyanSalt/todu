@@ -38,13 +38,15 @@ export default {
     text() {
       switch (this.status) {
         case 1:
-          return this.i18n('下载中 %R#!30').replace('%R', `${this.downloaded}%`)
+          return this.i18n('Downloading %R#!30')
+            .replace('%R', `${this.downloaded}%`)
         case 2:
-          return this.i18n('暂停中 %R#!31').replace('%R', `${this.downloaded}%`)
+          return this.i18n('Pausing %R#!31')
+            .replace('%R', `${this.downloaded}%`)
         case 3:
-          return this.i18n('重启以更新#!32')
+          return this.i18n('Relaunch and upgrade#!32')
         default:
-          return this.i18n('更新 %V#!29').replace('%V', this.version)
+          return this.i18n('Upgrade to %V#!29').replace('%V', this.version)
       }
     },
   },

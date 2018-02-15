@@ -9,10 +9,10 @@
         <div class="links">
           <updater v-show="!reviewing"></updater>
           <span class="prev" @click="reviewing--" v-if="reviewing > 1">
-            {{ i18n('上一页#!27') }}
+            {{ i18n('Previous#!27') }}
           </span>
           <span class="next" @click="reviewing++" v-if="reviewing && !last">
-            {{ i18n('下一页#!28') }}
+            {{ i18n('Next#!28') }}
           </span>
         </div>
       </div>
@@ -100,9 +100,9 @@ export default {
     title: {
       get() {
         if (this.reviewing) {
-          return this.i18n('已办事项#!26')
+          return this.i18n('DONE#!26')
         }
-        return this.data.title || this.i18n('待办事项#!25')
+        return this.data.title || this.i18n('TO-DO#!25')
       },
       set(title) {
         if (!title) return
