@@ -103,7 +103,7 @@ export const FileStorage = {
     return JSON.stringify(data, null, 2)
   },
   filename(basename) {
-    return resolve(PATH, `storage/${basename}`)
+    return resolve(PATH, 'storage', basename)
   },
 }
 
