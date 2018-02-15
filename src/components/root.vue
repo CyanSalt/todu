@@ -44,7 +44,7 @@ export default {
   },
   beforeCreate() {
     // custom stylesheet
-    const stylesheet = this.$storage.rawdataSync('custom', 'css')
+    const stylesheet = this.$storage.rawdataSync('custom.css')
     if (stylesheet) {
       const element = document.createElement('style')
       element.appendChild(document.createTextNode(stylesheet))
@@ -53,7 +53,7 @@ export default {
   },
   created() {
     // custom script
-    this.$storage.require('custom', init => init(this))
+    this.$storage.require('custom.js', init => init(this))
   }
 }
 </script>

@@ -170,7 +170,7 @@ export default {
         return this.cache[this.data.source]
       }
       const {today, tomorrow} = this
-      const terms = this.$storage.loadSync(this.data.source)
+      const terms = this.$storage.loadSync(`${this.data.source}.json`)
       const arranged = Object.assign({
         history: {},
         [today]: [],
@@ -214,7 +214,7 @@ export default {
       return arranged
     },
     sync() {
-      this.$storage.save(this.data.source, this.terms)
+      this.$storage.save(`${this.data.source}.json`, this.terms)
     },
     review() {
       this.reviewing = 1

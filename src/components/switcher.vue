@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      sheets: this.normalize(this.$storage.loadSync('sheets')),
+      sheets: this.normalize(this.$storage.loadSync('sheets.json')),
     }
   },
   computed: {
@@ -58,7 +58,7 @@ export default {
       this.$emit('toggle', sheet)
     },
     sync() {
-      this.$storage.save('sheets', this.sheets)
+      this.$storage.save('sheets.json', this.sheets)
     },
     model(source) {
       return {
@@ -102,7 +102,7 @@ export default {
       const {sheets, selected} = this
       const index = sheets.findIndex(sheet => sheet.source === selected)
       this.toggle(this.todo)
-      this.$storage.delete(selected)
+      this.$storage.delete(`${selected}.json`)
       this.sheets.splice(index, 1)
       this.sync()
       // todo-view cache

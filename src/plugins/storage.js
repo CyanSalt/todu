@@ -70,14 +70,14 @@ export const FileStorage = {
     writeFileSync(filename, this.stringify(data))
   },
   require(key, callback) {
-    const filename = this.filename(key, 'js')
+    const filename = this.filename(key)
     access(filename, err => {
       if (err) return
       callback(global.require(filename))
     })
   },
   requireSync(key) {
-    const filename = this.filename(key, 'js')
+    const filename = this.filename(key)
     try {
       accessSync(filename)
       return global.require(filename)
@@ -86,14 +86,14 @@ export const FileStorage = {
     }
   },
   rawdata(key, suffix, callback) {
-    return readFile(this.filename(key, suffix), (err, data) => {
+    return readFile(this.filename(key), (err, data) => {
       if (err) return
       callback(data)
     })
   },
   rawdataSync(key, suffix) {
     try {
-      return readFileSync(this.filename(key, suffix))
+      return readFileSync(this.filename(key))
     } catch (e) {
       return null
     }
@@ -102,8 +102,8 @@ export const FileStorage = {
   stringify(data) {
     return JSON.stringify(data, null, 2)
   },
-  filename(key, suffix = 'json') {
-    return resolve(PATH, `storage/${key}.${suffix}`)
+  filename(basename) {
+    return resolve(PATH, `storage/${basename}`)
   },
 }
 
