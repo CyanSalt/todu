@@ -43,7 +43,7 @@ export default {
       if (this.data.repeat) {
         this.data.type = 'daily'
       }
-      this.$flux.emit('update-sheet', this.data)
+      this.$flux.emit('sheets/update', this.data)
     },
     permanent() {
       if (this.data.type === 'permanently') {
@@ -52,11 +52,11 @@ export default {
         this.data.type = 'permanently'
         this.data.repeat = false
       }
-      this.$flux.emit('update-sheet', this.data)
+      this.$flux.emit('sheets/update', this.data)
     },
     facelift() {
       this.data.theme = this.next
-      this.$flux.emit('update-sheet', this.data)
+      this.$flux.emit('sheets/update', this.data)
     },
     enjoy() {
       this.$flux.set('game/flag', 1)

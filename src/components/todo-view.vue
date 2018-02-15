@@ -107,7 +107,7 @@ export default {
       set(title) {
         if (!title) return
         this.data.title = title
-        this.$flux.emit('update-sheet', this.data)
+        this.$flux.emit('sheets/update', this.data)
       }
     },
     today() {
@@ -239,7 +239,7 @@ export default {
     }
   },
   created() {
-    this.$flux.on('clean-source-cache', target => {
+    this.$flux.on('todo/clean', target => {
       delete this.cache[target]
     })
     this.$schedule.register(`${this.tomorrow} 00:00`, () => {
