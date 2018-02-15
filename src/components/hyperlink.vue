@@ -10,7 +10,6 @@ import {remote} from 'electron'
 export default {
   props: {
     href: String,
-    text: String,
   },
   methods: {
     skip() {

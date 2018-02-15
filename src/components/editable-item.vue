@@ -25,7 +25,7 @@
         v-if="editable"></input-area>
       <div class="history-note" v-else>{{ note }}</div>
       <div class="links">
-        <hyperlink :href="link" :text="'H'" :key="index"
+        <hyperlink :href="link" :key="index"
           v-for="(link, index) in links"></hyperlink>
       </div>
     </div>
