@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import {remote, ipcRenderer} from 'electron'
-import {rename, unlink} from 'original-fs'
+import {remote, shell, ipcRenderer} from 'electron'
+import {rename, unlink, accessSync} from 'original-fs'
 import {promisify} from 'util'
 
 export default {
@@ -99,6 +99,9 @@ export default {
       const frame = remote.getCurrentWindow()
       item.once('done', (e, state) => {
         if (state === 'completed') {
+          const temporary = this.path
+          this.path = this.path.replace(/\.download$/, '')
+          rename(temporary, this.path, () => {})
           this.status = 3
         } else {
           this.path = ''
@@ -116,7 +119,7 @@ export default {
     },
     async install() {
       const asar = 'resources/app.asar'
-      const backup = 'resources/backup.asar'
+      const backup = 'resources/app-backup.asar'
       const update = 'resources/update.asar'
       const unlinkAsync = promisify(unlink)
       const renameAsync = promisify(rename)
@@ -126,11 +129,15 @@ export default {
       try {
         await renameAsync(asar, backup)
       } catch (e) {
+        console.error(e)
+        shell.showItemInFolder(update)
         return
       }
       try {
         await renameAsync(update, asar)
       } catch (e) {
+        console.error(e)
+        shell.showItemInFolder(update)
         await renameAsync(backup, asar)
         return
       }
@@ -147,8 +154,15 @@ export default {
       this.item = this.getDownloadItem(path)
       this.start()
     })
-    // Remove existing update (probably downloading failed)
-    unlink('resources/update.asar', () => {})
+    // Remove unfinished update (probably downloading failed)
+    unlink('resources/update.asar.download', () => {})
+    try {
+      accessSync('resources/update.asar')
+      this.status = 3
+      this.prepared = true
+      return
+    } catch (e) {}
+    // Check update
     this.check()
       .catch(error => {})
       .then(data => {
