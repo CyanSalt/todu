@@ -21,7 +21,7 @@
       </span>
     </div>
     <div class="note-line" v-if="note">
-      <input-area :text.sync="note" ref="note" @mounted="noted"
+      <input-area v-model="note" ref="note" @mounted="noted"
         v-if="editable"></input-area>
       <div class="history-note" v-else>{{ note }}</div>
       <div class="links">

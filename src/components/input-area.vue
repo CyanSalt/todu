@@ -10,6 +10,10 @@ export default {
   props: {
     text: String,
   },
+  model: {
+    prop: 'text',
+    event: 'change',
+  },
   data() {
     return {
       content: this.text,
@@ -20,7 +24,7 @@ export default {
       this.$refs.editor.focus()
     },
     update(e) {
-      this.$emit('update:text', this.content)
+      this.$emit('change', this.content)
     },
   },
   mounted() {
