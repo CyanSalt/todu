@@ -8,10 +8,10 @@ const Flux = {
     return store.$emit(event, payload)
   },
   get(key) {
-    return store.$data[key]
+    return store[key]
   },
   set(key, value) {
-    store.$data[key] = value
+    store[key] = value
   },
 }
 
