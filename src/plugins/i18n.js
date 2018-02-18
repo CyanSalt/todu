@@ -5,6 +5,10 @@ import {FileStorage} from './storage'
 
 const translations = [
   {
+    file: 'fr-FR.json',
+    locales: ['fr', 'fr-CA', 'fr-CH', 'fr-FR'],
+  },
+  {
     file: 'zh-CN.json',
     locales: ['zh', 'zh-CN'],
   },
