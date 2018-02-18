@@ -1,5 +1,5 @@
 <template>
-  <div :class="['game-view', color, {'shown': show}]">
+  <div :class="['game-view', color, {'shown': shown}]">
     <div class="head-info">
       <span class="score">
         <checkbox :checked="true" :solid="true"></checkbox>
@@ -50,7 +50,7 @@ export default {
     }
   },
   computed: {
-    show() {
+    shown() {
       return this.entry === 1
     }
   },

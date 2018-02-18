@@ -1,5 +1,5 @@
 <template>
-  <div :class="['switcher', {'shown': show}]">
+  <div :class="['switcher', {'shown': shown}]">
     <span :class="[sheetClass(todo), 'default']" @click="toggle(todo)"></span>
     <template v-if="extras.length">
       <span class="sheet-divider"></span>
@@ -29,7 +29,7 @@ export default {
     }
   },
   computed: {
-    show: state('super-button/selecting'),
+    shown: state('super-button/selecting'),
     todo() {
       return this.sheets.find(sheet => sheet.source === 'todo')
     },
