@@ -5,6 +5,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   target: 'electron-renderer',
   devtool: 'source-map',
+  stats: {
+    modules: false,
+  },
   node: {
     __dirname: false,
   },
@@ -25,7 +28,7 @@ module.exports = {
     }
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -38,9 +41,8 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      },
-    })
-  ]
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
+    new webpack.ProgressPlugin(),
+  ],
 }
