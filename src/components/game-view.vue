@@ -16,7 +16,7 @@
     <div class="game-panel">
       <checkbox :class="['grid', {'disabled': disabled(index)}]" :solid="true"
         :checked="correct(index)" @click.native="check(index)"
-        v-for="(_, index) in base" :key="index"></checkbox>
+        v-for="index in 100" :key="index"></checkbox>
     </div>
     <div class="game-history">
       <span :class="['record', record.color]"
@@ -37,7 +37,6 @@ export default {
   },
   data() {
     return {
-      base: Array.from(new Array(100)),
       score: 0,
       click: 0,
       color: this.theme(),
