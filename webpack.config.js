@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
+module.exports = (env = 'development') => ({
   target: 'electron-renderer',
   devtool: 'source-map',
   stats: {
@@ -41,8 +41,8 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('bundle.css'),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(env)
     }),
     new webpack.ProgressPlugin(),
   ],
-}
+})

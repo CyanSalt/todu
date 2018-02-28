@@ -7,7 +7,7 @@
   "description": "An awesome todo list",
   "main": "window.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack && node makefile.js",
+    "build": "webpack --env production && node makefile.js",
     "dev": "webpack && electron .",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
@@ -20,7 +20,6 @@
     "node": ">=8.5.0"
   },
   "devDependencies": {
-    "cross-env": "^5.1.3",
     "css-loader": "^0.28.10",
     "electron": "^1.8.2",
     "electron-packager": "^11.0.1",
