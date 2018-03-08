@@ -12,9 +12,9 @@
       {{ editable ? localinterval(item.from) : localdate(item.from) }}
     </span>
     <div class="facility">
-      <span :class="['operation', 'timer', {'autohide': !timer}]"
+      <span :class="['operation', 'timer', {'autohide': !timer && !expired, 'expired': expired}]"
         @click="timing" v-if="editable && schedule && time">
-        <span class="time">{{ time }}</span>
+        <span class="icon-clock"></span>
       </span>
       <span class="operation remove autohide" @click="remove" v-if="editable">
         <span class="icon-trash"></span>
@@ -108,6 +108,7 @@ export default {
     return {
       ready: false,
       timer: false,
+      expired: false,
       removed: false,
       torn: false,
     }
@@ -159,6 +160,10 @@ export default {
       }
     },
     timing() {
+      if (this.expired) {
+        this.expired = false
+        return
+      }
       if (this.timer) {
         this.interrupt(true)
         return
@@ -166,13 +171,19 @@ export default {
       if (!this.time) return
       const time = new Date(`${this.today} ${this.time}`) - 3e5
       const binding = this.$binding.of('timer')
-      binding.set(this.item, this.timer = this.$schedule.register(time, () => {
-        binding.set(this.item, this.timer = false)
+      this.timer = this.$schedule.register(time, () => {
+        this.timer = false
+        this.expired = true
+        binding.set(this.item, this.timer)
         this.$notifier.send({
           title: this.item.description,
           body: this.i18n('%T today#!33').replace('%T', this.time),
         })
-      }))
+      })
+      if (!this.timer) {
+        this.expired = true
+      }
+      binding.set(this.item, this.timer)
     },
     interrupt(hard) {
       if (!this.timer) return
@@ -184,6 +195,7 @@ export default {
       }
     },
     refresh() {
+      this.expired = false
       if (!this.timer) return
       this.interrupt()
       this.timing()
@@ -285,12 +297,14 @@ export default {
   width: 1.5em;
 }
 .list .operation.timer {
-  width: 48px;
-  font-size: 14px;
+  font-size: 16px;
   color: #aaa;
 }
 .list .operation.timer:not(.autohide) {
   color: #2196f3;
+}
+.list .operation.timer.expired {
+  color: #ed5e63;
 }
 .list li .note-line {
   display: flex;

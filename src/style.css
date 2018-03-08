@@ -37,7 +37,8 @@ body {
 .icon-maximize,
 .icon-close,
 .icon-more,
-.icon-link {
+.icon-link,
+.icon-clock {
   font-family: 'icomoon';
 }
 .icon-plus:before {
@@ -72,4 +73,7 @@ body {
 }
 .icon-link:before {
   content: "\e90a";
+}
+.icon-clock:before {
+  content: "\e90b";
 }
