@@ -297,7 +297,6 @@ export default {
   width: 1.5em;
 }
 .list .operation.timer {
-  font-size: 16px;
   color: #aaa;
 }
 .list .operation.timer:not(.autohide) {

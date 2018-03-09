@@ -193,9 +193,6 @@ export default {
 .sheet-ctrl.add {
   color: #2196f3;
 }
-.sheet-ctrl.add .icon-plus {
-  vertical-align: -1px;
-}
 .sheet-ctrl.remove {
   color: #ed5e63;
 }

@@ -188,7 +188,7 @@ export default {
 .list .operation {
   display: inline-block;
   margin-left: 8px;
-  font-size: 18px;
+  font-size: 16px;
   vertical-align: middle;
   width: 32px;
   height: 32px;
@@ -204,6 +204,7 @@ export default {
   box-shadow: 0 0 2px 1px #eee inset;
 }
 .list .remove {
+  font-size: 18px;
   color: #ed5e63;
 }
 .date {

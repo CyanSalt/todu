@@ -27,8 +27,8 @@ body {
   font-style: normal;
   src: url('./assets/fonts/icomoon.woff') format('woff');
 }
-.icon-plus,
 .icon-trash,
+.icon-plus,
 .icon-arrow-left,
 .icon-infinite,
 .icon-cycle,
@@ -41,10 +41,10 @@ body {
 .icon-clock {
   font-family: 'icomoon';
 }
-.icon-plus:before {
+.icon-trash:before {
   content: "\e900";
 }
-.icon-trash:before {
+.icon-plus:before {
   content: "\e901";
 }
 .icon-arrow-left:before {
