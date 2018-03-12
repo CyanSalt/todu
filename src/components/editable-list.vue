@@ -19,6 +19,9 @@
         <input type="text" class="editor" :placeholder="i18n('Add a to-do#!11')"
           v-model.trim.lazy="input" @keyup.enter="add" ref="creator">
         <div class="facility">
+          <span class="operation add autohide" @click.stop="add" v-if="input">
+            <span class="icon-plus"></span>
+          </span>
           <span class="operation remove autohide" @click.stop="clear" v-if="input">
             <span class="icon-trash"></span>
           </span>
@@ -203,8 +206,10 @@ export default {
   background: #fff;
   box-shadow: 0 0 2px 1px #eee inset;
 }
+.list .add {
+  color: #2196f3;
+}
 .list .remove {
-  font-size: 18px;
   color: #ed5e63;
 }
 .date {
