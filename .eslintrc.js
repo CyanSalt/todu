@@ -40,6 +40,7 @@ module.exports = {
     'no-process-env': 0,
     'no-sync': 0,
     'no-ternary': 0,
+    'no-undefined': 0,
     'no-unused-vars': [2, { args: 'none' }],
     'no-unused-expressions': [2, { allowShortCircuit: true }],
     'no-use-before-define': [2, 'nofunc'],

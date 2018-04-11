@@ -13,8 +13,7 @@ try {
   console.log('Generating program icon...')
   const folder = path.dirname(ICON_PATH)
   const input = fs.readFileSync(`${folder}/icon.png`)
-  // eslint-disable-next-line new-cap
-  const output = png2icons.PNG2ICO_BMP(input, png2icons.BICUBIC, false)
+  const output = png2icons.createICO(input, png2icons.BICUBIC, false)
   fs.writeFileSync(ICON_PATH, output)
 }
 

@@ -5,9 +5,14 @@
     <input type="text" class="editor" v-model.trim.lazy="description"
       @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
-    <span class="extend autohide" @click="extend" v-if="editable && !note">
-        <span class="icon-more"></span>
-    </span>
+    <template v-if="editable">
+      <span class="note-handler autohide" @click="simplify" v-if="note">
+          <span class="icon-up"></span>
+      </span>
+      <span class="note-handler autohide" @click="complicate" v-else>
+          <span class="icon-more"></span>
+      </span>
+    </template>
     <span class="from" v-if="!instant && item.from">
       {{ editable ? localinterval(item.from) : localdate(item.from) }}
     </span>
@@ -90,9 +95,7 @@ export default {
       },
       set(value) {
         if (!value) {
-          this.tear().then(() => {
-            this.$emit('comment', value)
-          })
+          this.simplify()
         } else {
           this.$emit('comment', value)
         }
@@ -156,7 +159,7 @@ export default {
     blur(e) {
       e.target.blur()
       if (e.shiftKey) {
-        this.extend()
+        this.complicate()
       }
     },
     timing() {
@@ -238,13 +241,18 @@ export default {
         animation.onfinish = resolve
       })
     },
-    extend() {
+    complicate() {
       if (this.note) return
       this.note = this.description
       this.$nextTick(() => {
         this.$refs.note.focus()
       })
-    }
+    },
+    simplify() {
+      this.tear().then(() => {
+        this.$emit('comment', undefined)
+      })
+    },
   },
   created() {
     if (this.schedule) {
@@ -339,7 +347,7 @@ export default {
   max-width: 64px;
   line-height: 1.75em;
 }
-.list li .extend {
+.list li .note-handler {
   display: inline-block;
   font-size: 18px;
   vertical-align: middle;
@@ -351,7 +359,7 @@ export default {
   /* transition except visibility */
   transition: all ease 0.3s, visibility;
 }
-.list li .extend:hover {
+.list li .note-handler:hover {
   color: #65737e;
 }
 </style>

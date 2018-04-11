@@ -38,7 +38,8 @@ body {
 .icon-close,
 .icon-more,
 .icon-link,
-.icon-clock {
+.icon-clock,
+.icon-up {
   font-family: 'icomoon';
 }
 .icon-trash:before {
@@ -76,4 +77,7 @@ body {
 }
 .icon-clock:before {
   content: "\e90b";
+}
+.icon-up:before {
+  content: "\e90c";
 }
