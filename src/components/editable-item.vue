@@ -1,7 +1,7 @@
 <template>
   <li class="item">
     <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
-    <item-icon :pattern="item.icon" v-if="item.icon"></item-icon>
+    <item-icon :pattern="item.icon" v-if="item.icon && editable"></item-icon>
     <checkbox :checked="item.done" @click.native="toggle"></checkbox>
     <input type="text" class="editor" v-model.trim.lazy="description"
       @keyup.enter="blur" v-if="editable">
