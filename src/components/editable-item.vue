@@ -1,16 +1,22 @@
 <template>
   <li class="item">
     <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
+    <item-icon :pattern="item.icon" v-if="item.icon"></item-icon>
     <checkbox :checked="item.done" @click.native="toggle"></checkbox>
     <input type="text" class="editor" v-model.trim.lazy="description"
       @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
     <template v-if="editable">
-      <span class="note-handler autohide" @click="simplify" v-if="note">
-          <span class="icon-up"></span>
+      <span class="handler autohide" @click="simplify" v-if="note">
+          <span class="icon-chevron-up"></span>
       </span>
-      <span class="note-handler autohide" @click="complicate" v-else>
+      <span class="handler autohide" @click="complicate" v-else>
           <span class="icon-more"></span>
+      </span>
+    </template>
+    <template v-if="editable">
+      <span class="handler autohide" @click="emote">
+          <span class="icon-hash"></span>
       </span>
     </template>
     <span class="from" v-if="!instant && item.from">
@@ -42,12 +48,14 @@ import CheckBox from './checkbox'
 import InputArea from './input-area'
 import HyperLink from './hyperlink'
 import Formatter from './date-formatter'
+import ItemIcon from './item-icon'
 
 export default {
   components: {
     'checkbox': CheckBox,
     'input-area': InputArea,
     'hyperlink': HyperLink,
+    'item-icon': ItemIcon,
   },
   mixins: [Formatter],
   props: {
@@ -257,6 +265,12 @@ export default {
         this.$emit('modify', 'note', undefined)
       })
     },
+    emote() {
+      const icons = [undefined, 'bookmark', 'cascade']
+      const index = icons.indexOf(this.item.icon) + 1
+      const revision = index < icons.length ? index : 0
+      this.$emit('modify', 'icon', icons[revision])
+    },
   },
   created() {
     if (this.schedule) {
@@ -351,9 +365,9 @@ export default {
   max-width: 64px;
   line-height: 1.75em;
 }
-.list li .note-handler {
+.list li .handler {
   display: inline-block;
-  font-size: 18px;
+  font-size: 16px;
   vertical-align: middle;
   width: 32px;
   height: 32px;
@@ -363,7 +377,7 @@ export default {
   /* transition except visibility */
   transition: all ease 0.3s, visibility;
 }
-.list li .note-handler:hover {
+.list li .handler:hover {
   color: #65737e;
 }
 </style>

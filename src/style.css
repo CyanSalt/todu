@@ -39,7 +39,9 @@ body {
 .icon-more,
 .icon-link,
 .icon-clock,
-.icon-up {
+.icon-chevron-up,
+.icon-hash,
+.icon-bookmark {
   font-family: 'icomoon';
 }
 .icon-trash:before {
@@ -78,6 +80,12 @@ body {
 .icon-clock:before {
   content: "\e90b";
 }
-.icon-up:before {
+.icon-chevron-up:before {
   content: "\e90c";
+}
+.icon-hash:before {
+  content: "\e90d";
+}
+.icon-bookmark:before {
+  content: "\e90e";
 }
