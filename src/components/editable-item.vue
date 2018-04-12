@@ -86,7 +86,7 @@ export default {
       },
       set(value) {
         if (!value) return
-        this.$emit('describe', value)
+        this.$emit('modify', 'description', value)
       }
     },
     note: {
@@ -97,7 +97,7 @@ export default {
         if (!value) {
           this.simplify()
         } else {
-          this.$emit('comment', value)
+          this.$emit('modify', 'note', value)
         }
       }
     },
@@ -119,11 +119,13 @@ export default {
   methods: {
     toggle() {
       if (!this.recoverable) {
-        this.$emit('toggle')
+        if (this.editable) {
+          this.$emit('modify', 'done', !this.item.done)
+        }
         return
       }
       this.collapse().then(() => {
-        this.$emit('toggle')
+        this.$emit('modify', 'done', !this.item.done)
       })
     },
     collapse() {
@@ -245,12 +247,14 @@ export default {
       if (this.note) return
       this.note = this.description
       this.$nextTick(() => {
-        this.$refs.note.focus()
+        if (this.$refs.note) {
+          this.$refs.note.focus()
+        }
       })
     },
     simplify() {
       this.tear().then(() => {
-        this.$emit('comment', undefined)
+        this.$emit('modify', 'note', undefined)
       })
     },
   },

@@ -7,9 +7,7 @@
     <ul class="list" @dragover.prevent>
       <template v-for="(item, index) in list">
         <editable-item :item="item" :editable="editable" :key="item.key"
-          @toggle="toggle(item, index)" @remove="remove(item)"
-          @describe="content => describe(item, index, content)"
-          @comment="content => comment(item, index, content)"
+          @modify="(key, value) => modify(index, key, value)"
           @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule"
           :instant="instant" :recoverable="recoverable">
         </editable-item>
@@ -68,21 +66,9 @@ export default {
       const random = Math.floor(Math.random() * 0xFFFFFF).toString(16)
       return `000000${random}`.slice(-6)
     },
-    toggle(item, index) {
-      if (!this.editable && !this.recoverable) return
-      item.done = !item.done
-      this.$set(this.list, index, item)
-      this.$emit('update:list', this.list)
-    },
-    describe(item, index, content) {
-      if (!this.editable) return
-      item.description = content
-      this.$set(this.list, index, item)
-      this.$emit('update:list', this.list)
-    },
-    comment(item, index, content) {
-      if (!this.editable) return
-      this.$set(item, 'note', content)
+    modify(index, key, value) {
+      const item = this.list[index]
+      this.$set(item, key, value)
       this.$set(this.list, index, item)
       this.$emit('update:list', this.list)
     },
