@@ -31,7 +31,7 @@ export default {
   install(Vue, options) {
     let locale = remote.app.getLocale()
     const custom = FileStorage.loadSync('translation.json') || {}
-    if (custom['locale#!0']) locale = custom['locale#!0']
+    if (custom['@use']) locale = custom['@use']
     // Load translation data
     const translation = translations
       .find(({locales}) => locales.includes(locale))
