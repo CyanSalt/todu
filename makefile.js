@@ -4,7 +4,8 @@ const path = require('path')
 const fs = require('fs')
 const app = require('./package.json')
 
-const ICON_PATH = 'src/assets/images/icon.ico'
+const suffix = process.platform === 'darwin' ? 'icns' : 'ico'
+const ICON_PATH = `src/assets/images/icon.${suffix}`
 
 // Check icon file
 try {
@@ -13,7 +14,8 @@ try {
   console.log('Generating program icon...')
   const folder = path.dirname(ICON_PATH)
   const input = fs.readFileSync(`${folder}/icon.png`)
-  const output = png2icons.createICO(input, png2icons.BICUBIC, false)
+  const builder = suffix === 'icns' ? png2icons.createICNS : png2icons.createICO
+  const output = builder(input, png2icons.BICUBIC, false)
   fs.writeFileSync(ICON_PATH, output)
 }
 
