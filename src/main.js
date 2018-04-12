@@ -9,11 +9,6 @@ import FileStorage from './plugins/storage'
 import Root from './components/root'
 import Store from './components/store'
 
-if (process.env.NODE_ENV === 'production') {
-  Vue.config.devtools = false
-  Vue.config.productionTip = false
-}
-
 Vue.use(I18N)
 Vue.use(Binding)
 Vue.use(Schedule)

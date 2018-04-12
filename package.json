@@ -7,8 +7,8 @@
   "description": "An awesome todo list",
   "main": "window.js",
   "scripts": {
-    "build": "webpack --env production && node makefile.js",
-    "dev": "webpack && electron .",
+    "build": "webpack --mode=production && node makefile.js",
+    "dev": "webpack --mode=development && electron .",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "repository": {
@@ -23,11 +23,12 @@
     "css-loader": "^0.28.11",
     "electron": "^1.8.4",
     "electron-packager": "^12.0.0",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "png2icons": "^1.0.1",
     "vue": "^2.5.16",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^3.11.0"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
   }
 }
