@@ -286,8 +286,10 @@ export default {
     this.ready = true
     const adding = this.$vars.pop('adding')
     const style = getComputedStyle(this.$el)
-    if (style.getPropertyValue('--animation').trim() === 'add-remove') {
-      if (adding !== this.item.key) return
+    if (adding !== this.item.key) {
+      if (style.getPropertyValue('--animation').trim() !== 'always') {
+        return
+      }
     }
     this.expand(this.$el)
   },
