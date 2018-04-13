@@ -7,7 +7,7 @@
     <ul class="list" @dragover.prevent>
       <template v-for="(item, index) in list">
         <editable-item :item="item" :editable="editable" :key="item.key"
-          @modify="(key, value) => modify(index, key, value)"
+          @modify="(key, value) => modify(index, key, value)" @remove="remove(item)"
           @drop.native="drop(item)" @drag="drag(item)" :schedule="schedule"
           :instant="instant" :recoverable="recoverable">
         </editable-item>
