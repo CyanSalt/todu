@@ -8,10 +8,10 @@
         <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
         <div class="links">
           <updater v-show="!reviewing"></updater>
-          <span class="prev" @click="reviewing--" v-if="reviewing > 1">
+          <span class="prev" @click="reviewing--" v-if="!permanent && reviewing > 1">
             {{ i18n('Previous#!27') }}
           </span>
-          <span class="next" @click="reviewing++" v-if="reviewing && !last">
+          <span class="next" @click="reviewing++" v-if="!permanent && reviewing && !last">
             {{ i18n('Next#!28') }}
           </span>
         </div>
