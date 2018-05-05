@@ -26,9 +26,12 @@
     "mini-css-extract-plugin": "^0.4.0",
     "png2icons": "^1.0.1",
     "vue": "^2.5.16",
-    "vue-loader": "^15.0.7",
+    "vue-loader": "^15.0.9",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.7.0",
     "webpack-cli": "^2.1.2"
+  },
+  "dependencies": {
+    "vue-style-loader": "^4.1.0"
   }
 }
