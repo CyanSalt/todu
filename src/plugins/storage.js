@@ -36,6 +36,7 @@ export const FileStorage = {
           data = JSON.parse(data)
         } catch (e) {
           callback(e, null)
+          return
         }
       }
       callback(err, data)
