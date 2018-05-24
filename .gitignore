@@ -1,6 +1,7 @@
 /dist
 /node_modules
 /src/assets/images/*.ico
+/src/assets/images/*.icns
 /src/build
 /src/resources/fonts/*.otf
 /src/storage

@@ -21,7 +21,7 @@ try {
 
 const options = {
   dir: '.',
-  name: 'todu',
+  name: app.name,
   out: 'dist/',
   overwrite: true,
   asar: true,
@@ -29,7 +29,7 @@ const options = {
   ignore: [
     '^/(?!src|package\\.json|window\\.js)',
     '^/src/(components|plugins|resources|storage)($|/)',
-    '^/src/assets/.*\\.ico$',
+    '^/src/assets/.*\\.(ico|icns)$',
   ],
   appVersion: app.executableVersion,
   win32metadata: {
@@ -58,7 +58,7 @@ packager(options).then(appPaths => {
   appPaths.forEach(dir => {
     copy('src/resources', dir)
     if (dir.includes('win32')) {
-      const manifest = 'todu.VisualElementsManifest.xml'
+      const manifest = `${app.name}.VisualElementsManifest.xml`
       fs.renameSync(`${dir}/resources/visual/${manifest}`, `${dir}/${manifest}`)
     }
   })
