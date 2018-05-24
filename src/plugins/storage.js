@@ -32,7 +32,11 @@ export const FileStorage = {
   load(key, callback = NOOP) {
     return readFile(this.filename(key), (err, data) => {
       if (!err && data) {
-        data = JSON.parse(data)
+        try {
+          data = JSON.parse(data)
+        } catch (e) {
+          callback(e, null)
+        }
       }
       callback(err, data)
     })
