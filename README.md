@@ -29,9 +29,9 @@ An awesome, hackable to-do list.
 
 ### HACK IT!
 
-* The messages in this app is written in Simplified Chinese, however, you can use its internal English translation or translate it yourself.
-  * Copy the file `resources/default/translation.json` to the `storage` directory.
-  * Enjoy the English version or customize the translation file.
+* The messages in this app is written in English, and will be shown as the language set in your system by default. however, you can use its internal translations or translate it yourself.
+  * Create file `translation.json` in the `storage` directory.
+  * Type your configure like `{"@use": "en-US"}`, or customize the translation file yourself.
 
 * This app is built with [Electron](https://electronjs.org/) and [VueJS](https://vuejs.org/index.html). If you are familiar with eithor of those, you can add `custom.js` to write your own code whenever the app launched. See the demo at `resources/default/custom.js`
 

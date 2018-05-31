@@ -23,6 +23,7 @@ module.exports = {
     'func-style': [2, 'declaration', { allowArrowFunctions: true }],
     'id-length': 0,
     'indent': [2, 2, { SwitchCase: 1 }],
+    'lines-between-class-members': 0,
     'max-len': [2, { ignoreUrls: true }],
     'max-statements': 0,
     'multiline-comment-style': 0,
