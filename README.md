@@ -31,7 +31,7 @@ An awesome, hackable to-do list.
 
 * The messages in this app is written in English, and will be shown as the language set in your system by default. however, you can use its internal translations or translate it yourself.
   * Create file `translation.json` in the `storage` directory.
-  * Type your configure like `{"@use": "en-US"}`, or customize the translation file yourself.
+  * Type your configure like `{"@use": "en-US"}`, or customize the translation file yourself (See [All translatable texts](https://github.com/CyanSalt/todu/blob/master/src/resources/default/translation.json)).
 
 * This app is built with [Electron](https://electronjs.org/) and [VueJS](https://vuejs.org/index.html). If you are familiar with eithor of those, you can add `custom.js` to write your own code whenever the app launched. See the demo at `resources/default/custom.js`
 
