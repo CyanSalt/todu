@@ -160,8 +160,9 @@ export default {
     },
     drag(e) {
       if (!this.editable) return
-      // fix blink's bug
-      const ratio = window.devicePixelRatio ** 2
+      // Fix blink's bug on Windows
+      const ratio = process.platform === 'win32' ?
+        window.devicePixelRatio ** 2 : 1
       const {offsetX, offsetY} = e
       e.dataTransfer.setDragImage(this.$el, offsetX * ratio, offsetY * ratio)
       this.$emit('drag', e)
