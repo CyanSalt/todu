@@ -18,8 +18,13 @@ function init() {
   frame.on('closed', () => {
     frame = null
   })
-  frame.setMenu(createMenu())
-  frame.setMenuBarVisibility(false)
+  const menu = createMenu()
+  if (process.platform === 'darwin') {
+    Menu.setApplicationMenu(menu)
+  } else {
+    frame.setMenu(menu)
+    frame.setMenuBarVisibility(false)
+  }
   // these handler must be binded in main process
   transferEvents()
 }
@@ -27,18 +32,17 @@ function init() {
 function createMenu() {
   return Menu.buildFromTemplate([
     {
-      label: 'Print',
-      accelerator: 'CommandOrControl+P',
-      click() {
-        frame && frame.webContents.print()
-      }
-    },
-    {
-      label: 'Toggle Developer Tools',
-      accelerator: 'CommandOrControl+Shift+I',
-      click() {
-        frame && frame.webContents.openDevTools()
-      }
+      label: app.getName(),
+      submenu: [
+        {role: 'toggledevtools'},
+        {
+          label: 'Print',
+          accelerator: 'CommandOrControl+P',
+          click() {
+            frame && frame.webContents.print()
+          }
+        }
+      ]
     }
   ])
 }
