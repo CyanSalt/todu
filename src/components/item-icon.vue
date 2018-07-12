@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: 'item-icon',
   props: {
     pattern: String,
   },

@@ -2,21 +2,21 @@
   <div :class="['game-view', color, {'shown': shown}]">
     <div class="head-info">
       <span class="score">
-        <checkbox :checked="true" :solid="true"></checkbox>
+        <pretty-checkbox :checked="true" :solid="true"></pretty-checkbox>
         <span class="value">{{ score }}</span>
       </span>
       <span class="reset" @click="reset" ref="reset">
         <span class="icon-infinite"></span>
       </span>
       <span class="click">
-        <checkbox :checked="false"></checkbox>
+        <pretty-checkbox :checked="false"></pretty-checkbox>
         <span class="value">{{ click }}</span>
       </span>
     </div>
     <div class="game-panel">
-      <checkbox :class="['grid', {'disabled': disabled(index)}]" :solid="true"
-        :checked="correct(index)" @click.native="check(index)"
-        v-for="index in 100" :key="index"></checkbox>
+      <pretty-checkbox :class="['grid', {'disabled': disabled(index)}]"
+        :solid="true" :checked="correct(index)" @click.native="check(index)"
+        v-for="index in 100" :key="index"></pretty-checkbox>
     </div>
     <div class="game-history">
       <span :class="['record', record.color]"
@@ -26,11 +26,12 @@
 </template>
 
 <script>
-import CheckBox from './checkbox'
+import PrettyCheckBox from './pretty-checkbox'
 
 export default {
+  name: 'game-view',
   components: {
-    'checkbox': CheckBox,
+    'pretty-checkbox': PrettyCheckBox,
   },
   props: {
     entry: Number,

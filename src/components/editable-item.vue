@@ -2,7 +2,7 @@
   <li class="item">
     <span class="drag-anchor" :draggable="editable" @dragstart="drag"></span>
     <item-icon :pattern="item.icon" v-if="item.icon && editable"></item-icon>
-    <checkbox :checked="item.done" @click.native="toggle"></checkbox>
+    <pretty-checkbox :checked="item.done" @click.native="toggle"></pretty-checkbox>
     <input type="text" class="editor" v-model.trim.lazy="description"
       @keyup.enter="blur" v-if="editable">
     <span class="description" v-else>{{ description }}</span>
@@ -36,25 +36,26 @@
         v-if="editable"></input-area>
       <div class="history-note" v-else>{{ note }}</div>
       <div class="links">
-        <hyperlink :href="link" :key="index"
-          v-for="(link, index) in links"></hyperlink>
+        <hyper-link :href="link" :key="index"
+          v-for="(link, index) in links"></hyper-link>
       </div>
     </div>
   </li>
 </template>
 
 <script>
-import CheckBox from './checkbox'
+import PrettyCheckBox from './pretty-checkbox'
 import InputArea from './input-area'
-import HyperLink from './hyperlink'
+import HyperLink from './hyper-link'
 import Formatter from './date-formatter'
 import ItemIcon from './item-icon'
 
 export default {
+  name: 'editable-item',
   components: {
-    'checkbox': CheckBox,
+    'pretty-checkbox': PrettyCheckBox,
     'input-area': InputArea,
-    'hyperlink': HyperLink,
+    'hyper-link': HyperLink,
     'item-icon': ItemIcon,
   },
   mixins: [Formatter],

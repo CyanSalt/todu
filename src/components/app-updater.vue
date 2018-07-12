@@ -10,6 +10,7 @@ import {rename, unlink, accessSync} from 'original-fs'
 import {promisify} from 'util'
 
 export default {
+  name: 'app-updater',
   props: {
     owner: {
       type: String,

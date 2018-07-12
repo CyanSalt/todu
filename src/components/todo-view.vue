@@ -7,7 +7,7 @@
           v-combo:5="reload" :key="data.source">{{ title }}</span>
         <input class="title-editor" v-model.trim.lazy="title" @keyup.enter="blur" v-else>
         <div class="links">
-          <updater v-show="!reviewing"></updater>
+          <app-updater v-show="!reviewing"></app-updater>
           <span class="prev" @click="reviewing--" v-if="!permanent && reviewing > 1">
             {{ i18n('Previous#!27') }}
           </span>
@@ -62,14 +62,15 @@
 <script>
 import EditableList from './editable-list'
 import SheetStick from './sheet-stick'
-import Updater from './updater'
+import AppUpdater from './app-updater'
 import Formatter from './date-formatter'
 
 export default {
+  name: 'todo-view',
   components: {
     'editable-list': EditableList,
     'sheet-stick': SheetStick,
-    'updater': Updater,
+    'app-updater': AppUpdater,
   },
   directives: {
     combo: {

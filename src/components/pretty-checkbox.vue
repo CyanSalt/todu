@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'pretty-checkbox',
   props: {
     checked: Boolean,
     solid: {

@@ -20,6 +20,7 @@
 import {state} from '../plugins/flux'
 
 export default {
+  name: 'sheet-switcher',
   props: {
     selected: String,
   },

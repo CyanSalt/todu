@@ -8,6 +8,7 @@
 import {state} from '../plugins/flux'
 
 export default {
+  name: 'super-button',
   data() {
     return {
       icon: 'infinity',

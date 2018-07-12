@@ -19,6 +19,7 @@
 import Formatter from './date-formatter'
 
 export default {
+  name: 'sheet-stick',
   mixins: [Formatter],
   props: {
     data: Object,

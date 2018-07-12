@@ -22,6 +22,7 @@
 import {remote, ipcRenderer} from 'electron'
 
 export default {
+  name: 'title-bar',
   props: {
     title: String,
   },

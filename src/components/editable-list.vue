@@ -33,6 +33,7 @@
 import EditableItem from './editable-item'
 
 export default {
+  name: 'editable-list',
   components: {
     'editable-item': EditableItem,
   },
