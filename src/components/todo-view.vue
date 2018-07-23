@@ -172,11 +172,12 @@ export default {
       }
       const {today, tomorrow} = this
       const terms = this.$storage.loadSync(`${this.data.source}.json`)
-      const arranged = Object.assign({
+      const arranged = {
         history: {},
         [today]: [],
-        [tomorrow]: []
-      }, terms)
+        [tomorrow]: [],
+        ...terms
+      }
       const midnight = this.midnight(today)
       if (this.data.repeat && !arranged[today].length) {
         let latest = ''
@@ -189,7 +190,7 @@ export default {
         }
         if (latest) {
           arranged[today] = arranged[latest]
-            .map(each => Object.assign({}, each, {done: false}))
+            .map(each => ({...each, done: false}))
         }
       }
       Object.keys(arranged).forEach(date => {
