@@ -136,7 +136,7 @@ module.exports = {
     'no-use-before-define': ['error', 'nofunc'],
 
     /** Node.js and CommonJS */
-    'callback-return': 'warn',
+    // 'callback-return': 'off',
     'global-require': 'warn',
     'handle-callback-err': 'warn',
     'no-buffer-constructor': 'error',
