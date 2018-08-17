@@ -1,7 +1,7 @@
 <template>
   <div class="input-area">
-    <textarea class="content" @change="update" v-model="content" ref="editor"></textarea>
-    <div class="carriage">{{ content }}</div>
+    <textarea class="content" @input="sync" @change="update" v-model="content" ref="editor"></textarea>
+    <div class="carriage" ref="carriage"></div>
   </div>
 </template>
 
@@ -27,8 +27,13 @@ export default {
     update(e) {
       this.$emit('change', this.content)
     },
+    sync() {
+      // Skip tick timeout of Vue.js
+      this.$refs.carriage.innerText = this.content
+    },
   },
   mounted() {
+    this.sync()
     this.$emit('mounted', this)
   },
 }
