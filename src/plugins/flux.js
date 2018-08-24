@@ -13,6 +13,9 @@ const Flux = {
   set(key, value) {
     store[key] = value
   },
+  dispatch(method, payload) {
+    return store[method](payload)
+  },
 }
 
 export function state(name) {
